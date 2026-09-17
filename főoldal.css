@@ -1,24 +1,19 @@
 nav{
-    background-color:rgb(243, 10, 10);
+    background-color: rgb(243, 10, 10);
 }
-h1,h2{
-    color:solid black;
+h1, h2{
+    color: black;
 }
 h1{
-    text-align:center;
+    text-align: center;
 }
 table{
-    text-align:center;
+    width: 100%;
+    table-layout: fixed;
+    text-align: center;
 }
-.elso{
-    width: 70%;
-}
-.masodik{
-    width: 30%;
-}
-.r{
-    float: right;
-}
-.l{
-    float: left;
-}
+
+
+.elso{ width: 70%; }
+.masik{ width: 30%; }
+
