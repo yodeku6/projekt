@@ -7,12 +7,10 @@ h1, h2{
 h1{
     text-align: center;
 }
-table{
-    width: 100%;
-    table-layout: fixed;
+.container {
+    display: flex;
     text-align: center;
 }
-
 
 .elso{ width: 70%; }
 .masik{ width: 30%; }
