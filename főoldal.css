@@ -16,3 +16,9 @@ table{
 .masodik{
     width: 30%;
 }
+.r{
+    float: right;
+}
+.l{
+    float: left;
+}
