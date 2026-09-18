@@ -1,4 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@font-face {
+    font-family: 'Futura';
+    src: url('./fonts/Futura\ Condensed\ Extra\ Bold.otf') format('opentype');
+    font-weight: 800; /* 800 represents Extra Bold */
+    font-style: normal;
+    font-display: swap;
+}
 
 body{
     background-color: rgb(255, 147, 239);
@@ -8,6 +15,7 @@ body{
 nav{
     width: 100%;
     position: sticky;
+    color: white;
 }
 h1, h2{
     color: black;
@@ -61,6 +69,12 @@ h1{
     padding: 10px;
 }
 
+.navbar {
+    background-color: #cd5ee1;
+    position: sticky;
+    margin-bottom: 2rem;
+}
+
 .ajanlottak-h2 {
     text-align: center;
     font-size: 3rem;
@@ -74,4 +88,26 @@ h1{
     background-color: darkgreen;
     margin: 0;
     padding: 1rem;
+}
+
+.alternating-text span:nth-of-type(odd) {
+    color: #CEFF30; 
+    font-family: 'Futura';
+    font-size: 6.5rem;
+    -webkit-text-stroke: 0.2rem black;
+}
+  
+  /* 2nd, 4th, 6th letters (Even) -> Black */
+.alternating-text span:nth-of-type(even) {
+    color: #000000; 
+    font-family: 'Futura';
+    -webkit-text-stroke: 0;
+}
+
+.alternating-text {
+    font-size: 6rem;
+    margin: 0;
+    padding: 0.5rem;
+    color: transparent;   
+    -webkit-text-stroke: 0.15rem #000000; 
 }
