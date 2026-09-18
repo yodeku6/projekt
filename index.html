@@ -8,27 +8,46 @@
     <link rel="icon" href="./img/test.png" type="image/x-icon">
 </head>
 <body>
+    <div class="main-container">
     <nav class="navbar">
+        <img src="./img/hattermentes.png" alt="fiok" title="fiok" class="temp-fiok"> 
+        <img src="./img/funfact.png" alt="home" title="home" class="temp-home">
+        <img src="./img/koni.ico" alt="kedvenc" title="kedvenc" class="temp-kedvenc">
         <h1 class="alternating-text">
             <span>B</span><span>A</span><span>Z</span><span>Á</span><span>R</span>
         </h1>
+        
         <!-- <img src="./img/bazar.png" alt="BAZÁR" class="nav-logo"> -->
     </nav>
-<div class="container">
+    <hr class="divider">
+    <div class="container">
     <div class="ajanlottak"><h2 class="ajanlottak-h2">AJÁNLOTTAK</h2></div>
-    <div class="szuro"><h2 class="szurok-h2">SZŰRŐK</h2>
-        <br>
-        <div class="boltok">
+    <div class="szuro">
+        <h2 class="szurok-h2">SZŰRŐK</h2>
+        <div class="szurok">
+        <div class="boltok-container">
             <h3>Boltok</h3>
+            <div class="boltok">
+                <h2>*TEMP* ez most vagy checkboxos lesz vagy terkep es ugy ki lehet valasztani</h2><input type="checkbox" name="" id="">checkold a boxot
+            </div>
         </div>
-        <div><h3>Ár</h3><p>min<input type="range" min="1000" max="20000" value="11000" class="ar">max</p></div>
+        <div class="ar-container">
+            <!-- <h3>Ár</h3><p>min<input type="range" min="1000" max="20000" value="11000" class="ar">max</p> -->
+            <h3>Ár</h3>
+            <div>
+            <input type="number" name="ar-min" id="ar-min" placeholder="Minimum" class="ar-input">
+            <span class="dash"> — </span>
+            <input type="number" name="ar-max" id="ar-max" placeholder="Maximum" class="ar-input">
+            </div>
+        </div>
         <div><h3>Kategóriák</h3></div>
         <div><h3>Értékelések</h3><p>1<input type="range" min="1" max="5" value="3" class="ar">5</p></div>
         <div><h5><input type="checkbox">Nem elérhetők kizárása</h5></div>
     </div>
+    </div>
 
 </div>
 
-
+</div>
 </body>
 </html>

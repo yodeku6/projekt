@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FULL AI KOD YEAHHH</title>
+    <link rel="shortcut icon" href="./img/funfact.png" type="image/x-icon">
+
+</head>
+<body>
+    <!-- <label for="minRange">Min Value: <span id="minVal">0</span></label>
+<input type="range" id="minRange" min="0" max="100" value="20">
+
+<label for="maxRange">Max Value: <span id="maxVal">100</span></label>
+<input type="range" id="maxRange" min="0" max="100" value="80">
+
+<script>
+  const minRange = document.getElementById('minRange');
+  const maxRange = document.getElementById('maxRange');
+  const minVal = document.getElementById('minVal');
+  const maxVal = document.getElementById('maxVal');
+
+  minRange.addEventListener('input', (e) => {
+    minVal.textContent = e.target.value;
+  });
+
+  maxRange.addEventListener('input', (e) => {
+    maxVal.textContent = e.target.value;
+  });
+</script> -->
+<div class="range-container">
+    <div class="slider-track" id="track"></div>
+    <input type="range" id="input-left" min="0" max="100" value="20">
+    <input type="range" id="input-right" min="0" max="100" value="80">
+  </div>  
+
+    <style>
+.range-container {
+  position: relative;
+  width: 300px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+/* The structural inputs stacked on top of each other */
+.range-container input[type="range"] {
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+  appearance: none;
+  background: none;
+  margin: 0;
+}
+
+/* Ensure the thumbs are clickable/draggable */
+.range-container input[type="range"]::-webkit-slider-thumb {
+  pointer-events: auto;
+  cursor: pointer;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #3f51b5;
+}
+
+/* Base static background track */
+.range-container::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 3px;
+  z-index: 1;
+}
+
+/* The dynamic moving line connecting the sliders */
+.slider-track {
+  position: absolute;
+  height: 6px;
+  background: #3f51b5;
+  border-radius: 3px;
+  z-index: 2; /* Sits over the gray background, under the thumbs */
+}
+    </style>
+  
+  <script>
+    const inputLeft = document.getElementById("input-left");
+const inputRight = document.getElementById("input-right");
+const track = document.getElementById("track");
+
+function updateSlider() {
+  const min = parseInt(inputLeft.min);
+  const max = parseInt(inputLeft.max);
+
+  // 1. Prevent overlapping/crossing over
+  if (parseInt(inputLeft.value) >= parseInt(inputRight.value)) {
+    inputLeft.value = inputRight.value - 1; // Adjust buffer as needed
+  }
+
+  // 2. Calculate percentages
+  const leftPercent = ((inputLeft.value - min) / (max - min)) * 100;
+  const rightPercent = ((inputRight.value - min) / (max - min)) * 100;
+
+  // 3. Move the connecting track line
+  track.style.left = leftPercent + "%";
+  track.style.width = (rightPercent - leftPercent) + "%";
+}
+
+// Attach listeners to update visually while dragging
+inputLeft.addEventListener("input", updateSlider);
+inputRight.addEventListener("input", updateSlider);
+
+// Initial run to style the track on page load
+updateSlider();
+
+  </script>
+
+  
+</body>
+</html>

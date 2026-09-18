@@ -25,37 +25,51 @@ h1{
     text-align: center;
 }
 
+.main-container {
+    max-width: 1800px;
+    margin-left: auto;
+    margin-right: auto;
+    /* width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box; */
+}
+
 .container {
     display: grid;
     grid-template-rows: 1fr 1fr;
-    grid-template-columns: 70% 30%;
+    grid-template-columns: 75% 25%;
     /* text-align: center; */
 }
 
 .ajanlottak { 
-    margin-left: 5rem;
+    /* margin-left: 5rem; */
     /* margin-right: auto; */
-    width: 90%; 
+    width: 95%; 
     background-color: red;
 }
 
 .szuro { 
-    width: 30rem; 
+    width: auto; 
     background-color: green;
     box-sizing: border-box;
     /* padding: 10px; */
-    margin: 10px;
-    margin-left: auto;
-    margin-right: 5rem;
-    border: 1px solid black;
+    /* margin: 10px; */
+    /* margin-left: auto; */
+    /* margin-right: 5rem; */
+    border: 0.1rem solid black;
     border-radius: 0.2rem;
     /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); */
-    transition: all 0.3s ease;
-    transform: scale(1.05);
 }
 
 .ar {
     width: 50%;
+}
+
+.divider {
+    margin: 1rem 3rem 1rem;
+    border-color: rgb(193, 115, 194);
+    border-style: solid;
+    border-radius: 1rem;
 }
 
 .nav-logo {
@@ -71,8 +85,11 @@ h1{
 
 .navbar {
     background-color: #cd5ee1;
-    position: sticky;
-    margin-bottom: 2rem;
+    position: relative;
+    margin-bottom: 1rem;
+    display: flex;
+    height: 6rem;
+    margin-top: 1rem;
 }
 
 .ajanlottak-h2 {
@@ -110,4 +127,91 @@ h1{
     padding: 0.5rem;
     color: transparent;   
     -webkit-text-stroke: 0.15rem #000000; 
+    user-select: none;
+    /* margin-left: auto;
+    margin-right: auto; */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); 
+    text-align: center;
+    z-index: 1;
+    /* cursor: pointer; */
+}
+
+.szurok h3 {
+    font-size: 1.75rem;
+    text-align: center;
+    margin: 0;
+    margin-top: 1rem;
+    padding-top: 0.5rem;
+}
+
+.szurok div {
+    margin: 0 2rem 0;
+}
+
+.boltok-container {
+    /* margin: 0 2rem 0; */
+    background-color: grey;
+}
+
+.ar-container {
+    /* margin: 0 2rem 0; */
+    background-color: aqua;
+}
+
+.ar-container div {
+    display: flex;
+    justify-content: center;
+    align-items: center;     
+    gap: 10px;               
+    width: auto;
+}
+
+.ar-input {
+    margin-bottom: 1rem;
+    width: 6rem;
+    height: 1.75rem;
+    text-align: center;
+    border-radius: 0.25rem;
+    border-style: solid;
+    border-width: 0.15rem;
+    border-color: #000000;
+}
+
+.dash {
+    display: inline-block;
+    transform: translateY(-0.5rem);
+}
+
+/* ----------------------------------------- TEMP HOME ---------------------------- */
+/* ----------------------------------------- TEMP HOME ---------------------------- */
+/* ----------------------------------------- TEMP HOME ---------------------------- */
+/* ----------------------------------------- TEMP HOME ---------------------------- */
+/* ----------------------------------------- TEMP HOME ---------------------------- */
+/* ----------------------------------------- TEMP HOME ---------------------------- */
+/* ----------------------------------------- TEMP HOME ---------------------------- */
+/* ----------------------------------------- TEMP HOME ---------------------------- */
+/* ----------------------------------------- TEMP HOME ---------------------------- */
+.navbar img {
+    display: flex;
+    z-index: 2;
+}
+
+.temp-home {
+    width: 6%;
+    height: auto;
+    margin-left: 2rem;
+}
+
+.temp-fiok {
+    width: 6%;
+    height: auto;
+    margin-left: 2rem;
+}
+
+.temp-kedvenc {
+    width: 6%;
+    height: 80%;
+    margin-left: 2rem;
 }
