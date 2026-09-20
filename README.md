@@ -1,2 +1,2 @@
-# projekt
-ez egy teszt
+# BAZÁR
+A Bazár egy bolt blah blah blah majd valaki megírja

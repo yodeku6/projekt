@@ -25,6 +25,39 @@ h1{
     text-align: center;
 }
 
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.1em;
+    height: 1.1em;
+    border: 0.15em solid currentColor;
+    border-radius: 0.15em;
+    transform: translateY(-0.075em);
+    display: inline-grid;
+    place-content: center;
+    transform: translateY(0.01em);
+    /* vertical-align: center; */
+    margin-bottom: 0.25em;
+    margin-right: 0.25em;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em black;
+}
+
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
 .main-container {
     max-width: 1800px;
     margin-left: auto;
@@ -85,10 +118,10 @@ h1{
 
 .navbar {
     background-color: #cd5ee1;
-    position: relative;
+    /* position: relative; */
     margin-bottom: 1rem;
     display: flex;
-    height: 6rem;
+    height: 8rem;
     margin-top: 1rem;
 }
 
@@ -124,13 +157,13 @@ h1{
 .alternating-text {
     font-size: 6rem;
     margin: 0;
-    padding: 0.5rem;
+    /* padding: 0.5rem; */
     color: transparent;   
     -webkit-text-stroke: 0.15rem #000000; 
     user-select: none;
-    /* margin-left: auto;
-    margin-right: auto; */
-    position: absolute;
+    margin-left: auto;
+    margin-right: auto; 
+    position: absolute; 
     left: 50%;
     transform: translateX(-50%); 
     text-align: center;
@@ -173,15 +206,57 @@ h1{
     width: 6rem;
     height: 1.75rem;
     text-align: center;
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
     border-style: solid;
-    border-width: 0.15rem;
+    border-width: 0.1rem;
+    box-shadow: 0 0 0.25rem 0.05rem black;
     border-color: #000000;
+}
+
+.kategoriak-container {
+    background-color: red;
+    padding-bottom: 1rem;
+}
+
+.kategoriak {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+.ertekelesek-container {
+    background-color: antiquewhite;
 }
 
 .dash {
     display: inline-block;
     transform: translateY(-0.5rem);
+}
+
+.nav-svg {
+    height: 2rem;
+    display: flex;
+}
+
+.vert-divider {
+    width: 0.1rem;
+    height: 6rem;
+    margin-top: 1rem;
+    background-color: #9b47aa;
+    margin-left: 1.5rem;
+}
+
+.elerhetoseg {
+    
+}
+
+.kor {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: inline-grid;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* ----------------------------------------- TEMP HOME ---------------------------- */

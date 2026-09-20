@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Double Range Slider</title>
+  <style>
+    * { box-sizing: border-box; font-family: "Poppins", sans-serif; margin: 0; padding: 0; }
+    
+    body { 
+      min-height: 100vh; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      background: #3264fe; 
+      padding: 20px;
+    }
+    
+    .wrapper { 
+      --primary: #3264fe;
+      --track-bg: #dadae5;
+      width: min(90%, 500px); 
+      background: #fff; 
+      padding: 70px 40px 40px; 
+      border-radius: 10px; 
+    }
+    
+    .values { 
+      background: var(--primary); 
+      width: 120px; 
+      margin: auto; 
+      padding: 10px 0; 
+      border-radius: 5px; 
+      text-align: center; 
+      font-weight: 500; 
+      font-size: 25px; 
+      color: #fff; 
+      position: relative; 
+      margin-bottom: 10px;
+      
+      &::before { 
+        content: ""; 
+        position: absolute; 
+        bottom: -14px; 
+        left: 0; 
+        right: 0; 
+        margin: auto; 
+        border: 15px solid transparent; 
+        border-top-color: var(--primary); 
+      }
+    }
+    
+    .container { 
+      position: relative; 
+      width: 100%; 
+      height: 100px; 
+      margin-top: 30px;
+      background-size: 100% 5px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    
+    input[type="range"] {
+      appearance: none; 
+      width: 100%; 
+      outline: none; 
+      position: absolute; 
+      top: 0; 
+      bottom: 0; 
+      margin: auto;
+      background: transparent; 
+      pointer-events: none;
+      
+      &::-webkit-slider-thumb {
+        appearance: none; height: 1.7em; width: 1.7em; background: var(--primary); border-radius: 50%; cursor: pointer; pointer-events: auto;
+      }
+      &::-moz-range-thumb {
+        height: 1.7em; width: 1.7em; background: var(--primary); border-radius: 50%; border: none; cursor: pointer; pointer-events: auto;
+      }
+      &:active::-webkit-slider-thumb { background: #fff; border: 1px solid var(--primary); }
+      &:active::-moz-range-thumb { background: #fff; border: 1px solid var(--primary); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="values">
+      <span id="range1">1</span> <span>&dash;</span> <span id="range2">10</span>
+    </div>
+    <div class="container" id="slider-container">
+      <input type="range" min="1" max="10" value="1" id="slider-1" aria-label="Minimum value">
+      <input type="range" min="1" max="10" value="10" id="slider-2" aria-label="Maximum value">
+    </div>
+  </div>
+
+  <script>
+    const s1 = document.getElementById("slider-1");
+    const s2 = document.getElementById("slider-2");
+    const r1 = document.getElementById("range1");
+    const r2 = document.getElementById("range2");
+    const container = document.getElementById("slider-container");
+
+    const MIN_GAP = 0; 
+
+    function updateSlider(e) {
+      let val1 = +s1.value;
+      let val2 = +s2.value;
+
+      if (val2 - val1 < MIN_GAP) {
+        if (e?.target === s1) {
+          s1.value = val2 - MIN_GAP;
+          val1 = val2 - MIN_GAP;
+        } else {
+          s2.value = val1 + MIN_GAP;
+          val2 = val1 + MIN_GAP;
+        }
+      }
+      
+      if (e?.target === s1) {
+        s1.style.zIndex = "2";
+        s2.style.zIndex = "1";
+      } else if (e?.target === s2) {
+        s1.style.zIndex = "1";
+        s2.style.zIndex = "2";
+      }
+      
+      r1.textContent = val1;
+      r2.textContent = val2;
+
+      container.style.backgroundImage = `linear-gradient(to right, var(--track-bg) ${val1}%, var(--primary) ${val1}%, var(--primary) ${val2}%, var(--track-bg) ${val2}%)`;
+    }
+
+    container.addEventListener("input", updateSlider);
+    updateSlider();
+  </script>
+</body>
+</html>

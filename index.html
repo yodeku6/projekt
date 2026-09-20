@@ -10,9 +10,18 @@
 <body>
     <div class="main-container">
     <nav class="navbar">
-        <img src="./img/hattermentes.png" alt="fiok" title="fiok" class="temp-fiok"> 
+        <!-- <img src="./img/hattermentes.png" alt="fiok" title="fiok" class="temp-fiok"> 
         <img src="./img/funfact.png" alt="home" title="home" class="temp-home">
-        <img src="./img/koni.ico" alt="kedvenc" title="kedvenc" class="temp-kedvenc">
+        <img src="./img/koni.ico" alt="kedvenc" title="kedvenc" class="temp-kedvenc"> -->
+        <div class="nav-svg">
+            <a href="https://www.google.com/"><img src="./img/svg/home.svg" alt="" style="width: 5rem; margin: 1.5rem;"></a>
+            <a href="https://www.google.com/"><img src="./img/svg/fav.svg" alt="" style="width: 4.5rem; margin: 1.5rem;"></a>
+            <a href="https://www.google.com/"><img src="./img/svg/feltoltes.svg" alt="" style="width: 3.5rem; margin:2rem 1rem 1.5rem; margin-left: 70rem;"></a>
+            <a href="https://www.google.com/"><img src="./img/svg/fiok.svg" alt="" style="width: 4.5rem; margin: 1.5rem; margin-top: 2rem;"></a>
+            <div class="vert-divider">&nbsp;</div>
+            <a href="https://www.google.com/"><img src="./img/svg/lista.svg" alt="" style="width: 4rem; margin: 1.5rem; margin-left: 3.5rem; "></a>
+        </div>
+        
         <h1 class="alternating-text">
             <span>B</span><span>A</span><span>Z</span><span>Á</span><span>R</span>
         </h1>
@@ -28,7 +37,8 @@
         <div class="boltok-container">
             <h3>Boltok</h3>
             <div class="boltok">
-                <h2>*TEMP* ez most vagy checkboxos lesz vagy terkep es ugy ki lehet valasztani</h2><input type="checkbox" name="" id="">checkold a boxot
+                <h2>*TEMP* ez most vagy checkboxos lesz vagy terkep es ugy ki lehet valasztani</h2>
+                <input type="checkbox" name="" id="">checkold a boxot
             </div>
         </div>
         <div class="ar-container">
@@ -40,9 +50,29 @@
             <input type="number" name="ar-max" id="ar-max" placeholder="Maximum" class="ar-input">
             </div>
         </div>
-        <div><h3>Kategóriák</h3></div>
-        <div><h3>Értékelések</h3><p>1<input type="range" min="1" max="5" value="3" class="ar">5</p></div>
-        <div><h5><input type="checkbox">Nem elérhetők kizárása</h5></div>
+        <div class="kategoriak-container">
+            <h3>Kategóriák</h3>
+            <div class="kategoriak">
+                <input type="checkbox" name="" id="">kaja <br>
+                <input type="checkbox" name="" id="">pia <br>
+                <input type="checkbox" name="" id="">olimpia <br>
+                <input type="checkbox" name="" id="">lorem <br>
+            </div>
+        </div>
+        <div class="ertekelesek-container">
+            <h3>Értékelések</h3>
+
+            <p>1<input type="range" min="1" max="5" value="3" class="ar">5</p>
+        </div>
+        <div class="elerhetoseg">
+            <!-- <input type="checkbox" name="" id="" style="color: limegreen; border-width: 0.5rem; border-radius: 100%; padding: 1rem;"> -->
+            <div class="kor" style="background-color: limegreen"></div>
+            <div class="kor" style="background-color: yellow"></div>
+            <div class="kor" style="background-color: red"></div><br>
+            <input type="checkbox" name="" id=""> 
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+        </div>
     </div>
     </div>
 
