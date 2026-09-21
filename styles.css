@@ -290,3 +290,26 @@ input[type="checkbox"]:checked::before {
     height: 80%;
     margin-left: 2rem;
 }
+
+.kartya{
+    background-color: aquamarine;
+    width: 13rem;
+    margin: 5rem;
+    padding: 2rem;
+    height: 17rem;
+    border-radius: 1rem;
+}
+
+.kartyakep{
+    width: 12rem;
+    
+    margin: auto;
+    display: block;
+
+    
+
+}
+
+.elerhetoseg{
+    text-align: right;
+}
