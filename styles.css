@@ -2,7 +2,7 @@
 @font-face {
     font-family: 'Futura';
     src: url('./fonts/Futura\ Condensed\ Extra\ Bold.otf') format('opentype');
-    font-weight: 800; /* 800 represents Extra Bold */
+    font-weight: 800;
     font-style: normal;
     font-display: swap;
 }
@@ -41,8 +41,6 @@ input[type="checkbox"] {
     place-content: center;
     transform: translateY(0.01em);
     /* vertical-align: center; */
-    margin-bottom: 0.25em;
-    margin-right: 0.25em;
 }
 
 input[type="checkbox"]::before {
@@ -147,7 +145,6 @@ input[type="checkbox"]:checked::before {
     -webkit-text-stroke: 0.2rem black;
 }
   
-  /* 2nd, 4th, 6th letters (Even) -> Black */
 .alternating-text span:nth-of-type(even) {
     color: #000000; 
     font-family: 'Futura';
@@ -246,18 +243,58 @@ input[type="checkbox"]:checked::before {
     margin-left: 1.5rem;
 }
 
-.elerhetoseg {
-    
+.raktar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    background-color: purple;
+}
+
+.kor {
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkbox {
+    scale: 1.25;
+    margin: 0;
+}
+
+/* .kor-container {
+    width: 25rem; 
+    background-color: #9b47aa; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .kor {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    display: inline-grid;
+    display: inline-flex; 
     margin-left: auto;
     margin-right: auto;
 }
+
+.checkbox-container {
+    display: inline-flex;
+    flex-direction: row;
+    gap: 26%;
+    background-color: red;    align-items: center;
+    justify-content: center;
+    transform: translateY(-3rem); 
+}
+
+.raktar-checkbox {
+    scale: 150%;
+    transform: translateX(10rem);
+} */
 
 /* ----------------------------------------- TEMP HOME ---------------------------- */
 /* ----------------------------------------- TEMP HOME ---------------------------- */
