@@ -293,23 +293,40 @@ input[type="checkbox"]:checked::before {
 
 .kartya{
     background-color: aquamarine;
-    width: 13rem;
-    margin: 5rem;
+    width: 14rem;
+   
     padding: 2rem;
-    height: 17rem;
+    height: 16rem;
     border-radius: 1rem;
+    scale: 1.1;
 }
 
 .kartyakep{
-    width: 12rem;
-    
+    width: 14rem;
+    height: 12rem;
     margin: auto;
     display: block;
 
     
 
 }
-
+.kartya-nev{
+    text-align: left;
+    margin-right: 2rem;
+}
 .elerhetoseg{
     text-align: right;
+    color: green;
+    
+    
+}
+.kartya-container{
+    
+    display: grid;
+    grid-template-columns:repeat(3, 1fr);
+    margin: 5rem;
+    gap: 5rem;
+       
+    
+    
 }
