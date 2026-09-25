@@ -127,6 +127,10 @@ input[type="checkbox"]:checked::before {
     text-align: center;
     font-size: 3rem;
     font-weight: 800;
+    margin: 0;
+    background-color: darkred;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
 }
 
 .szurok-h2 {
@@ -243,7 +247,7 @@ input[type="checkbox"]:checked::before {
     margin-left: 1.5rem;
 }
 
-.raktar {
+.raktar-szuro {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -253,6 +257,9 @@ input[type="checkbox"]:checked::before {
 
 .kor {
     border-radius: 50%;
+    border-color: #000000;
+    border-width: 0.125rem;
+    border-style: solid;
     width: 2.5rem;
     height: 2.5rem;
     display: flex;
@@ -265,73 +272,9 @@ input[type="checkbox"]:checked::before {
     margin: 0;
 }
 
-/* .kor-container {
-    width: 25rem; 
-    background-color: #9b47aa; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.kor {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 50%;
-    display: inline-flex; 
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.checkbox-container {
-    display: inline-flex;
-    flex-direction: row;
-    gap: 26%;
-    background-color: red;    align-items: center;
-    justify-content: center;
-    transform: translateY(-3rem); 
-}
-
-.raktar-checkbox {
-    scale: 150%;
-    transform: translateX(10rem);
-} */
-
-/* ----------------------------------------- TEMP HOME ---------------------------- */
-/* ----------------------------------------- TEMP HOME ---------------------------- */
-/* ----------------------------------------- TEMP HOME ---------------------------- */
-/* ----------------------------------------- TEMP HOME ---------------------------- */
-/* ----------------------------------------- TEMP HOME ---------------------------- */
-/* ----------------------------------------- TEMP HOME ---------------------------- */
-/* ----------------------------------------- TEMP HOME ---------------------------- */
-/* ----------------------------------------- TEMP HOME ---------------------------- */
-/* ----------------------------------------- TEMP HOME ---------------------------- */
-.navbar img {
-    display: flex;
-    z-index: 2;
-}
-
-.temp-home {
-    width: 6%;
-    height: auto;
-    margin-left: 2rem;
-}
-
-.temp-fiok {
-    width: 6%;
-    height: auto;
-    margin-left: 2rem;
-}
-
-.temp-kedvenc {
-    width: 6%;
-    height: 80%;
-    margin-left: 2rem;
-}
-
 .kartya{
     background-color: aquamarine;
     width: 14rem;
-   
     padding: 2rem;
     height: 16rem;
     border-radius: 1rem;
@@ -343,27 +286,219 @@ input[type="checkbox"]:checked::before {
     height: 12rem;
     margin: auto;
     display: block;
-
-    
-
 }
+
 .kartya-nev{
     text-align: left;
     margin-right: 2rem;
 }
-.elerhetoseg{
+
+.raktar {
     text-align: right;
     color: green;
-    
-    
 }
+
 .kartya-container{
-    
     display: grid;
     grid-template-columns:repeat(3, 1fr);
     margin: 5rem;
-    gap: 5rem;
-       
-    
-    
+    gap: 5rem; 
+}
+
+.termek-container {
+    display: flex;
+    gap: 1rem;
+}
+
+.termek-kep {
+    display: flex;
+    background-color: red;
+    width: 75rem;
+    height: 50rem;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.termek {
+    background-color: white;
+    width: 100%;
+    height: 50rem;
+}
+
+.termek-nev {
+    text-align: center;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
+.termek-hr {
+    margin-left: 3rem;
+    margin-right: 3rem;
+    border-style: solid;
+    margin-bottom: 1.5rem;
+}
+
+.termek-infok {
+    background-color: gray;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.helyszin-raktar {
+    display: flex;
+    width: 100%;
+}
+
+.helyszin {
+    display: flex;
+    background-color: blue;
+    width: 30rem;
+    height: 5rem;
+    font-size: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    color: white;
+    align-items: center;
+}
+
+.raktar {
+    margin-left: auto;
+    background-color: green;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    height: 5rem;
+    width: 30rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.adatok {
+    font-size: 2rem;
+    flex: 1;
+    text-align: left;
+}
+
+.frissites {
+    display: flex;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.hibas-adatok {
+    margin-left: auto;
+}
+
+.termek-leiras {
+    padding: 1rem;
+    height: 15rem;
+    text-align: justify;
+    background-color: pink;
+}
+
+.ar-ertekeles {
+    display: flex;
+    width: 100%;
+}
+
+.ertekeles {
+    display: flex;
+    background-color: blue;
+    width: 30rem;
+    height: 5rem;
+    font-size: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    color: white;
+    align-items: center;
+}
+
+.ar {
+    margin-left: auto;
+    background-color: green;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    height: 5rem;
+    width: 30rem;
+    font-size: 1.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.adatok {
+    flex: 1;
+    text-align: left;
+}
+
+.frissites {
+    display: flex;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.hibas-adatok {
+    margin-left: auto;
+}
+
+.kommentek-container {
+    margin-top: 1rem;
+    /* border-radius: 1rem; */
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 7.5rem;
+    background-color: purple;
+    display: flex;
+}
+
+.komment {
+    display: flex;
+    margin: 1rem;
+    height: 75%;
+    width: 15rem;
+    background-color: gray;
+}
+
+.komment-pfp {
+    border-radius: 50%;
+    scale: 80%;
+}
+
+.komment-tartalom {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.komment-tartalom p {
+    margin: 0;
+}
+
+.komment-nev {
+    font-weight: bold;
+}
+
+.listaba-container {
+    margin-top: 1rem;
+    /* border-radius: 1rem; */
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 6rem;
+    background-color: darkblue;
+    color: white;
+    text-align: center;
+    font-size: 5rem;
+    cursor: pointer;
 }

@@ -10,9 +10,6 @@
 <body>
     <div class="main-container">
     <nav class="navbar">
-        <!-- <img src="./img/hattermentes.png" alt="fiok" title="fiok" class="temp-fiok"> 
-        <img src="./img/funfact.png" alt="home" title="home" class="temp-home">
-        <img src="./img/koni.ico" alt="kedvenc" title="kedvenc" class="temp-kedvenc"> -->
         <div class="nav-svg">
             <a href="https://www.google.com/"><img src="./img/svg/home.svg" alt="" style="width: 5rem; margin: 1.5rem;"></a>
             <a href="https://www.google.com/"><img src="./img/svg/fav.svg" alt="" style="width: 4.5rem; margin: 1.5rem;"></a>
@@ -29,6 +26,7 @@
         <!-- <img src="./img/bazar.png" alt="BAZÁR" class="nav-logo"> -->
     </nav>
     <hr class="divider">
+    <main>
     <div class="container">
     <div class="ajanlottak"><h2 class="ajanlottak-h2">AJÁNLOTTAK</h2>
 
@@ -38,7 +36,7 @@
                 <img src="./img/png.png" alt="" class="kartyakep">
                 <table>
                 <td><h2 class="kartya-nev">Konrád</h2></td>
-                <td><h2 class="elerhetoseg">Elérhető</h2></td>
+                <td><div class="kor" style="background-color: limegreen; margin-left: 4rem;"></div>
 
 
                 </table>
@@ -59,7 +57,7 @@
             <div class="kartya">
                 <img src="./img/png.png" alt="" class="kartyakep">
                 <table>
-                <td><h2 class="kartya-nev">Konrád</h2></td>
+                <td><h2 class="kartya-nev">Aszpik</h2></td>
                 <td><h2 class="elerhetoseg">Elérhető</h2></td>
 
 
@@ -138,31 +136,31 @@
         <div class="kategoriak-container">
             <h3>Kategóriák</h3>
             <div class="kategoriak">
-                <input type="checkbox" name="" id="">kaja <br>
-                <input type="checkbox" name="" id="">pia <br>
-                <input type="checkbox" name="" id="">olimpia <br>
-                <input type="checkbox" name="" id="">lorem <br>
+                <input type="checkbox" name="" id="" checked>kaja <br>
+                <input type="checkbox" name="" id="" checked>pia <br>
+                <input type="checkbox" name="" id="" checked>olimpia <br>
+                <input type="checkbox" name="" id="" checked>lorem <br>
             </div>
         </div>
         <div class="ertekelesek-container">
             <h3>Értékelések</h3>
 
-            <p>1<input type="range" min="1" max="5" value="3" class="ar">5</p>
+            <p>1<input type="range" min="1" max="5" value="3">5</p>
         </div>
-        <div class="raktar">
+        <div class="raktar-szuro">
 
             <div class="kor" style="background-color: limegreen">
-                <input type="checkbox" name="" id="" class="checkbox">
+                <input type="checkbox" name="" id="" class="checkbox" checked>
             </div>
 
             <div class="kor" style="background-color: yellow">
-                <input type="checkbox" name="" id="" class="checkbox">
+                <input type="checkbox" name="" id="" class="checkbox" checked>
             </div>
 
             <div class="kor" style="background-color: red">
-                <input type="checkbox" name="" id="" class="checkbox">
+                <input type="checkbox" name="" id="" class="checkbox" checked>
             </div>
-
+        </main>
         </div>
     </div>
     </div>
