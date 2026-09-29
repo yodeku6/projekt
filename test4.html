@@ -1,0 +1,71 @@
+<div class="slider">
+    <div class="track"></div>
+    <div class="fill" id="fill"></div>
+    <input type="range" id="min" min="1" max="10" step="0.1" value="1">
+    <input type="range" id="max" min="1" max="10" step="0.1" value="10">
+  </div>
+  <p><span id="out">1 - 10</span></p>
+  
+  <style>
+    .slider { position: relative; height: 30px; }
+  
+    .track, .fill {
+    position: absolute; 
+    top: 50%; 
+    height: 6px;
+    transform: translateY(-30%); 
+    border-radius: 3px; 
+    width: 10%;
+    }
+    .track { 
+      width: 9.5%; 
+      left: 9px; 
+      right: 9px; 
+      background: #ddd; 
+    }
+    .fill  { 
+      width: 10%; 
+      background: #4a7cff; 
+    }
+  
+    .slider input {
+      position: absolute; width: 10%; top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      appearance: none; background: none;
+    }
+    .slider input::-webkit-slider-thumb {
+      pointer-events: auto; appearance: none;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: #4a7cff; cursor: pointer;
+    }
+    .slider input::-moz-range-thumb {
+      pointer-events: auto;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: #4a7cff; border: none; cursor: pointer;
+    }
+  </style>
+  
+  <script>
+    const min = document.getElementById('min');
+    const max = document.getElementById('max');
+    const out = document.getElementById('out');
+    const fill = document.getElementById('fill');
+    const thumb = 18;
+
+    function update() {
+    if (+min.value > +max.value) min.value = max.value;
+    if (+max.value < +min.value) max.value = min.value;
+
+    const range = max.max - max.min;
+    const a = (min.value - min.min) / range;
+    const b = (max.value - min.min) / range;
+
+    fill.style.left  = `calc(${thumb / 2}px + (10% - ${thumb}px) * ${a})`;
+    fill.style.width = `calc((10% - ${thumb}px) * ${b - a})`;
+
+    out.textContent = `${(+min.value).toFixed(1)} – ${(+max.value).toFixed(1)}`;
+}
+    min.oninput = max.oninput = update;
+    update(); // set initial fill
+  </script>

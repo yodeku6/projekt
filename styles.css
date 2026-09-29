@@ -1,3 +1,20 @@
+:root {
+    /* --bg-color: #f9d5f2; */
+    --bg-color: #F8DDF3;
+    --navbar: #f3a9eb;
+    --accent: #a866c7;
+    --card: #EEE7EE;
+    --surface: #E3DDE5;
+    --text: #171317;
+    --stock: #55C878;
+    --bizonytalan: #E8C84A;
+    --nincs-raktaron: #E06B6B;
+    --logo: #CEFF30;
+    --szurok: #ef8be6;
+    --hr: #d388cd;
+    --secondary-accent: #76189e;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 @font-face {
     font-family: 'Futura';
@@ -8,8 +25,9 @@
 }
 
 body{
-    background-color: rgb(255, 147, 239);
+    background-color: #F8DDF3;
     font-family: "DM Sans", sans-serif;
+    color: var(--text);
 }
 
 nav{
@@ -34,7 +52,7 @@ input[type="checkbox"] {
     color: currentColor;
     width: 1.1em;
     height: 1.1em;
-    border: 0.15em solid currentColor;
+    border: 0.15em solid var(--secondary-accent);
     border-radius: 0.15em;
     transform: translateY(-0.075em);
     display: inline-grid;
@@ -49,7 +67,7 @@ input[type="checkbox"]::before {
     height: 0.65em;
     transform: scale(0);
     transition: 120ms transform ease-in-out;
-    box-shadow: inset 1em 1em black;
+    box-shadow: inset 1em 1em var(--secondary-accent);
 }
 
 input[type="checkbox"]:checked::before {
@@ -60,6 +78,7 @@ input[type="checkbox"]:checked::before {
     max-width: 1800px;
     margin-left: auto;
     margin-right: auto;
+    background-color: var(--bg-color);
     /* width: 100%;
     padding: 0 20px;
     box-sizing: border-box; */
@@ -67,29 +86,24 @@ input[type="checkbox"]:checked::before {
 
 .container {
     display: grid;
-    grid-template-rows: 1fr 1fr;
     grid-template-columns: 75% 25%;
-    /* text-align: center; */
+    align-items: start;
 }
 
 .ajanlottak { 
     /* margin-left: 5rem; */
     /* margin-right: auto; */
     width: 95%; 
-    background-color: red;
+    background-color: var(--navbar);
+    /* border-radius: 1rem; */
+    border: 0.15rem var(--accent) solid;
+    height: 75rem;
+    overflow: hidden;
+    overflow-y: scroll;
+    box-sizing: content-box;
 }
-
-.szuro { 
-    width: auto; 
-    background-color: green;
-    box-sizing: border-box;
-    /* padding: 10px; */
-    /* margin: 10px; */
-    /* margin-left: auto; */
-    /* margin-right: 5rem; */
-    border: 0.1rem solid black;
-    border-radius: 0.2rem;
-    /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); */
+::-webkit-scrollbar {
+    display: none;
 }
 
 .ar {
@@ -98,7 +112,7 @@ input[type="checkbox"]:checked::before {
 
 .divider {
     margin: 1rem 3rem 1rem;
-    border-color: rgb(193, 115, 194);
+    border-color: var(--hr);
     border-style: solid;
     border-radius: 1rem;
 }
@@ -115,7 +129,7 @@ input[type="checkbox"]:checked::before {
 }
 
 .navbar {
-    background-color: #cd5ee1;
+    background-color: var(--navbar);
     /* position: relative; */
     margin-bottom: 1rem;
     display: flex;
@@ -123,27 +137,49 @@ input[type="checkbox"]:checked::before {
     margin-top: 1rem;
 }
 
+.ajanlottak-header {
+    background-color: var(--accent);
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center; 
+}
+
 .ajanlottak-h2 {
     text-align: center;
     font-size: 3rem;
     font-weight: 800;
     margin: 0;
-    background-color: darkred;
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
+    margin-left: 2rem;
+    /* border-radius: 0.8rem 0.8rem 0 0 ; */
 }
 
-.szurok-h2 {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 800;
-    background-color: darkgreen;
-    margin: 0;
-    padding: 1rem;
+.kereso {
+    /* padding: 1rem 1rem 2rem 2rem; */
+    font-size: 1.5rem;
+    margin-left: auto;
+    margin-right: 1.5rem;
+    width: 30rem;
+    height: 3.5rem;
+    background-color: var(--card);
+    /* border-radius: 0.5rem; */
+    border: solid #572a6c 0.15rem;
+    padding-left: 0.75rem;
+    outline: none;
+    /* margin: 0 auto 1.5rem auto;  */
+}
+
+.kereso:focus {
+    border: solid #572a6c 0.17rem;
+}
+
+.kereso::placeholder {
+    color: #572a6c;
 }
 
 .alternating-text span:nth-of-type(odd) {
-    color: #CEFF30; 
+    color: var(--logo); 
     font-family: 'Futura';
     font-size: 6.5rem;
     -webkit-text-stroke: 0.2rem black;
@@ -172,6 +208,31 @@ input[type="checkbox"]:checked::before {
     /* cursor: pointer; */
 }
 
+.szuro { 
+    width: auto; 
+    background-color: var(--navbar);
+    box-sizing: border-box;
+    /* padding: 10px; */
+    /* margin: 10px; */
+    /* margin-left: auto; */
+    /* margin-right: 5rem; */
+    border: 0.15rem solid var(--accent);
+    border-radius: 0.2rem;
+    padding-bottom: 1rem;
+    top: 2rem;
+    position: sticky;
+    /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); */
+}
+
+.szurok-h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    background-color: var(--accent);
+    margin: 0;
+    padding: 1rem;
+}
+
 .szurok h3 {
     font-size: 1.75rem;
     text-align: center;
@@ -181,17 +242,23 @@ input[type="checkbox"]:checked::before {
 }
 
 .szurok div {
-    margin: 0 2rem 0;
+    margin: 1rem 2rem 1rem;
 }
 
 .boltok-container {
     /* margin: 0 2rem 0; */
-    background-color: grey;
+    background-color: var(--szurok);
+    padding-bottom: 0.5rem;
+    border-radius: 0.5rem;
 }
 
 .ar-container {
     /* margin: 0 2rem 0; */
-    background-color: aqua;
+    /* background-color: aqua; */
+    padding-top: 0.01rem;
+    padding-bottom: 0.01rem;
+    background-color: var(--szurok);
+    border-radius: 0.5rem;
 }
 
 .ar-container div {
@@ -203,30 +270,46 @@ input[type="checkbox"]:checked::before {
 }
 
 .ar-input {
+    margin-top: 0.5rem;
     margin-bottom: 1rem;
-    width: 6rem;
-    height: 1.75rem;
+    width: 7rem;
+    height: 2rem;
     text-align: center;
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
     border-style: solid;
     border-width: 0.1rem;
-    box-shadow: 0 0 0.25rem 0.05rem black;
-    border-color: #000000;
+    /* box-shadow: 0 0 0.25rem 0.05rem black; */
+    border: solid var(--accent) 0.15rem;
+    border-color: var(--secondary-accent);
 }
 
 .kategoriak-container {
-    background-color: red;
+    background-color: var(--szurok);
     padding-bottom: 1rem;
+    border-radius: 0.5rem;
 }
 
 .kategoriak {
     font-size: 1.5rem;
     margin-left: 1rem;
     margin-bottom: 1rem;
+    line-height: 2rem;
+}
+
+.kategoriak input {
+    margin-right: 0.25rem;
+}
+
+.kategoriak input[type="checkbox"]::before {
+    transform: translate(2.5%, -1%);
 }
 
 .ertekelesek-container {
-    background-color: antiquewhite;
+    /* margin-top: 2rem; */
+    display: block;
+    background-color: var(--szurok);
+    padding: 0.5rem 1rem 0.5rem;
+    border-radius: 0.5rem;
 }
 
 .dash {
@@ -251,8 +334,9 @@ input[type="checkbox"]:checked::before {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1.5rem;
-    background-color: purple;
+    gap: 4.5rem;
+    /* background-color: var(--szurok); */
+    margin: 0;
 }
 
 .kor {
@@ -267,18 +351,29 @@ input[type="checkbox"]:checked::before {
     align-items: center;
 }
 
+.kor input {
+    border: 0.15em solid var(--text);
+}
+
+.kor input[type="checkbox"]::before {
+    box-shadow: inset 1em 1em black;
+    transform: translate(-2.5%,-2.5%);
+}
+
 .checkbox {
     scale: 1.25;
     margin: 0;
 }
 
 .kartya{
-    background-color: aquamarine;
+    background-color: var(--card);
+    border: 0.075rem solid var(--secondary-accent);
+    box-shadow: 0 0 2.5rem 0.1rem rgba(168, 102, 199, 0.35);
     width: 14rem;
     padding: 2rem;
     height: 16rem;
-    border-radius: 1rem;
-    scale: 1.1;
+    border-radius: 0.35rem;
+    /* scale: 1.1; */
 }
 
 .kartyakep{
@@ -381,6 +476,16 @@ input[type="checkbox"]:checked::before {
     padding-right: 1rem;
 }
 
+.raktar-container {
+    background-color: var(--szurok);
+    padding-bottom: 1rem;
+    border-radius: 0.5rem;
+}
+
+.raktar-container .raktar-szuro, .raktar-container .kor {
+    margin: 0; 
+}
+
 .adatok {
     font-size: 2rem;
     flex: 1;
@@ -433,6 +538,11 @@ input[type="checkbox"]:checked::before {
     font-size: 1.5rem;
     padding-left: 1rem;
     padding-right: 1rem;
+}
+
+.szuro-hr {
+    border: var(--hr) solid 0.01rem;
+    width: 75%;
 }
 
 .adatok {
@@ -501,4 +611,71 @@ input[type="checkbox"]:checked::before {
     text-align: center;
     font-size: 5rem;
     cursor: pointer;
+}
+
+.ertekelesek-container .slider,
+.ertekelesek-container .slider div {
+    margin: 0;
+}
+
+.slider {
+    position: relative;
+    height: 30px;
+    width: 100%;
+}
+
+.track,
+.fill {
+    position: absolute;
+    top: 50%;
+    height: 6px;
+    transform: translateY(-50%);
+    border-radius: 3px;
+}
+
+.track {
+    left: 9px;
+    right: 9px;
+    width: auto;
+    background: #ddd;
+}
+
+.fill {
+    background: var(--secondary-accent);
+}
+
+.slider input {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    margin: 0;
+    transform: translateY(-50%);
+    pointer-events: none;
+    appearance: none;
+    background: none;
+}
+
+.slider input::-webkit-slider-thumb {
+    pointer-events: auto;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--secondary-accent);
+    cursor: pointer;
+}
+
+.slider input::-moz-range-thumb {
+    pointer-events: auto;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--secondary-accent);
+    border: none;
+    cursor: pointer;
+}
+
+.ertekeles-out {
+    text-align: center;
+    margin: 0.5rem 0 1rem;
 }
