@@ -360,8 +360,8 @@ input[type="checkbox"]:checked::before {
     width: 2.5rem;
     height: 2.5rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    float: right;
+    
 }
 
 .kor input {
@@ -395,7 +395,12 @@ input[type="checkbox"]:checked::before {
     margin: auto;
     display: block;
 }
-
+.kartya-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
 .kartya-nev{
     text-align: left;
     margin-right: 2rem;
