@@ -1,17 +1,17 @@
 :root {
     /* --bg-color: #f9d5f2; */
-    --bg-color: #F8DDF3;
-    --navbar: #f3a9eb;
-    --accent: #a866c7;
+    --bg-color: #f6f6f6;
+    --navbar: #d8d8d8;
+    --accent: #828182;
     --card: #EEE7EE;
     --surface: #E3DDE5;
     --text: #171317;
     --stock: #55C878;
     --bizonytalan: #E8C84A;
     --nincs-raktaron: #E06B6B;
-    --logo: #CEFF30;
+    --logo: #ff0000;
     --szurok: #ef8be6;
-    --hr: #d388cd;
+    --hr: #4f4f4f;
     --secondary-accent: #76189e;
 }
 
@@ -25,7 +25,7 @@
 }
 
 body{
-    background-color: #F8DDF3;
+    background-color: var(--bg-color);
     font-family: "DM Sans", sans-serif;
     color: var(--text);
 }
@@ -339,7 +339,7 @@ input[type="checkbox"]:checked::before {
 .vert-divider {
     width: 0.1rem;
     height: 6rem;
-    background-color: #9b47aa;
+    background-color: var(--hr);
     /* margin-left: 1.5rem; */
 }
 
@@ -704,6 +704,9 @@ input[type="checkbox"]:checked::before {
     padding: 0.5rem 1rem;
     cursor: pointer;
     margin-top: 1rem;
+}
+.btn-belepes:hover{
+    
 }
 
 
