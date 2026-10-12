@@ -10,9 +10,12 @@
     --bizonytalan: #E8C84A;
     --nincs-raktaron: #E06B6B;
     --logo: #ff0000;
-    --szurok: #ef8be6;
+    --szurok: #929090;
     --hr: #4f4f4f;
-    --secondary-accent: #76189e;
+    --secondary-accent: #00000080;
+    --login: #ba181b;
+    --register: #000000ca;
+    --forgor: #ab4949ca;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
@@ -176,20 +179,20 @@ input[type="checkbox"]:checked::before {
     margin-right: 1.5rem;
     width: 30rem;
     height: 3.5rem;
-    background-color: var(--card);
+    background-color: white;
     /* border-radius: 0.5rem; */
-    border: solid #572a6c 0.15rem;
+    border: solid #000000 0.15rem;
     padding-left: 0.75rem;
     outline: none;
     /* margin: 0 auto 1.5rem auto;  */
 }
 
 .kereso:focus {
-    border: solid #572a6c 0.17rem;
+    border: solid #000000 0.17rem;
 }
 
 .kereso::placeholder {
-    color: #572a6c;
+    color: #929292;
 }
 
 .alternating-text span:nth-of-type(odd) {
@@ -380,12 +383,13 @@ input[type="checkbox"]:checked::before {
 
 .kartya{
     background-color: var(--card);
-    border: 0.075rem solid var(--secondary-accent);
-    box-shadow: 0 0 2.5rem 0.1rem rgba(168, 102, 199, 0.35);
+    border: 0.2rem solid var(--szurok);
+    box-shadow: 0 0 2.5rem 0,5rem rgba(0, 0, 0, 0.35);
     width: 14rem;
     padding: 2rem;
     height: 16rem;
-    border-radius: 0.35rem;
+    border-radius: 1rem;
+    
     /* scale: 1.1; */
 }
 
@@ -657,7 +661,7 @@ input[type="checkbox"]:checked::before {
 .belepes-kartyafö {
     width: 25rem;
     height: 30rem;
-    background-color: rgba(236, 66, 242, 0.547);
+    background-color: var(--navbar);
     border-radius: 0.5rem;
     margin: auto;
     padding: 0.5rem;
@@ -667,25 +671,25 @@ input[type="checkbox"]:checked::before {
     
 }
 .username {
-    border: 0.15rem solid var(--secondary-accent);
+    border: 0.15rem solid var(--hr);
     border-radius: 0.3rem;
     font-size: 1.5rem;
     
 }
 
 .password {
-   border: 0.15rem solid var(--secondary-accent);
+   border: 0.15rem solid var(--hr);
    border-radius: 0.3rem;
    font-size: 1.5rem;
 }
 .forgot-password {
     text-decoration: none;
-    color: var(--secondary-accent);
+    color: var(--forgor);
     cursor: pointer;
     font-size: 1.25rem;
 }
 .btn-belepes {
-    background-color: green;
+    background-color: var(--login);
     color: white;
     border: none;
     border-radius: 0.3rem;
@@ -693,10 +697,11 @@ input[type="checkbox"]:checked::before {
     padding: 0.5rem 1rem;
     cursor: pointer;
     margin-top: 1rem;
+    width: 13rem;
     
 }
 .btn-regisztracio {
-    background-color: blue;
+    background-color: var(--register);
     color: white;
     border: none;
     border-radius: 0.3rem;
@@ -704,11 +709,15 @@ input[type="checkbox"]:checked::before {
     padding: 0.5rem 1rem;
     cursor: pointer;
     margin-top: 1rem;
+    width: 13rem;
 }
 .btn-belepes:hover{
     
 }
-
+.dropdown_profile{
+    margin-bottom: 0.2%;
+    z-index: 10000;
+}
 
 
 
