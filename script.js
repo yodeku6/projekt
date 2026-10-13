@@ -31,5 +31,21 @@ document.addEventListener('DOMContentLoaded', () => {
     update(); // initial call, no event, so no clamping
 });
 
+function openNav() {
+  const overlay = document.getElementById("myNav");
+  if (overlay) overlay.style.display = "block";
+}
 
+function closeNav() {
+  const overlay = document.getElementById("myNav");
+  if (overlay) overlay.style.display = "none";
+}
 
+document.addEventListener('click', (event) => {
+  const dropdownElement = document.getElementById('myNav');
+  const openButton = event.target.closest('[onclick="openNav()"]');
+
+  if (!dropdownElement || dropdownElement.contains(event.target) || openButton) return;
+
+  closeNav();
+});

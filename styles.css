@@ -658,23 +658,23 @@ input[type="checkbox"]:checked::before {
     scale: 80%;
 }
 
-.belepes-kartyafö {
+.belepes-kartyafo {
     width: 25rem;
     height: 30rem;
     background-color: var(--navbar);
-    border-radius: 0.5rem;
+    /* border-radius: 0.5rem; */
     margin: auto;
     padding: 0.5rem;
-    text-align: center;
+    /* text-align: center; */
     font-size: 2rem;
-
-    
 }
 .username {
-    border: 0.15rem solid var(--hr);
-    border-radius: 0.3rem;
     font-size: 1.5rem;
-    
+    margin: 0;
+}
+
+.username input {
+    margin: 0;
 }
 
 .password {
@@ -719,8 +719,68 @@ input[type="checkbox"]:checked::before {
     z-index: 10000;
 }
 
+/* -------------------------------------------------------------------------- */
+/* OVERLAY */
+.overlay-container {
+    display: flex;
+    align-items: center;
+}
+.overlay {
+    height: 75%;
+    width: 25%;
+    position: fixed;
+    z-index: 1;
+    top: 8rem;
+    left: 0;
+    background-color: rgb(147, 147, 147);
+    overflow-x: hidden;
+    margin-left: 37.5%;
+    /* transition: 0.5s; */
+  }
+  
+  .overlay-content {
+    position: relative;
+    top: 5%;
+    width: 100%;
+    /* margin-top: 30px; */
+    padding: 0;
+    margin: 0 2rem 0;
+  }
 
-
+  .sign-in {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: black;
+  }
+  
+  .overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+  }
+  
+  .overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .overlay a {font-size: 20px}
+    .overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+    }
+  }
 
 /*------------------------------------------------------------------ */
 .ertekelesek-container .slider,
