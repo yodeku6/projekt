@@ -1,21 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
 :root {
     /* --bg-color: #f9d5f2; */
-    --bg-color: #F8DDF3;
-    --navbar: #f3a9eb;
-    --accent: #a866c7;
-    --card: #EEE7EE;
-    --surface: #E3DDE5;
-    --text: #171317;
+    --bg-color: #eaeaea;
+    --navbar: #E1E3DD;
+    --accent: #CBE83A;
+    --card: #FFFFFF;
+    --surface: #E9EAE5;
+    --text: #20221F;
+    --sec-text: #656861;
     --stock: #55C878;
     --bizonytalan: #E8C84A;
     --nincs-raktaron: #E06B6B;
     --logo: #CEFF30;
-    --szurok: #ef8be6;
-    --hr: #d388cd;
-    --secondary-accent: #76189e;
+    --szurok: #cdd5a4;
+    --hr: #697722;
+    --secondary-accent: #33390d;
+    --border: #C9CCC4;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 @font-face {
     font-family: 'Futura';
     src: url('./fonts/Futura\ Condensed\ Extra\ Bold.otf') format('opentype');
@@ -25,7 +28,7 @@
 }
 
 body{
-    background-color: #F8DDF3;
+    background-color: var(--bg-color);
     font-family: "DM Sans", sans-serif;
     color: var(--text);
 }
@@ -43,32 +46,34 @@ h1{
     text-align: center;
 }
 
-input[type="checkbox"] {
-    -webkit-appearance: none;
+/* input[type="checkbox"] {
     appearance: none;
-    background-color: #fff;
+    -webkit-appearance: none; 
+    width: 1.4em;
+    height: 1.4em;
     margin: 0;
-    font: inherit;
-    color: currentColor;
-    width: 1.1em;
-    height: 1.1em;
+    background-color: white;
     border: 0.15em solid var(--secondary-accent);
     border-radius: 0.15em;
-    transform: translateY(-0.075em);
-    display: inline-grid;
+    display: grid;
     place-content: center;
-    transform: translateY(0.01em);
-    /* vertical-align: center; */
+    cursor: pointer;
+} */
+
+input[type="checkbox"] {
+    width: 1.15rem;
+    height: 1.15rem;
+    cursor: pointer;
 }
 
-input[type="checkbox"]::before {
+/* input[type="checkbox"]::before {
     content: "";
-    width: 0.65em;
-    height: 0.65em;
+    width: 0.8em;
+    height: 0.8em;
     transform: scale(0);
     transition: 120ms transform ease-in-out;
     box-shadow: inset 1em 1em var(--secondary-accent);
-}
+} */
 
 input[type="checkbox"]:checked::before {
     transform: scale(1);
@@ -135,6 +140,9 @@ input[type="checkbox"]:checked::before {
     display: flex;
     height: 8rem;
     margin-top: 1rem;
+    /* display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center; */
 }
 
 .nav-menu {
@@ -310,14 +318,6 @@ input[type="checkbox"]:checked::before {
     line-height: 2rem;
 }
 
-.kategoriak input {
-    margin-right: 0.25rem;
-}
-
-.kategoriak input[type="checkbox"]::before {
-    transform: translate(2.5%, -1%);
-}
-
 .ertekelesek-container {
     /* margin-top: 2rem; */
     display: block;
@@ -339,7 +339,7 @@ input[type="checkbox"]:checked::before {
 .vert-divider {
     width: 0.1rem;
     height: 6rem;
-    background-color: #9b47aa;
+    background-color: var(--hr);
     /* margin-left: 1.5rem; */
 }
 
@@ -353,19 +353,21 @@ input[type="checkbox"]:checked::before {
 }
 
 .kor {
-    border-radius: 50%;
-    border-color: #000000;
-    border-width: 0.125rem;
-    border-style: solid;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
     display: flex;
-    float: right;
-    
+    align-items: center;
+    justify-content: center;
+    border: 0.125rem solid #000;
+    border-radius: 50%;
 }
 
 .kor input {
     border: 0.15em solid var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
 }
 
 .kor input[type="checkbox"]::before {
@@ -378,10 +380,16 @@ input[type="checkbox"]:checked::before {
     margin: 0;
 }
 
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    /* gap: 0.5rem; */
+}
+
 .kartya{
     background-color: var(--card);
     border: 0.075rem solid var(--secondary-accent);
-    box-shadow: 0 0 2.5rem 0.1rem rgba(168, 102, 199, 0.35);
+    box-shadow: 0 0 2.5rem 0.1rem var(--navbar);
     width: 14rem;
     padding: 2rem;
     height: 16rem;
@@ -652,6 +660,21 @@ input[type="checkbox"]:checked::before {
 
 .fav img {
     scale: 80%;
+}
+
+.nev-megadas {
+    width: 90%;
+    height: 3.5rem;
+    font-size: 1.5rem;
+    border-radius: 0.175rem;
+    border: solid 0.15rem var(--secondary-accent);
+    padding-left: 0.75rem;
+    outline: none;
+}
+
+
+.nev-megadas::placeholder {
+    color: var(--secondary-accent);
 }
 
 .ertekelesek-container .slider,
