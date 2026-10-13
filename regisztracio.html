@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regisztráció</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        
+            <h1 style="text-align: center;">Regisztráció</h1>
+       
+    </header>
+    <div class="belepes-kartyafö">
+        <form action="regisztracio.html" method="post">
+            <label for="username" >Felhasználónév:</label><br>
+            <input type="text" id="username" name="username" placeholder="Felhasználónév" class="username" required><br>
+            
+
+            <label for="email">Email: </label> <br>
+            
+            <input type="email" id="email" name="email" placeholder="Email" class="password" required><br>
+            
+            
+
+            <label for="password" >Jelszó:</label><br>
+                <input type="password" id="password" name="password" placeholder="Jelszó" class="password" required><br>
+            
+            <label for="confirm-password">Jelszó megerősítése:</label><br>
+                <input type="password" class="password" name="confirm-password" placeholder="írd be mégegyszer" required>
+            
+            <br>
+
+            <button type="submit" class="btn-regisztracio">Regisztráció</button>
+        </form>
+        
+    </div>
+    <script src="register.js" ></script>
+</body>
+</html>
