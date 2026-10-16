@@ -711,8 +711,12 @@ input[type="checkbox"]:checked::before {
     margin-top: 1rem;
     width: 13rem;
 }
-.btn-belepes:hover{
+.star{
+    width: 6rem;
+    /* scale: 0.04; */
+    position: absolute;
     
+    right: 50;
 }
 .dropdown_profile{
     margin-bottom: 0.2%;
