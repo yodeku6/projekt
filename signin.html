@@ -25,13 +25,16 @@
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                         <div class="overlay-content">
                             <p class="sign-in">Bejelentkezés</p>
+                            <span class="sign-in-req">Felhasználónév:</span> <br>
                             <label for="username">
-                                <span>Felhasználónév:</span>
-                                <input type="text" name="username" id="username">
-                            </label>
+                                <input type="text" name="username" id="username" class="sign-in-input">
+                            </label><br>
+                            <span class="sign-in-req">Jelszó:</span> <br>
                             <label for="password">
-                                <span>Jelszó:</span>
-                                <input type="password" name="password" id="password">
+                                <input type="password" name="password" id="password" class="sign-in-input">
+                            </label>
+                            <label for="bejelentkezes">
+                                <button class="sign-in-btn">Bejelentkezés</button>
                             </label>
                         </div>
                       </div>

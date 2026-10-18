@@ -16,6 +16,8 @@
     --login: #ba181b;
     --register: #000000ca;
     --forgor: #ab4949ca;
+    --sign-in-btn: #c2c1c1;
+    --sign-in-btn-hover: #adadad;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
@@ -44,6 +46,11 @@ h1, h2{
 
 h1{
     text-align: center;
+}
+
+li:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--text);
 }
 
 input[type="checkbox"] {
@@ -260,13 +267,14 @@ input[type="checkbox"]:checked::before {
 
 .szurok div {
     margin: 1rem 2rem 1rem;
+    /* border-radius: 0.15rem; */
 }
 
 .boltok-container {
     /* margin: 0 2rem 0; */
     background-color: var(--szurok);
     padding-bottom: 0.5rem;
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
 }
 
 .ar-container {
@@ -275,7 +283,7 @@ input[type="checkbox"]:checked::before {
     padding-top: 0.01rem;
     padding-bottom: 0.01rem;
     background-color: var(--szurok);
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
 }
 
 .ar-container div {
@@ -303,7 +311,7 @@ input[type="checkbox"]:checked::before {
 .kategoriak-container {
     background-color: var(--szurok);
     padding-bottom: 1rem;
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
 }
 
 .kategoriak {
@@ -326,7 +334,7 @@ input[type="checkbox"]:checked::before {
     display: block;
     background-color: var(--szurok);
     padding: 0.5rem 1rem 0.5rem;
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
 }
 
 .dash {
@@ -501,7 +509,7 @@ input[type="checkbox"]:checked::before {
 .raktar-container {
     background-color: var(--szurok);
     padding-bottom: 1rem;
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
 }
 
 .raktar-container .raktar-szuro, .raktar-container .kor {
@@ -751,46 +759,92 @@ input[type="checkbox"]:checked::before {
     margin: 0 2rem 0;
   }
 
-  .sign-in {
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: black;
-  }
   
   .overlay a {
-    padding: 8px;
-    text-decoration: none;
-    font-size: 36px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-  }
-  
-  .overlay a:hover, .overlay a:focus {
-    color: #f1f1f1;
-  }
-  
-  .overlay .closebtn {
-    position: absolute;
-    top: 20px;
-    right: 45px;
-    font-size: 60px;
-  }
-  
-  @media screen and (max-height: 450px) {
-    .overlay a {font-size: 20px}
-    .overlay .closebtn {
-    font-size: 40px;
-    top: 15px;
-    right: 35px;
+      padding: 8px;
+      text-decoration: none;
+      font-size: 36px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
     }
-  }
+    
+    .overlay a:hover, .overlay a:focus {
+        color: #f1f1f1;
+    }
+    
+    .overlay .closebtn {
+        position: absolute;
+        top: 20px;
+        right: 45px;
+        font-size: 60px;
+    }
+    
+    @media screen and (max-height: 450px) {
+        .overlay a {font-size: 20px}
+        .overlay .closebtn {
+            font-size: 40px;
+            top: 15px;
+            right: 35px;
+        }
+    }
+    
+    .sign-in {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: black;
+    }
 
-/*------------------------------------------------------------------ */
-.ertekelesek-container .slider,
-.ertekelesek-container .slider div {
-    margin: 0;
-}
+    .sign-in-btn {
+        width: 75%;
+        margin-left: 3.5rem;
+        margin-top: 2rem;
+        padding: 1rem;
+        overflow: none;
+        bottom: 0;
+        font-size: 1.25rem;
+        border: 0.1rem solid var(--secondary-accent);
+        transition: 0.075s ease-in-out;
+        background-color: var(--sign-in-btn);
+    }
+
+    .sign-in-btn:hover {
+        background-color: var(--sign-in-btn-hover);
+        cursor: pointer;
+        scale: 1.005;
+    }
+
+    .sign-in-btn:focus-visible {
+        outline: none;
+        background-color: var(--sign-in-btn-hover);
+        border: 0.1rem solid var(--text);
+        scale: 1.005;
+    }
+
+    .sign-in-input {
+        margin: 0;
+        padding: 0.75rem;
+        width: 86%;
+        font-size: 1.25rem;
+        border: 0.1rem solid var(--secondary-accent);
+        transition: 0.15s ease-in-out;
+        margin-bottom: 1rem;
+    }
+
+    .sign-in-input:focus {
+        outline: none;
+        scale: 1.005;
+    }
+
+    .sign-in-req {
+        font-size: 1.25rem;
+    }
+
+    /*------------------------------------------------------------------ */
+    .ertekelesek-container .slider,
+    .ertekelesek-container .slider div {
+        margin: 0;
+    }
 
 .slider {
     position: relative;
