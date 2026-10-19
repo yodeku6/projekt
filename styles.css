@@ -709,11 +709,11 @@ input[type="checkbox"]:checked::before {
     width: 13rem;
 }
 .star{
-    width: 6rem;
+    width: 2rem;
     /* scale: 0.04; */
     position: absolute;
     
-    right: 50;
+    
 }
 .dropdown_profile{
     margin-bottom: 0.2%;
@@ -844,6 +844,85 @@ input[type="checkbox"]:checked::before {
         margin-bottom: 0.25rem;
         display: block;
     }
+
+    .cookie{
+        background-color: darkblue;
+        height: auto;
+        min-height: 7rem;
+        width: 94%;
+        max-width: 70rem;
+        color: white;
+        font-size: 30px;
+        position: fixed;
+        z-index: 9999;
+        bottom: 5%;
+        left: 3%;
+        scale: 1.025;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1rem 2rem;     
+        border-radius: 1rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3)
+    }
+    .cookie-pic{
+        position: relative;
+        width: 10rem;
+        height: 10rem;
+        object-fit: cover;
+        border-radius: 50%;
+        margin: 1rem;
+        
+    }
+
+    .cookie-btn {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin: 1rem;
+        margin-left: auto;
+    }
+    .cookie-igen{
+        height: 3.5rem;
+        width: 15rem;
+        font-size: 25px;
+        background-color: orange;
+        border-radius: 10px;
+        transition: 0.1s ease-in-out;
+        
+
+    }
+    .cookie-nem{
+        height: 3rem;
+        width: 15rem;
+        font-size: 1rem;
+        background: none;
+        border: none;
+        color: darkgray;
+        
+        
+        
+        
+
+    }
+    .cookie-igen:hover {
+        cursor: pointer;
+        background-color: rgb(255, 106, 0);
+        /* border: 1rem solid black; */
+    }
+    .cookie-nem:hover{
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+
+
+
+
+
+
+
 
     /*------------------------------------------------------------------ */
     .ertekelesek-container .slider,
