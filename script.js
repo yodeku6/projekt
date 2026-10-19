@@ -49,3 +49,37 @@ document.addEventListener('click', (event) => {
 
   closeNav();
 });
+
+
+const cookieButton = document.querySelector(".cookie-btn");
+const cookie = document.querySelector(".cookie");
+const elfogadas = document.querySelector("#elfogadas")
+const elutasitas = document.querySelector("#elutasitas")
+
+function remove(){
+  cookie.style.display = "none";
+}
+
+// function decision() {
+//   if (elfogadas.addEventListener("click") ) {}
+//     console.log("Elfogadva");
+//   }
+//   if(elutasitas.addEventListener("click") ) {
+//     console.log("Elutasítva");
+//   }
+//   cookie.style.display = "none";
+// }
+// cookieButton.addEventListener("click", remove);
+
+function elfogadva() {
+  console.log("Sütik elfogadva")
+  cookie.style.display = "none";
+}
+
+function elutasitva() {
+  console.log("Sütik elutasítva")
+  cookie.style.display = "none";
+}
+
+elfogadas.addEventListener("click", elfogadva);
+elutasitas.addEventListener("click", elutasitva);

@@ -31,3 +31,81 @@
     </nav>
     <hr class="divider">
     </header>
+
+    <!-- .cookie {
+    background-color: darkblue;
+    height: auto; /* Fix 7rem helyett auto, hogy a tartalom kényelmesen elférjen */
+    min-height: 7rem; /* Garantálja a minimális magasságot */
+    width: 94%; /* Fix 70rem helyett % vagy max-width, hogy ne lógjon ki kisebb képernyőkön */
+    max-width: 70rem; 
+    color: white;
+    font-size: 20px; /* A 30px túl nagy volt, a gombok mellett nem fért volna el a szöveg */
+    
+    /* Pozicionálás */
+    position: fixed;
+    bottom: 5%;
+    left: 3%;
+    z-index: 9999; /* Fontos, hogy mindig minden más elem felett jelenjen meg */
+    
+    /* Grid elrendezés: 1 sor, 3 oszlop (kép, szöveg, gombok) */
+    display: grid;
+    grid-template-columns: auto 1fr auto; 
+    align-items: center; /* Függőlegesen középre zárja az elemeket */
+    gap: 1.5rem; /* Távolság a rács elemei között */
+    padding: 1rem 2rem; /* Belső margó a fix magasság kiváltására */
+    
+    border-radius: 12px; /* Esztétikusabbá teszi a lebegő panelt */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3); /* Árnyék, hogy kiemelkedjen a háttérből */
+    transition: transform 0.2s ease;
+}
+
+.cookie:hover {
+    transform: scale(1.025); /* Csak hoverre növekedjen, különben zavaró lehet */
+}
+
+.cookie-pic {
+    width: 60px; /* Fix szélesség a képnek, hogy ne torzuljon a rácsban */
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Feltételezve, hogy van egy szöveges tag-ed (pl. <p>), az automatikusan a középső (1fr) oszlopba kerül */
+
+.cookie-btn {
+    display: flex; /* Grid helyett a Flexbox jobb a gombok egymás alá/mellé rendezésére */
+    flex-direction: column; /* Egymás alá rakja a gombokat */
+    gap: 0.5rem; /* Távolság a két gomb között */
+    align-items: center;
+}
+
+.cookie-igen {
+    height: 3rem;
+    width: 12rem; /* Kicsit keskenyebb, hogy jobban arányuljon */
+    font-size: 18px;
+    font-weight: bold;
+    background-color: orange;
+    border: none;
+    border-radius: 25px; /* Modernebb, lekerekített gomb */
+    transition: background-color 0.1s ease-in-out;
+}
+
+.cookie-nem {
+    height: 2rem;
+    width: 12rem;
+    font-size: 14px;
+    background: none;
+    border: none;
+    color: #ccc; /* Világosabb szürke, a sötétkék háttéren jobban olvasható */
+}
+
+.cookie-igen:hover {
+    cursor: pointer;
+    background-color: rgb(255, 106, 0);
+}
+
+.cookie-nem:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: white;
+} -->
