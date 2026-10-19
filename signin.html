@@ -22,20 +22,15 @@
                 <div class="overlay-container" style="width: 4.5rem; margin-left: 75rem;">
                     <div id="myNav" class="overlay">
                         <!-- <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span> -->
-                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                         <div class="overlay-content">
+                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                             <p class="sign-in">Bejelentkezés</p>
-                            <span class="sign-in-req">Felhasználónév:</span> <br>
-                            <label for="username">
+                            <label for="username" class="sign-in-req">Felhasználónév:</label>
                                 <input type="text" name="username" id="username" class="sign-in-input">
-                            </label><br>
-                            <span class="sign-in-req">Jelszó:</span> <br>
-                            <label for="password">
+                            <br>
+                            <label for="password" class="sign-in-req">Jelszó:</label>
                                 <input type="password" name="password" id="password" class="sign-in-input">
-                            </label>
-                            <label for="bejelentkezes">
-                                <button class="sign-in-btn">Bejelentkezés</button>
-                            </label>
+                            <button type="submit" class="sign-in-btn">Bejelentkezés</button>
                         </div>
                       </div>
                       <img src="./img/svg/fiok.svg" alt="" style="width: 4.5rem; cursor: pointer;" onclick="openNav()">

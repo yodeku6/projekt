@@ -54,36 +54,23 @@ li:hover {
 }
 
 input[type="checkbox"] {
-    -webkit-appearance: none;
-    appearance: none;
-    background-color: #fff;
-    margin: 0;
-    font: inherit;
-    color: currentColor;
-    width: 1.1em;
-    height: 1.1em;
-    border: 0.15em solid var(--secondary-accent);
-    border-radius: 0.15em;
-    transform: translateY(-0.075em);
-    display: inline-grid;
-    place-content: center;
-    transform: translateY(0.01em);
-    /* vertical-align: center; */
+    width: 1.15rem;
+    height: 1.15rem;
+    cursor: pointer;
 }
 
-input[type="checkbox"]::before {
+/* input[type="checkbox"]::before {
     content: "";
-    width: 0.65em;
-    height: 0.65em;
+    width: 0.8em;
+    height: 0.8em;
     transform: scale(0);
     transition: 120ms transform ease-in-out;
     box-shadow: inset 1em 1em var(--secondary-accent);
-}
+} */
 
 input[type="checkbox"]:checked::before {
     transform: scale(1);
 }
-
 .main-container {
     max-width: 1800px;
     margin-left: auto;
@@ -364,19 +351,21 @@ input[type="checkbox"]:checked::before {
 }
 
 .kor {
-    border-radius: 50%;
-    border-color: #000000;
-    border-width: 0.125rem;
-    border-style: solid;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
     display: flex;
-    float: right;
-    
+    align-items: center;
+    justify-content: center;
+    border: 0.125rem solid #000;
+    border-radius: 50%;
 }
 
 .kor input {
     border: 0.15em solid var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
 }
 
 .kor input[type="checkbox"]::before {
@@ -391,12 +380,12 @@ input[type="checkbox"]:checked::before {
 
 .kartya{
     background-color: var(--card);
-    border: 0.2rem solid var(--szurok);
+    border: 0.125rem solid var(--szurok);
     box-shadow: 0 0 2.5rem 0,5rem rgba(0, 0, 0, 0.35);
     width: 14rem;
     padding: 2rem;
     height: 16rem;
-    border-radius: 1rem;
+    border-radius: 0.25rem;
     
     /* scale: 1.1; */
 }
@@ -739,14 +728,15 @@ input[type="checkbox"]:checked::before {
 }
 .overlay {
     height: 75%;
-    width: 25%;
+    width: 30%;
     position: fixed;
     z-index: 1;
     top: 8rem;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: rgb(147, 147, 147);
     overflow-x: hidden;
-    margin-left: 37.5%;
+    /* margin-left: 37.5%; */
     /* transition: 0.5s; */
   }
   
@@ -755,8 +745,13 @@ input[type="checkbox"]:checked::before {
     top: 5%;
     width: 100%;
     /* margin-top: 30px; */
-    padding: 0;
-    margin: 0 2rem 0;
+    padding: 0 2rem;
+    box-sizing: border-box;
+    /* margin: 0 2rem 0; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   
@@ -778,6 +773,7 @@ input[type="checkbox"]:checked::before {
         top: 20px;
         right: 45px;
         font-size: 60px;
+        cursor: pointer;
     }
     
     @media screen and (max-height: 450px) {
@@ -793,15 +789,16 @@ input[type="checkbox"]:checked::before {
       font-size: 2.5rem;
       font-weight: 600;
       color: black;
+      margin-bottom: 3rem;
     }
 
     .sign-in-btn {
-        width: 75%;
-        margin-left: 3.5rem;
+        width: 60%;
+        max-width: 30rem;
         margin-top: 2rem;
         padding: 1rem;
-        overflow: none;
-        bottom: 0;
+        /* overflow: none; */
+        /* bottom: 0; */
         font-size: 1.25rem;
         border: 0.1rem solid var(--secondary-accent);
         transition: 0.075s ease-in-out;
@@ -822,13 +819,15 @@ input[type="checkbox"]:checked::before {
     }
 
     .sign-in-input {
-        margin: 0;
+        margin: 0 0 1rem 0;
         padding: 0.75rem;
-        width: 86%;
+        width: 100%;
+        max-width: 30rem;
         font-size: 1.25rem;
         border: 0.1rem solid var(--secondary-accent);
         transition: 0.15s ease-in-out;
         margin-bottom: 1rem;
+        box-sizing: border-box;
     }
 
     .sign-in-input:focus {
@@ -838,6 +837,12 @@ input[type="checkbox"]:checked::before {
 
     .sign-in-req {
         font-size: 1.25rem;
+        text-align: left;
+        /* margin-left: 2rem; */
+        width: 100%;
+        max-width: 30rem;
+        margin-bottom: 0.25rem;
+        display: block;
     }
 
     /*------------------------------------------------------------------ */
