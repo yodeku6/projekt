@@ -41,6 +41,8 @@ function closeNav() {
   if (overlay) overlay.style.display = "none";
 }
 
+closeNav();
+
 document.addEventListener('click', (event) => {
   const dropdownElement = document.getElementById('myNav');
   const openButton = event.target.closest('[onclick="openNav()"]');
@@ -51,15 +53,66 @@ document.addEventListener('click', (event) => {
 });
 
 
-const cookieButton = document.querySelector(".cookie-btn");
 const cookie = document.querySelector(".cookie");
 const elfogadas = document.querySelector("#elfogadas")
 const elutasitas = document.querySelector("#elutasitas")
 
-function remove(){
-  cookie.style.display = "none";
-}
+document.addEventListener("DOMContentLoaded", () => {
+  const cookieChoice = localStorage.getItem("cookieElfogadas");
+  
+  // ne jelenjen meg megint 
+  if (cookieChoice !== "elfogadva" && cookieChoice !== "elutasitva") {
+    cookie.style.display = "grid"; 
+  }
+});
 
+
+elfogadas.addEventListener("click", () => {
+  console.log("Sütik elfogadva");
+  localStorage.setItem("cookieElfogadas", "elfogadva");
+  cookie.style.display = "none";
+});
+
+elutasitas.addEventListener("click", () => {
+  console.log("Sütik elutasítva");
+  localStorage.setItem("cookieElfogadas", "elutasitva");
+  cookie.style.display = "none";
+});
+
+const list = [];
+const fav = [];
+
+document.querySelectorAll('.star').forEach((star) => {
+  star.addEventListener('click', () => {
+    const isNowActive = star.classList.toggle('active');
+    const itemId = star.dataset.id;
+
+    if (isNowActive) {
+      console.log(`Favorited item ID: ${itemId}`);
+    }
+    else {
+      console.log(`Unfavorited item ID: ${itemId}`)
+    }
+  });
+});
+
+
+
+
+
+// function elfogadva() {
+//   console.log("Sütik elfogadva");
+//   cookie.style.display = "none";
+// }
+
+// function elutasitva() {
+//   console.log("Sütik elutasítva");
+//   cookie.style.display = "none";
+// }
+// const cookieButton = document.querySelector(".cookie-btn");
+// function remove(){
+//   cookie.style.display = "none";
+// }
 // function decision() {
 //   if (elfogadas.addEventListener("click") ) {}
 //     console.log("Elfogadva");
@@ -70,16 +123,3 @@ function remove(){
 //   cookie.style.display = "none";
 // }
 // cookieButton.addEventListener("click", remove);
-
-function elfogadva() {
-  console.log("Sütik elfogadva")
-  cookie.style.display = "none";
-}
-
-function elutasitva() {
-  console.log("Sütik elutasítva")
-  cookie.style.display = "none";
-}
-
-elfogadas.addEventListener("click", elfogadva);
-elutasitas.addEventListener("click", elutasitva);
