@@ -1,0 +1,27 @@
+[
+    {
+        "id": "13",
+        "name": "Csabi csülke",
+        "price": "5.790 Ft",
+        "img": "./img/hattermentes.png",
+        "status": "van",
+        "lastUpdated": "2026-10-15"
+      },
+    {
+      "id": "14",
+      "name": "Konrád",
+      "price": "390 Ft",
+      "img": "./img/png.png",
+      "status": "talan",
+      "lastUpdated": "2026-10-25"
+    },
+    {
+      "id": "15",
+      "name": "Konrád kolbásza",
+      "price": "580 Ft",
+      "img": "./img/funfact.png",
+      "status": "van",
+      "lastUpdated": "2026-10-27"
+    }
+  ]
+  
