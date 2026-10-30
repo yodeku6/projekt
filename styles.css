@@ -21,6 +21,7 @@
     --sign-in-btn-hover: #adadad;
     --star-hover: rgba(255, 204, 0, 0.5);
     --star: rgb(255, 204, 0);
+    --new: rgb(59, 255, 59);
 }
 
 @font-face {
@@ -40,6 +41,7 @@ body{
 nav{
     width: 100%;
     position: sticky;
+    z-index: 1001;
     color: white;
 }
 h1, h2{
@@ -73,6 +75,18 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked::before {
     transform: scale(1);
 }
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
 .main-container {
     max-width: 1800px;
     margin-left: auto;
@@ -430,12 +444,24 @@ input[type="checkbox"]:checked::before {
     height: 12rem; 
     object-fit: cover;
     border-radius: 0.25rem;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
 }
 
 .kartya-img-container {
     display: flex;
     position: relative;
+}
+
+.new {
+    background-color: var(--new);
+    position: absolute;
+    padding: 0.25rem 0.75rem;
+    top: 0.5rem;
+    left: 0.5rem;
+    border-radius: 1rem;
+    font-weight: 700;
+    box-shadow: 0 0 1rem 0.1rem rgba(0, 0, 0, 0.25);
+    border: 2px solid var(--secondary-accent);
 }
 
 .star{
@@ -474,15 +500,15 @@ input[type="checkbox"]:checked::before {
 
 .kartya-info {
     display: grid;
-    grid-template-columns: 2fr auto;
-    grid-template-rows: 3ch 5ch;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
     justify-content: space-between;
     align-items: center;
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
     user-select: text;
+    gap: 0.25rem;
 }
 
-/* Keep the availability circle centered in the card-info grid. */
 .kartya-info .kor {
     grid-column: 2;
     grid-row: 1 / -1;
@@ -500,8 +526,20 @@ input[type="checkbox"]:checked::before {
 
 .kartya-nev{
     text-align: left;
-    margin-right: 2rem;
+    /* margin-right: 2rem; */
     font-size: 1.5rem;
+    /* white-space: nowrap; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-clamp: 2;      
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-word; 
+    /* overflow-wrap: break-word;
+    hyphens: auto;
+    -webkit-hyphens: auto; */
+    width: 100%;
 }
 
 .raktar {
@@ -556,6 +594,39 @@ input[type="checkbox"]:checked::before {
     flex-direction: column;
 }
 
+.termek-star{
+    /* width: 2.5rem; */
+    /* scale: 0.04; */
+    /* position: absolute; */
+    top: 0.25rem;
+    right: 0.25rem;
+    /* left: 0.25rem; */ /* <- ha bal oldalt legyen a csillag */
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+}
+
+.termek-star path {
+    background-color: #000;
+    /* transition: 0.3s ease-in-out;  */
+}
+
+.termek-star:hover path {
+    /* fill: var(--star-hover); */
+    stroke: var(--star) !important;
+    stroke-width: 0.15rem;
+}
+.termek-star:hover {
+    /* background-color: rgba(92, 27, 0, 0.1); */
+    /* border-radius: 50%; */
+    scale: 1.1;
+    /* padding: 0.1rem; */
+}
+
+.termek-star.active path {
+    fill: var(--star);
+    stroke: var(--star);
+}
+
 .helyszin-raktar {
     display: flex;
     width: 100%;
@@ -563,7 +634,7 @@ input[type="checkbox"]:checked::before {
 
 .helyszin {
     display: flex;
-    background-color: blue;
+    background-color: gray;
     width: 30rem;
     height: 5rem;
     font-size: 2rem;
@@ -616,6 +687,13 @@ input[type="checkbox"]:checked::before {
     height: 15rem;
     text-align: justify;
     background-color: pink;
+    font-weight: 500;
+    outline: none;
+    border: none;
+}
+
+.termek-leiras::placeholder {
+    top: 0;
 }
 
 .ar-ertekeles {
@@ -724,6 +802,11 @@ input[type="checkbox"]:checked::before {
     align-items: center;
     cursor: pointer;
     border-radius: 0.5rem;
+    transition: 0.1s;
+}
+
+.listaba-container:hover {
+    background-color: rgb(0, 0, 72);
 }
 
 .btn-container {
@@ -738,7 +821,7 @@ input[type="checkbox"]:checked::before {
     max-width: 6rem;
     width: 100%;
     height: 6rem;
-    background-color: orange;
+    /* background-color: orange; */
 }
 
 .fav img {
@@ -814,18 +897,18 @@ input[type="checkbox"]:checked::before {
     height: 75%;
     width: 30%;
     position: fixed;
-    z-index: 1;
     top: 8rem;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(147, 147, 147, 0.99);
+    background-color: rgba(147, 147, 147, 0.98);
     overflow-x: hidden;
     display: none;
+    z-index: 1;
     /* margin-left: 37.5%; */
     /* transition: 0.5s; */
-  }
-  
-  .overlay-content {
+}
+
+.overlay-content {
     position: relative;
     top: 5%;
     width: 100%;
@@ -1045,7 +1128,45 @@ input[type="checkbox"]:checked::before {
         color: var(--hr);
         display: none;
     }
+
+    .nev-megadas {
+        width: 90%;
+        padding: 1rem;
+        font-size: 1.25rem;
+        border: 0.1rem solid var(--secondary-accent);
+    }
     
+    .bolt-select {
+        padding: 1rem;
+        width: 100%;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--text);
+        cursor: pointer;
+        transition: 0.1s;
+    }
+
+    .bolt-select:hover {
+        color: var(--secondary-accent);
+    }
+
+    .bolt-select:focus-visible {
+        border: none;
+        outline: none;
+    }
+
+    .ertekeles input {
+        padding: 1rem;
+        background: none;
+        border: none;
+        outline: none;
+        background-color: white;
+        width: 1.5rem;
+        font-size: 1rem;
+        margin-right: 1rem;
+    }
+
     /*------------------------------------------------------------------ */
     .ertekelesek-container .slider,
     .ertekelesek-container .slider div {

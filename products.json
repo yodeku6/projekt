@@ -1,11 +1,12 @@
 [
     {
         "id": "13",
-        "name": "Csabi csülke",
+        "name": "Csabi óriáshatalmas csülke",
         "price": "5.790 Ft",
         "img": "./img/hattermentes.png",
         "status": "van",
-        "lastUpdated": "2026-10-15"
+        "lastUpdated": "2026-10-15",
+        "uploaded": "2026-10-15"
       },
     {
       "id": "14",
@@ -13,7 +14,8 @@
       "price": "390 Ft",
       "img": "./img/png.png",
       "status": "talan",
-      "lastUpdated": "2026-10-25"
+      "lastUpdated": "2026-10-25",
+      "uploaded": "2026-10-23"
     },
     {
       "id": "15",
@@ -21,7 +23,8 @@
       "price": "580 Ft",
       "img": "./img/funfact.png",
       "status": "van",
-      "lastUpdated": "2026-10-27"
+      "lastUpdated": "2026-10-27",
+      "uploaded": "2026-10-01"
     }
   ]
   
