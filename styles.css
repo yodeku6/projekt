@@ -5,6 +5,7 @@
     --navbar: #d8d8d8;
     --accent: #828182;
     --card: #EEE7EE;
+    --card-hover: rgb(208, 203, 208);
     --surface: #E3DDE5;
     --text: #171317;
     --stock: #55C878;
@@ -383,6 +384,10 @@ input[type="number"] {
     justify-content: center;
     border: 0.125rem solid #000;
     border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: 1000;
+    font-family: sans-serif;
+    user-select: none;
 }
 
 .kor input {
@@ -411,11 +416,11 @@ input[type="number"] {
 }
 
 .checkbox {
-    scale: 1.25;
+    transform: scale(1.25);
     margin: 0;
 }
 
-.kartya-container{
+.kartya-container, .fav-kartya-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); 
     margin: 5rem;
@@ -426,7 +431,7 @@ input[type="number"] {
 .kartya{
     background-color: var(--card);
     border: 0.125rem solid var(--szurok);
-    box-shadow: 0 0 2.5rem 0.5rem rgba(0, 0, 0, 0.35);
+    box-shadow: 0 0 2.5rem 0.5rem rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
     min-height: 18rem; 
     border-radius: 0.25rem;
@@ -437,6 +442,21 @@ input[type="number"] {
     display: flex;
     flex-direction: column;
     box-sizing: border-box; 
+    transition: 0.1s ease-in-out;
+}
+
+.kartya img {
+    transition: 0.1s ease-in-out;
+}
+
+.kartya:hover {
+    /* transform: scale(1.05); */
+    background-color: var(--card-hover);
+    border: 0.125rem solid var(--accent);
+}
+
+.kartya:hover img {
+    transform: scale(1.05);
 }
 
 .kartyakep{
@@ -466,13 +486,13 @@ input[type="number"] {
 
 .star{
     width: 2.5rem;
-    /* scale: 0.04; */
     position: absolute;
     top: 0.25rem;
     right: 0.25rem;
     /* left: 0.25rem; */ /* <- ha bal oldalt legyen a csillag */
     cursor: pointer;
     transition: 0.1s ease-in-out;
+    border-radius: 50%;
 }
 
 .star path {
@@ -488,7 +508,7 @@ input[type="number"] {
 .star:hover {
     background-color: rgba(92, 27, 0, 0.1);
     border-radius: 50%;
-    scale: 1.1;
+    transform: scale(1.1);
     /* padding: 0.1rem; */
 }
 
@@ -518,16 +538,17 @@ input[type="number"] {
 }
 
 .kartya-ar {
-    color: var(--accent);
+    color: var(--secondary-accent);
     grid-column: 1;
     grid-row: 2;
     margin: 0;
+    font-weight: 500;
 }
 
 .kartya-nev{
     text-align: left;
     /* margin-right: 2rem; */
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     /* white-space: nowrap; */
     overflow: hidden;
     text-overflow: ellipsis;
@@ -596,13 +617,14 @@ input[type="number"] {
 
 .termek-star{
     /* width: 2.5rem; */
-    /* scale: 0.04; */
+    /* transform: scale(0.04); */
     /* position: absolute; */
     top: 0.25rem;
     right: 0.25rem;
     /* left: 0.25rem; */ /* <- ha bal oldalt legyen a csillag */
     cursor: pointer;
     transition: 0.1s ease-in-out;
+    border-radius: 50%;
 }
 
 .termek-star path {
@@ -616,9 +638,10 @@ input[type="number"] {
     stroke-width: 0.15rem;
 }
 .termek-star:hover {
-    /* background-color: rgba(92, 27, 0, 0.1); */
-    /* border-radius: 50%; */
-    scale: 1.1;
+    background-color: rgba(92, 27, 0, 0.05);
+    border-radius: 50%;
+    transform: scale(1.1);
+    padding: 0.1rem;
     /* padding: 0.1rem; */
 }
 
@@ -768,7 +791,7 @@ input[type="number"] {
 
 .komment-pfp {
     border-radius: 50%;
-    scale: 80%;
+    transform: scale(0.8);
 }
 
 .komment-tartalom {
@@ -825,7 +848,7 @@ input[type="number"] {
 }
 
 .fav img {
-    scale: 80%;
+    transform: scale(0.8);
 }
 
 .belepes-kartyafo {
@@ -976,14 +999,14 @@ input[type="number"] {
     .sign-in-btn:hover {
         background-color: var(--sign-in-btn-hover);
         cursor: pointer;
-        scale: 1.005;
+        transform: scale(1.005);
     }
 
     .sign-in-btn:focus-visible {
         outline: none;
         background-color: var(--sign-in-btn-hover);
         border: 0.1rem solid var(--text);
-        scale: 1.005;
+        transform: scale(1.005);
     }
 
     .sign-in-input {
@@ -1000,7 +1023,7 @@ input[type="number"] {
 
     .sign-in-input:focus {
         outline: none;
-        scale: 1.005;
+        transform: scale(1.005);
     }
 
     .sign-in-req {
@@ -1103,7 +1126,7 @@ input[type="number"] {
     .cookie-igen:hover {
         cursor: pointer;
         background-color: rgb(255, 128, 0);
-        /* scale: 1.025; */
+        /* transform: scale(1.025); */
         /* border: 1rem solid black; */
     }
     .cookie-nem:hover{

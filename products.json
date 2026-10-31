@@ -1,30 +1,92 @@
 [
-    {
-        "id": "13",
-        "name": "Csabi óriáshatalmas csülke",
-        "price": "5.790 Ft",
-        "img": "./img/hattermentes.png",
-        "status": "van",
-        "lastUpdated": "2026-10-15",
-        "uploaded": "2026-10-15"
-      },
-    {
-      "id": "14",
-      "name": "Konrád",
-      "price": "390 Ft",
-      "img": "./img/png.png",
-      "status": "talan",
-      "lastUpdated": "2026-10-25",
-      "uploaded": "2026-10-23"
-    },
-    {
-      "id": "15",
-      "name": "Konrád kolbásza",
-      "price": "580 Ft",
-      "img": "./img/funfact.png",
-      "status": "van",
-      "lastUpdated": "2026-10-27",
-      "uploaded": "2026-10-01"
-    }
-  ]
-  
+  {
+    "id": "12",
+    "name": "Coca-Cola 1.75L",
+    "price": "689 Ft",
+    "img": "./img/coke.png",
+    "status": "van",
+    "lastUpdated": "2026-10-30",
+    "uploaded": "2026-10-10"
+  },
+  {
+    "id": "13",
+    "name": "Csabi óriáshatalmas csülke",
+    "price": "5.790 Ft",
+    "img": "./img/hattermentes.png",
+    "status": "van",
+    "lastUpdated": "2026-10-15",
+    "uploaded": "2026-10-15"
+  },
+  {
+    "id": "14",
+    "name": "Konrád",
+    "price": "390 Ft",
+    "img": "./img/png.png",
+    "status": "talan",
+    "lastUpdated": "2026-10-25",
+    "uploaded": "2026-10-23"
+  },
+  {
+    "id": "15",
+    "name": "Konrád kolbásza",
+    "price": "580 Ft",
+    "img": "./img/funfact.png",
+    "status": "van",
+    "lastUpdated": "2026-10-27",
+    "uploaded": "2026-10-01"
+  },
+  {
+    "id": "16",
+    "name": "Béla bá bivalyerős pálinkája",
+    "price": "4.500 Ft",
+    "img": "./img/hattermentes-kibovitett.png",
+    "status": "van",
+    "lastUpdated": "2026-10-29",
+    "uploaded": "2026-10-28"
+  },
+  {
+    "id": "17",
+    "name": "Titkos Receptes rántott hús",
+    "price": "2.890 Ft",
+    "img": "./img/kolbi.jpg",
+    "status": "nincs",
+    "lastUpdated": "2026-10-29",
+    "uploaded": "2026-10-27"
+  },
+  {
+    "id": "18",
+    "name": "Zoli legendás zsírosdeszkája lilahagymával",
+    "price": "650 Ft",
+    "img": "./img/bazar.png",
+    "status": "van",
+    "lastUpdated": "2026-10-28",
+    "uploaded": "2026-10-26"
+  },
+  {
+    "id": "19",
+    "name": "Feri-féle füstölt szalonna",
+    "price": "3.200 Ft",
+    "img": "./img/cookie.png",
+    "status": "van",
+    "lastUpdated": "2026-10-10",
+    "uploaded": "2026-10-05"
+  },
+  {
+    "id": "20",
+    "name": "Kézműves Erős Pista variáció (Extra Csípős)",
+    "price": "1.200 Ft",
+    "img": "./img/B.png",
+    "status": "talan",
+    "lastUpdated": "2026-10-26",
+    "uploaded": "2026-10-12"
+  },
+  {
+    "id": "21",
+    "name": "Gábor mester gulyáslevese tálban",
+    "price": "3.100 Ft",
+    "img": "./img/test.png",
+    "status": "van",
+    "lastUpdated": "2026-10-24",
+    "uploaded": "2026-10-24"
+  }
+]
