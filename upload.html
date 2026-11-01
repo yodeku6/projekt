@@ -1,30 +1,49 @@
 <!DOCTYPE html>
 <html lang="hu">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Termék</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Termék felöltés</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="icon" href="./img/test.png" type="image/x-icon">
+        <script src="./script.js" defer></script>
+    </head>
 <body>
     <div class="main-container">
-        <nav class="navbar">
-            <ul class="nav-menu">
-            <!-- <div class="nav-svg"> -->
-                <li><a href="./index.html">Kezdőlap</a></li>
-                <li><a href="./favorites.html">Kedvencek</a></li>
-                <!-- <li><a href="https://www.google.com/"><img src="./img/svg/feltoltes.svg" alt="" style="width: 3.5rem; margin-left: 70rem;"></a></li> -->
-                <li><a href="https://www.google.com/"><img src="./img/svg/fiok.svg" alt="" style="width: 4.5rem; margin-left: 75rem;"></a></li>
-                <li><div class="vert-divider">&nbsp;</div></li>
-                <li><a href="https://www.google.com/"><img src="./img/svg/lista.svg" alt="" style="width: 4rem;"></a></li>
-            <!-- </div> -->
-            </ul>
-            <h1 class="alternating-text">
-                <span>B</span><span>A</span><span>Z</span><span>Á</span><span>R</span>
-            </h1>
-           
-            <!-- <img src="./img/bazar.png" alt="BAZÁR" class="nav-logo"> -->
-        </nav>
+        <header>
+            <nav class="navbar">
+                <ul class="nav-menu">
+                    <li><a href="./index.html">Kezdőlap</a></li>
+                    <li><a href="./favorites.html">Kedvencek</a></li>
+                    <li>
+                        <div class="overlay-container" style="width: 4.5rem; margin-left: 75rem;">
+                            <div id="myNav" class="overlay">
+                                <div class="overlay-content">
+                                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                                    <p class="sign-in">Bejelentkezés</p>
+                                    <label for="username" class="sign-in-req">Felhasználónév:</label>
+                                        <input type="text" name="username" id="username" class="sign-in-input">
+                                    <br>
+                                    <label for="password" class="sign-in-req">Jelszó:</label>
+                                        <input type="password" name="password" id="password" class="sign-in-input">
+                                    <button type="submit" class="sign-in-btn">Bejelentkezés</button>
+                                </div>
+                              </div>
+                              <img src="./img/svg/fiok.svg" alt="" style="width: 4.5rem; cursor: pointer;" onclick="openNav()" id="fiok" title="Fiók">
+                            </div>
+                    </li>
+                    <div class="vert-divider"></div>
+                    <li><a href="https://www.google.com/"><img src="./img/svg/lista.svg" alt="Lista" style="width: 4rem;" title="Lista megtekintése"></a></li>
+                </ul>
+                <a href="./index.html">
+                    <h1 class="alternating-text" title="Ugrás a főoldalra">
+                        <span>B</span><span>A</span><span>Z</span><span>Á</span><span>R</span>
+                    </h1>
+                </a>
+                
+            </nav>
+        <!-- <hr class="divider"> -->
+        </header>
     <div class="termek-container">
         <div class="termek-kep">
                 <p style="cursor: pointer; padding: 10rem; background-color: lightgrey; border-radius: 2rem;">Kép feltöltés</p>
@@ -38,18 +57,31 @@
                 <div class="helyszin-raktar">
                     <div class="helyszin">
                         <select name="" id="" required class="bolt-select" title="Bolt választása">
-                            <option value="" hidden>Válassz boltot!</option>
+                            <option value="" hidden>Bolt kiválasztása</option>
                             <option value="">bolt</option>
+                            <option value="">bol 2t</option>
                         </select>
                     </div>
                     <div class="raktar">
-                        <div class="kor stock">
+                        <div class="raktar-upload-container left">
+                        <label for="elerheto">
+                            <div class="kor" style="background-color: #55C878">
+                                <input type="radio" name="status" id="elerheto" class="checkbox" checked>
+                            </div>
+                            <p>Elérhető</p>
+                        </label>
                         </div>
-                        <div class="adatok">
-                            Valószínűleg raktáron
-                        </div>
+                        
+                        <div class="raktar-upload-container right">
+                        <label for="nem-elerheto">
+                            <div class="kor" style="background-color: #E06B6B">
+                                <input type="radio" name="status" id="nem-elerheto" class="checkbox">
+                            </div>
+                            <p>Nem elérhető</p>
+                        </label>
                     </div>
-                   
+                    </div>
+                </form>                   
 
 
                     </div>
@@ -90,9 +122,10 @@
                         </div>
                     </div>
                 </div> -->
+                <p class="upload-warning">A termék feltöltésekor mentjük a képet és a termékadatokat. Ezt követően a termék ellenőrzés alá kerül, majd a jóváhagyás után a termék adatlapja és az Ön profilja is láthatóvá válik az oldalon. Felhívjuk figyelmét, hogy a BAZÁR kizárólag a platformot biztosítja, így a termékekért felelősséget nem vállal.</p>
                 <div class="btn-container">
                     <div class="listaba-container">
-                        Feltöltés
+                        Termék feltöltése
                     </div>
                 </div>
             </div>
