@@ -1305,3 +1305,281 @@ input[type="number"] {
     text-align: center;
     margin: 0.5rem 0 1rem;
 }
+
+/* Shopping cart -------------------------------------------------------------- */
+body.cart-open {
+    overflow: hidden;
+}
+
+#lista-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#lista-icon a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#lista-icon img {
+    display: block;
+}
+
+.cart-item-count {
+    position: absolute;
+    top: -0.25rem;
+    right: -0.5rem;
+    min-width: 1.35rem;
+    height: 1.35rem;
+    padding: 0 0.2rem;
+    box-sizing: border-box;
+    background-color: rgb(255, 102, 0);
+    border: 2px solid var(--navbar);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.kosar-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.kosar-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.kosar {
+    position: fixed;
+    z-index: 10001;
+    top: 0;
+    right: 0;
+    width: min(27rem, 100vw);
+    height: 100vh;
+    height: 100dvh;
+    box-sizing: border-box;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    color: var(--text);
+    box-shadow: -0.5rem 0 2rem rgba(0, 0, 0, 0.2);
+    transform: translateX(105%);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.25s ease, visibility 0s linear 0.25s;
+}
+
+.kosar.active {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition: transform 0.25s ease, visibility 0s;
+}
+
+.kosar-fejlec {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.kosar-fejlec h2 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+#kosar-bezaras {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0;
+    border-radius: 50%;
+    background: #eee;
+    color: #222;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+#kosar-bezaras:hover {
+    background: #ddd;
+}
+
+.tartalom {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 1rem 0;
+}
+
+.kosar-ures {
+    margin: 2rem 0;
+    color: #777;
+    text-align: center;
+}
+
+.kosar-box {
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.kosar-img {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 0.35rem;
+    object-fit: cover;
+}
+
+.kosar-desc {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.kosar-prod-name {
+    margin: 0;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.kosar-ar {
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.kosar-mennyiseg {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.kosar-mennyiseg-gomb {
+    width: 1.8rem;
+    height: 1.8rem;
+    border: 1px solid #bbb;
+    border-radius: 0.25rem;
+    background: #f5f5f5;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.kosar-mennyiseg-gomb:hover {
+    background: #e8e8e8;
+}
+
+.kosar-szam {
+    min-width: 1rem;
+    text-align: center;
+}
+
+.kosar-torles {
+    padding: 0.4rem;
+    border: 0;
+    background: none;
+    color: #b42318;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.kosar-torles:hover {
+    text-decoration: underline;
+}
+
+.kosar-alj {
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+}
+
+.kosar-osszesen {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.15rem;
+}
+
+.osszeg {
+    font-size: 1.25rem;
+}
+
+.vevo-gomb {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 0;
+    border-radius: 0.35rem;
+    background: rgb(255, 102, 0);
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.vevo-gomb:hover {
+    background: rgb(225, 84, 0);
+}
+
+.add-to-cart-btn {
+    width: 100%;
+    margin-top: auto;
+    padding: 0.7rem 0.9rem;
+    border: 0;
+    border-radius: 0.25rem;
+    background: rgb(255, 102, 0);
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.add-to-cart-btn:hover {
+    background: rgb(225, 84, 0);
+    transform: translateY(-1px);
+}
+
+.add-to-cart-btn:focus-visible,
+.vevo-gomb:focus-visible,
+#kosar-bezaras:focus-visible,
+.kosar-mennyiseg-gomb:focus-visible,
+.kosar-torles:focus-visible {
+    outline: 3px solid rgba(255, 102, 0, 0.4);
+    outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+    .kosar {
+        width: 100vw;
+        padding: 1rem;
+    }
+
+    .kartya-container,
+    .fav-kartya-container {
+        margin: 1rem;
+        gap: 1rem;
+    }
+}

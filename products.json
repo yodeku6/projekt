@@ -1,5 +1,14 @@
 [
   {
+    "id": "11",
+    "name": "Sámán, a magyar PPT-ból",
+    "price": "3250 Ft",
+    "img": "./img/colpick.png",
+    "status": "van",
+    "lastUpdated": "2037-11-04",
+    "uploaded": "2037-11-04"
+  },
+  {
     "id": "12",
     "name": "Coca-Cola 1.75L",
     "price": "689 Ft",

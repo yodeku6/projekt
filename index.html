@@ -33,7 +33,12 @@
                         </div>
                 </li>
                 <div class="vert-divider"></div>
-                <li><a href="https://www.google.com/"><img src="./img/svg/lista.svg" alt="Lista" style="width: 4rem;" title="Lista megtekintése"></a></li>
+                <li id="lista-icon">
+                    <a href="#kosar" aria-label="Kosár megnyitása">
+                        <img src="./img/svg/lista.svg" alt="Kosár" style="width: 4rem;" title="Kosár megtekintése">
+                    </a>
+                    <span class="cart-item-count" aria-live="polite">0</span>
+                </li>
             </ul>
             <a href="./index.html">
                 <h1 class="alternating-text" title="Ugrás a főoldalra">
@@ -45,6 +50,23 @@
     <!-- <hr class="divider"> -->
     </header>
     <main>
+        <div class="kosar-backdrop" aria-hidden="true"></div>
+        <aside class="kosar" id="kosar" role="dialog" aria-modal="true" aria-label="Bevásárlókosár" aria-hidden="true">
+            <div class="kosar-fejlec">
+                <h2>Kosár</h2>
+                <button type="button" id="kosar-bezaras" aria-label="Kosár bezárása">&times;</button>
+            </div>
+
+            <div class="tartalom" aria-live="polite"></div>
+
+            <div class="kosar-alj">
+                <div class="kosar-osszesen">
+                    <span>Összesen:</span>
+                    <strong class="osszeg">0 Ft</strong>
+                </div>
+                <button type="button" class="vevo-gomb">Vásárlás</button>
+            </div>
+        </aside>
         <div class="cookie">
             <img src="/img/cookie.png" alt="süti" class="cookie-pic">
             <p class="cookie-cim">SÜTIK ELFOGADÁSA?</p> <br>

@@ -1,5 +1,7 @@
 const FAVORITES_KEY = 'myFavorites';
 const COOKIE_CHOICE_KEY = 'cookieElfogadas';
+const CART_STORAGE_KEY = 'cartItems';
+const productCatalog = new Map();
 
 function readFavorites() {
   try {
@@ -62,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeFavoriteStars();
   loadFavoriteProducts();
   loadRandomProducts(10); // mennyi termeket toltson be a kartya containerbe
+  initializeCart();
 });
 
 function initializeRatingRange() {
@@ -133,6 +136,7 @@ async function loadFavoriteProducts() {
     const response = await fetch('./products.json');
     if (!response.ok) throw new Error(`Unable to load products: ${response.status}`);
     const products = await response.json();
+    products.forEach((product) => productCatalog.set(String(product.id), product));
     const favoriteProducts = products.filter((product) => favorites.has(String(product.id)));
 
    if (favoriteProducts.length === 0) {
@@ -161,6 +165,7 @@ async function loadFavoriteProducts() {
               <p class="kartya-ar">${product.price}</p>
               <div title="${stockClass === 'stock' ? 'Van raktáron' : stockClass === 'unavailable' ? 'Nincs raktáron' : 'Bizonytalan'}" class="kor ${stockClass}"></div>
             </div>
+            <button type="button" class="add-to-cart-btn" data-add-to-cart data-product-id="${product.id}">Kosárba</button>
           </div>
         `);
       });
@@ -177,6 +182,7 @@ async function loadRandomProducts(count = 3) {
     const response = await fetch('./products.json');
     if (!response.ok) throw new Error(`Unable to load products: ${response.status}`);
     const products = await response.json();
+    products.forEach((product) => productCatalog.set(String(product.id), product));
     
     if (products.length === 0) return;
 
@@ -244,10 +250,251 @@ async function loadRandomProducts(count = 3) {
             <p class="kartya-ar">${product.price}</p>
             <div title="${stockClass === 'stock' ? 'Van raktáron' : stockClass === 'unavailable' ? 'Nincs raktáron' : 'Bizonytalan'}" class="kor ${stockClass}"><span>${stockClass === 'stock' ? '✓' : stockClass === 'unavailable' ? 'X' : '—'}</span></div>
           </div>
+          <button type="button" class="add-to-cart-btn" data-add-to-cart data-product-id="${product.id}">Kosárba</button>
         </div>
       `);
     });
   } catch (error) {
     console.error('Could not load prioritized random products.', error);
   }
+}
+
+// Cart -------------------------------------------------------------------------
+
+function readCartFromStorage() {
+  try {
+    const savedItems = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || '[]');
+    if (!Array.isArray(savedItems)) return [];
+
+    return savedItems
+      .filter((item) => item && typeof item === 'object')
+      .map((item) => ({
+        id: item.id == null ? null : String(item.id),
+        img: String(item.img || ''),
+        name: String(item.name || 'Ismeretlen termék'),
+        price: String(item.price || '0 Ft'),
+        quantity: Math.max(1, Number.parseInt(item.quantity, 10) || 1)
+      }));
+  } catch (error) {
+    console.warn('A mentett kosár nem olvasható, ezért üres kosárral indul.', error);
+    return [];
+  }
+}
+
+function getPriceInForints(price) {
+  return Number.parseInt(String(price).replace(/[^0-9]/g, ''), 10) || 0;
+}
+
+function formatForints(amount) {
+  return `${new Intl.NumberFormat('hu-HU').format(amount)} Ft`;
+}
+
+function initializeCart() {
+  const cart = document.querySelector('.kosar');
+  const cartContent = document.querySelector('.tartalom');
+  if (!cart || !cartContent) return;
+
+  const cartIcons = document.querySelectorAll('#lista-icon');
+  const cartBadges = document.querySelectorAll('.cart-item-count');
+  const closeCartButton = document.getElementById('kosar-bezaras');
+  const cartBackdrop = document.querySelector('.kosar-backdrop');
+  const purchaseButton = document.querySelector('.vevo-gomb');
+  const totalElement = document.querySelector('.osszeg');
+  let cartItems = readCartFromStorage();
+
+  function saveCartToStorage() {
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems));
+    } catch (error) {
+      console.error('A kosarat nem sikerült elmenteni a böngésző tárhelyére.', error);
+    }
+  }
+
+  function updateCartCountBadge() {
+    const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+    cartBadges.forEach((badge) => {
+      badge.textContent = totalItems;
+      badge.style.visibility = totalItems > 0 ? 'visible' : 'hidden';
+    });
+  }
+
+  function createCartItem(item, index) {
+    const cartBox = document.createElement('article');
+    cartBox.className = 'kosar-box';
+
+    const image = document.createElement('img');
+    image.className = 'kosar-img';
+    image.src = item.img;
+    image.alt = item.name;
+
+    const description = document.createElement('div');
+    description.className = 'kosar-desc';
+
+    const name = document.createElement('p');
+    name.className = 'kosar-prod-name';
+    name.textContent = item.name;
+
+    const linePrice = document.createElement('span');
+    linePrice.className = 'kosar-ar';
+    linePrice.textContent = formatForints(getPriceInForints(item.price) * item.quantity);
+
+    const quantityControls = document.createElement('div');
+    quantityControls.className = 'kosar-mennyiseg';
+
+    const decreaseButton = document.createElement('button');
+    decreaseButton.type = 'button';
+    decreaseButton.className = 'kosar-mennyiseg-gomb';
+    decreaseButton.dataset.cartAction = 'decrease';
+    decreaseButton.dataset.index = index;
+    decreaseButton.setAttribute('aria-label', `${item.name} mennyiségének csökkentése`);
+    decreaseButton.textContent = '−';
+
+    const quantity = document.createElement('span');
+    quantity.className = 'kosar-szam';
+    quantity.textContent = item.quantity;
+
+    const increaseButton = document.createElement('button');
+    increaseButton.type = 'button';
+    increaseButton.className = 'kosar-mennyiseg-gomb';
+    increaseButton.dataset.cartAction = 'increase';
+    increaseButton.dataset.index = index;
+    increaseButton.setAttribute('aria-label', `${item.name} mennyiségének növelése`);
+    increaseButton.textContent = '+';
+
+    quantityControls.append(decreaseButton, quantity, increaseButton);
+
+    const removeButton = document.createElement('button');
+    removeButton.type = 'button';
+    removeButton.className = 'kosar-torles';
+    removeButton.dataset.cartAction = 'remove';
+    removeButton.dataset.index = index;
+    removeButton.setAttribute('aria-label', `${item.name} törlése a kosárból`);
+    removeButton.textContent = 'Törlés';
+
+    description.append(name, linePrice, quantityControls);
+    cartBox.append(image, description, removeButton);
+    return cartBox;
+  }
+
+  function updateCart() {
+    cartContent.replaceChildren();
+
+    if (cartItems.length === 0) {
+      const emptyMessage = document.createElement('p');
+      emptyMessage.className = 'kosar-ures';
+      emptyMessage.textContent = 'A kosár jelenleg üres.';
+      cartContent.appendChild(emptyMessage);
+    } else {
+      cartItems.forEach((item, index) => {
+        cartContent.appendChild(createCartItem(item, index));
+      });
+    }
+
+    const total = cartItems.reduce(
+      (sum, item) => sum + getPriceInForints(item.price) * item.quantity,
+      0
+    );
+    if (totalElement) totalElement.textContent = formatForints(total);
+    updateCartCountBadge();
+  }
+
+  function openCart() {
+    cart.classList.add('active');
+    cart.setAttribute('aria-hidden', 'false');
+    cartBackdrop?.classList.add('active');
+    cartIcons.forEach((icon) => icon.setAttribute('aria-expanded', 'true'));
+    document.body.classList.add('cart-open');
+    closeCartButton?.focus();
+  }
+
+  function closeCart() {
+    cart.classList.remove('active');
+    cart.setAttribute('aria-hidden', 'true');
+    cartBackdrop?.classList.remove('active');
+    cartIcons.forEach((icon) => icon.setAttribute('aria-expanded', 'false'));
+    document.body.classList.remove('cart-open');
+  }
+
+  function addToCart(product) {
+    const productId = String(product.id);
+    const existingItem = cartItems.find((item) => item.id === productId || (item.id === null && item.name === product.name));
+
+    if (existingItem) {
+      existingItem.id = productId;
+      existingItem.quantity += 1;
+    } else {
+      cartItems.push({
+        id: productId,
+        img: product.img,
+        name: product.name,
+        price: product.price,
+        quantity: 1
+      });
+    }
+
+    saveCartToStorage();
+    updateCart();
+    openCart();
+  }
+
+  cartIcons.forEach((cartIcon) => {
+    cartIcon.addEventListener('click', (event) => {
+      event.preventDefault();
+      openCart();
+    });
+  });
+
+  closeCartButton?.addEventListener('click', closeCart);
+  cartBackdrop?.addEventListener('click', closeCart);
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && cart.classList.contains('active')) closeCart();
+  });
+
+  // The product cards are loaded dynamically, so use delegated click handling.
+  document.addEventListener('click', (event) => {
+    if (!(event.target instanceof Element)) return;
+    const addButton = event.target.closest('[data-add-to-cart]');
+    if (!addButton) return;
+
+    const product = productCatalog.get(String(addButton.dataset.productId));
+    if (product) addToCart(product);
+  });
+
+  cartContent.addEventListener('click', (event) => {
+    if (!(event.target instanceof Element)) return;
+    const actionButton = event.target.closest('[data-cart-action]');
+    if (!actionButton) return;
+
+    const index = Number.parseInt(actionButton.dataset.index, 10);
+    if (!Number.isInteger(index) || !cartItems[index]) return;
+
+    const action = actionButton.dataset.cartAction;
+    if (action === 'increase') {
+      cartItems[index].quantity += 1;
+    } else if (action === 'decrease') {
+      cartItems[index].quantity = Math.max(1, cartItems[index].quantity - 1);
+    } else if (action === 'remove') {
+      cartItems.splice(index, 1);
+    }
+
+    saveCartToStorage();
+    updateCart();
+  });
+
+  purchaseButton?.addEventListener('click', () => {
+    if (cartItems.length === 0) {
+      alert('A kosár üres!');
+      return;
+    }
+
+    // alert('Köszönjük a vásárlást! Jó étvágyat!');
+    // cartItems = [];
+    
+    saveCartToStorage();
+    updateCart();
+    closeCart();
+  });
+
+  updateCart();
 }
