@@ -1,5 +1,14 @@
 [
   {
+    "id": "11",
+    "name": "Tiramisu",
+    "price": "2500 Ft",
+    "img": "./img/tiramisu.jpg",
+    "status": "van",
+    "lastUpdated": "2026-11-02",
+    "uploaded": "2026-11-02"
+  },
+  {
     "id": "12",
     "name": "Coca-Cola 1.75L",
     "price": "689 Ft",
