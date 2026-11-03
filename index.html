@@ -28,14 +28,23 @@
                                     <input type="password" name="password" id="password" class="sign-in-input">
                                 <button type="submit" class="sign-in-btn">Bejelentkezés</button>
                             </div>
-                          </div>
-                          <img src="./img/svg/fiok.svg" alt="" style="width: 4.5rem; cursor: pointer;" onclick="openNav()" id="fiok" title="Fiók">
                         </div>
+                          <img src="./img/svg/fiok.svg" alt="" style="width: 4.5rem; cursor: pointer;" onclick="openNav()" id="fiok" title="Fiók">
+                        <!-- Add more admin menu links inside this dropdown as needed. -->
+                        <div id="accountDropdown" class="user-dropdown" role="menu" hidden>
+                            <p class="user-dropdown-title">@username</p>
+                            <span class="trust-badge">🏅 BIZALOM</span>
+                            <button type="button" role="menuitem" onclick="alert('Settings coming soon.')">Beállítások</button>
+                            <a role="menuitem" href="./upload.html">Termék feltöltés</a>
+                            <hr class="dropdown-hr">
+                            <button type="button" role="menuitem" onclick="signOut()" class="sign-out">Kijelentkezés</button>
+                        </div>
+                    </div>
                 </li>
                 <div class="vert-divider"></div>
                 <li id="lista-icon">
-                    <a href="#kosar" aria-label="Kosár megnyitása">
-                        <img src="./img/svg/lista.svg" alt="Kosár" style="width: 4rem;" title="Kosár megtekintése">
+                    <a href="#kosar" aria-label="Lista megnyitása">
+                        <img src="./img/svg/lista.svg" alt="Lista" style="width: 4rem;" title="Bevásárlólista megtekintése">
                     </a>
                     <span class="cart-item-count" aria-live="polite">0</span>
                 </li>
@@ -51,10 +60,10 @@
     </header>
     <main>
         <div class="kosar-backdrop" aria-hidden="true"></div>
-        <aside class="kosar" id="kosar" role="dialog" aria-modal="true" aria-label="Bevásárlókosár" aria-hidden="true">
+        <aside class="kosar" id="kosar" role="dialog" aria-modal="true" aria-label="Bevásárlólista" aria-hidden="true">
             <div class="kosar-fejlec">
-                <h2>Kosár</h2>
-                <button type="button" id="kosar-bezaras" aria-label="Kosár bezárása">&times;</button>
+                <h2>Bevásárlólista</h2>
+                <button type="button" id="kosar-bezaras" aria-label="Bevásárlólista bezárása">&times;</button>
             </div>
 
             <div class="tartalom" aria-live="polite"></div>
@@ -64,7 +73,7 @@
                     <span>Összesen:</span>
                     <strong class="osszeg">0 Ft</strong>
                 </div>
-                <button type="button" class="vevo-gomb">Vásárlás</button>
+                <!-- <button type="button" class="vevo-gomb">Vásárlás</button> -->
             </div>
         </aside>
         <div class="cookie">
@@ -150,18 +159,21 @@
                 <div class="kor" style="background-color: #55C878">
                     <input type="checkbox" name="elerheto" id="elerheto" class="checkbox" checked>
                 </div>
+                <!-- <p class="raktari-elerhetoseg-p">Elérhető</p> -->
             </label>
 
             <label for="bizonytalan">
                 <div class="kor" style="background-color: #E8C84A">
                     <input type="checkbox" name="bizonytalan" id="bizonytalan" class="checkbox" checked>
                 </div>
+                <!-- <p class="raktari-elerhetoseg-p">Bizonytalan</p> -->
             </label>
 
             <label for="nem-elerheto">
                 <div class="kor" style="background-color: #E06B6B">
                     <input type="checkbox" name="nem-elerheto" id="nem-elerheto" class="checkbox" checked>
                 </div>
+                <!-- <p class="raktari-elerhetoseg-p">Nem elérhető</p> -->
             </label>
         </div>
     </div>
@@ -175,6 +187,7 @@
         
         <a href="./termek.html" style="font-size: 2rem;">TERMÉK</a>
         <a href="./upload.html" style="font-size: 2rem;">FELTÖLTÉS</a>
+        <a href="javascript:void(0)" onclick="signOut()">SIGN OUT</a>
     </footer>
 </div>
 </body>

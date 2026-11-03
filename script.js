@@ -1,7 +1,20 @@
-const FAVORITES_KEY = 'myFavorites';
+﻿const FAVORITES_KEY = 'myFavorites';
 const COOKIE_CHOICE_KEY = 'cookieElfogadas';
 const CART_STORAGE_KEY = 'cartItems';
 const productCatalog = new Map();
+
+function renderAvailabilityIndicator(stockClass) {
+  const states = {
+    stock: { label: 'Van raktáron', icon: '<path d="m5 12.5 4.2 4.2L19 7" />'},
+    uncertain: { label: 'Bizonytalan', icon: '<path d="M5 12h14" />' },
+    unavailable: { label: 'Nincs raktáron', icon: '<path d="m7 7 10 10M17 7 7 17" />' }
+  };
+  const state = states[stockClass] || states.uncertain;
+
+  return `<div class="kor ${stockClass}" role="img" aria-label="${state.label}" title="${state.label}">
+    <svg class="availability-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${state.icon}</svg>
+  </div>`;
+}
 
 function readFavorites() {
   try {
@@ -19,6 +32,14 @@ function saveFavorites() {
 }
 
 function openNav() {
+  // Signed-in users get the small menu; signed-out users get the existing login overlay.
+  const accountDropdown = document.getElementById('accountDropdown');
+  if (sessionStorage.getItem('temporaryAdminSignedIn') === 'true') {
+    closeNav();
+    if (accountDropdown) accountDropdown.hidden = !accountDropdown.hidden;
+    return;
+  }
+
   const overlay = document.getElementById('myNav');
   if (overlay) overlay.style.display = 'block';
 }
@@ -43,6 +64,7 @@ document.addEventListener('click', (event) => {
       else favorites.delete(itemId);
 
       saveFavorites();
+      event.preventDefault();
 
       if (!isActive && star.closest('.fav-container')) {
         star.closest('.kartya')?.remove();
@@ -53,8 +75,13 @@ document.addEventListener('click', (event) => {
   }
 
   const overlay = document.getElementById('myNav');
+  const accountDropdown = document.getElementById('accountDropdown');
   const openButton = target.closest('[onclick="openNav()"]');
+  // Clicking anywhere outside the open menu or overlay closes it.
   if (overlay && !overlay.contains(target) && !openButton) closeNav();
+  if (accountDropdown && !accountDropdown.contains(target) && !openButton) {
+    accountDropdown.hidden = true;
+  }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -65,6 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
   loadFavoriteProducts();
   loadRandomProducts(10); // mennyi termeket toltson be a kartya containerbe
   initializeCart();
+  // TEMP ADMIN SIGN-IN: remove this call with the temporary auth block below.
+  initializeTemporaryAdminSignIn();
 });
 
 function initializeRatingRange() {
@@ -104,8 +133,9 @@ function initializeCookieNotice() {
   const cookie = document.querySelector('.cookie');
   if (!cookie) return;
 
+  // COOKIE GUI SHOW -----------------------
   const choice = localStorage.getItem(COOKIE_CHOICE_KEY);
-  if (choice !== 'elfogadva' && choice !== 'elutasitva') cookie.style.display = 'grid';
+  if (choice !== 'elfogadva' && choice !== 'elutasitva') cookie.style.display = 'grid'; // ha ezzel akarunk foglalkozni akkor a && helyére || kell
 
   document.getElementById('elfogadas')?.addEventListener('click', () => {
     localStorage.setItem(COOKIE_CHOICE_KEY, 'elfogadva');
@@ -148,13 +178,15 @@ async function loadFavoriteProducts() {
    favoriteProducts.forEach((product) => {
         const daysSinceUpdate = (Date.now() - new Date(product.lastUpdated).getTime()) / 86400000;
         let stockClass = 'uncertain';
-        if (daysSinceUpdate <= 5 && product.status === 'van') stockClass = 'stock';
-        else if (daysSinceUpdate <= 5 && product.status === 'nincs') stockClass = 'unavailable';
+        if (daysSinceUpdate <= 10 && product.status === 'van') stockClass = 'stock';
+        else if (daysSinceUpdate <= 10 && product.status === 'nincs') stockClass = 'unavailable';
 
         const daysSinceUpload = (Date.now() - new Date(product.uploaded).getTime()) / 86400000;
 
+        // KEDVENCEK --------------------
         container.insertAdjacentHTML('beforeend', `
           <div class="kartya">
+          <a href="">
             <div class="kartya-img-container">
               <img src="${product.img}" alt="Termék kép" class="kartyakep">
               ${daysSinceUpload < 10 ? '<span class="new">ÚJ!</span>' : ''}
@@ -163,9 +195,10 @@ async function loadFavoriteProducts() {
             <div class="kartya-info">
               <h2 class="kartya-nev">${product.name}</h2>
               <p class="kartya-ar">${product.price}</p>
-              <div title="${stockClass === 'stock' ? 'Van raktáron' : stockClass === 'unavailable' ? 'Nincs raktáron' : 'Bizonytalan'}" class="kor ${stockClass}"></div>
+              ${renderAvailabilityIndicator(stockClass)}
             </div>
-            <button type="button" class="add-to-cart-btn" data-add-to-cart data-product-id="${product.id}">Kosárba</button>
+            <button type="button" class="add-to-cart-btn" data-add-to-cart data-product-id="${product.id}">Listába</button>
+            </a>
           </div>
         `);
       });
@@ -226,20 +259,22 @@ async function loadRandomProducts(count = 3) {
     }
 
     // Final shuffle so the guaranteed new item isn't always stuck sitting in the first position
-    finalSelection = shuffleArray(finalSelection);
+    // finalSelection = shuffleArray(finalSelection);
 
     // Render loop
     finalSelection.forEach((product) => {
       const daysSinceUpdate = (Date.now() - new Date(product.lastUpdated).getTime()) / 86400000;
       let stockClass = 'uncertain';
-      if (daysSinceUpdate <= 5 && product.status === 'van') stockClass = 'stock';
-      else if (daysSinceUpdate <= 5 && product.status === 'nincs') stockClass = 'unavailable';
+      if (daysSinceUpdate <= 10 && product.status === 'van') stockClass = 'stock';
+      else if (daysSinceUpdate <= 10 && product.status === 'nincs') stockClass = 'unavailable';
 
       const daysSinceUpload = (Date.now() - new Date(product.uploaded).getTime()) / 86400000;
       const isFavActive = favorites.has(String(product.id)) ? 'active' : '';
 
+      // FŐOLDAL -------------------------------------------
       container.insertAdjacentHTML('beforeend', `
         <div class="kartya" title="${daysSinceUpload < 10 ? 'ÚJ! ' + product.name : product.name}">
+        <a href="">
           <div class="kartya-img-container">
             <img src="${product.img}" alt="Termék kép" class="kartyakep">
             ${daysSinceUpload < 10 ? '<span class="new">ÚJ!</span>' : ''}
@@ -248,10 +283,11 @@ async function loadRandomProducts(count = 3) {
           <div class="kartya-info">
             <h2 class="kartya-nev">${product.name}</h2>
             <p class="kartya-ar">${product.price}</p>
-            <div title="${stockClass === 'stock' ? 'Van raktáron' : stockClass === 'unavailable' ? 'Nincs raktáron' : 'Bizonytalan'}" class="kor ${stockClass}"><span>${stockClass === 'stock' ? '✓' : stockClass === 'unavailable' ? 'X' : '—'}</span></div>
+            ${renderAvailabilityIndicator(stockClass)}
           </div>
-          <button type="button" class="add-to-cart-btn" data-add-to-cart data-product-id="${product.id}">Kosárba</button>
-        </div>
+          <button type="button" class="add-to-cart-btn" data-add-to-cart data-product-id="${product.id}">Listába</button>
+        </a>
+          </div>
       `);
     });
   } catch (error) {
@@ -347,7 +383,7 @@ function initializeCart() {
     decreaseButton.dataset.cartAction = 'decrease';
     decreaseButton.dataset.index = index;
     decreaseButton.setAttribute('aria-label', `${item.name} mennyiségének csökkentése`);
-    decreaseButton.textContent = '−';
+    decreaseButton.textContent = '-';
 
     const quantity = document.createElement('span');
     quantity.className = 'kosar-szam';
@@ -382,7 +418,7 @@ function initializeCart() {
     if (cartItems.length === 0) {
       const emptyMessage = document.createElement('p');
       emptyMessage.className = 'kosar-ures';
-      emptyMessage.textContent = 'A kosár jelenleg üres.';
+      emptyMessage.textContent = 'A bevásárlólista jelenleg üres.';
       cartContent.appendChild(emptyMessage);
     } else {
       cartItems.forEach((item, index) => {
@@ -457,6 +493,8 @@ function initializeCart() {
     const addButton = event.target.closest('[data-add-to-cart]');
     if (!addButton) return;
 
+    event.preventDefault();
+
     const product = productCatalog.get(String(addButton.dataset.productId));
     if (product) addToCart(product);
   });
@@ -484,7 +522,7 @@ function initializeCart() {
 
   purchaseButton?.addEventListener('click', () => {
     if (cartItems.length === 0) {
-      alert('A kosár üres!');
+      alert('A lista üres!');
       return;
     }
 
@@ -498,3 +536,80 @@ function initializeCart() {
 
   updateCart();
 }
+
+function normalizeProductName(name) {
+  if (!name) return "";
+
+  return name
+    .toLowerCase()                         // 1. Handle case mismatches (e.g., "Coca-Cola" -> "coca-cola")
+    .replace(/[-_.,]/g, " ")               // 2. Turn dashes/punctuation into clean spaces
+    .split(/\s+/)                          // 3. Split into individual words, ignoring extra whitespace
+    .filter(word => word.length > 0)       // 4. Remove empty strings caused by double spaces
+    .sort()                                // 5. Sort alphabetically so word order doesn't matter
+    .join(" ");                            // 6. Glue them back together with single spaces
+}
+
+// Quick test to see how it handles variations:
+console.log(normalizeProductName("Coca-Cola 2L"));  // Output: "2l coca cola"
+console.log(normalizeProductName("2L  coca cola")); // Output: "2l coca cola"
+console.log(normalizeProductName("coca-cola, 2l")); // Output: "2l coca cola"
+
+
+// TEMP ADMIN SIGN-IN START: remove this block and its two marked hooks when ready.
+// Demo-only credentials. This check runs in the browser, so it is not
+// suitable for protecting real or sensitive account data.
+const TEMP_ADMIN_USERNAME = 'admin';
+const TEMP_ADMIN_PASSWORD = 'admin';
+const TEMP_ADMIN_SESSION_KEY = 'temporaryAdminSignedIn';
+
+function initializeTemporaryAdminSignIn() {
+  const signInOverlay = document.getElementById('myNav');
+  const usernameInput = signInOverlay?.querySelector('#username');
+  const passwordInput = signInOverlay?.querySelector('#password');
+  const signInButton = signInOverlay?.querySelector('.sign-in-btn');
+  const accountImage = document.querySelector('.overlay-container img[onclick="openNav()"]');
+  if (!usernameInput || !passwordInput || !signInButton || !accountImage) return;
+
+  const showAdminImage = () => {
+    accountImage.src = './img/test.png';
+    accountImage.alt = 'Admin';
+    accountImage.title = 'Admin';
+  };
+
+  if (sessionStorage.getItem(TEMP_ADMIN_SESSION_KEY) === 'true') showAdminImage();
+
+  const signIn = (event) => {
+    event?.preventDefault();
+    if (usernameInput.value.trim() !== TEMP_ADMIN_USERNAME || passwordInput.value !== TEMP_ADMIN_PASSWORD) {
+      alert('Hibás felhasználónév vagy jelszó.');
+      return;
+    }
+
+    sessionStorage.setItem(TEMP_ADMIN_SESSION_KEY, 'true');
+    closeNav();
+    const accountDropdown = document.getElementById('accountDropdown');
+    if (accountDropdown) accountDropdown.hidden = true;
+    showAdminImage();
+  };
+
+  signInButton.addEventListener('click', signIn);
+  [usernameInput, passwordInput].forEach((input) => {
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') signIn(event);
+    });
+  });
+}
+
+function signOut() {
+  sessionStorage.removeItem(TEMP_ADMIN_SESSION_KEY);
+  const accountDropdown = document.getElementById('accountDropdown');
+  if (accountDropdown) accountDropdown.hidden = true;
+  const accountImage = document.querySelector('.overlay-container img[onclick="openNav()"]');
+  if (accountImage) {
+    accountImage.src = './img/svg/fiok.svg';
+    accountImage.alt = '';
+    accountImage.title = 'Fiók';
+  }
+  closeNav();
+}
+// TEMP ADMIN SIGN-IN END
