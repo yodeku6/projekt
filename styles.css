@@ -1245,28 +1245,13 @@ a {
     transform: translateY(-0.125rem);
 }
 
-/* IKON */
-.register-icon {
-    font-size: 1.4375rem;
-}
 
 /* KATTINTÁS */
 .register-btn:active {
     transform: scale(0.98);
 }
 
-/* MOBIL NÉZET */
-@media (max-width: 31.25rem) {
-    .register-btn {
-        height: 3.4375rem;
-        font-size: 1.125rem;
-        border-radius: 1rem;
-    }
 
-    .login-divider p {
-        font-size: 1rem;
-    }
-}
 
     .cookie{
         background-color: darkblue;
