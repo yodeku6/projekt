@@ -1,5 +1,23 @@
 [
   {
+    "id": "1",
+    "name": "Kamuszendvics",
+    "price": "1.790 Ft",
+    "img": "./img/szendvics.jpg",
+    "status": "van",
+    "lastUpdated": "2026-11-10",
+    "uploaded": "2026-11-20"
+  },
+    {
+    "id": "10",
+    "name": "Mandarin",
+    "price": "300 Ft/kg",
+    "img": "./img/colpick.png",
+    "status": "van",
+    "lastUpdated": "2026-11-09",
+    "uploaded": "2026-09-15"
+  },
+  {
     "id": "11",
     "name": "Sámán, a magyar PPT-ből",
     "price": "3250 Ft",

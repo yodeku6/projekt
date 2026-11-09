@@ -2,6 +2,21 @@
 const COOKIE_CHOICE_KEY = 'cookieElfogadas';
 const CART_STORAGE_KEY = 'cartItems';
 const productCatalog = new Map();
+let homeProducts = [];
+let defaultHomeProducts = [];
+
+function isNewProduct(uploadedDate) {
+  if (!uploadedDate) return false;
+
+  const uploadTime = new Date(uploadedDate).getTime();
+
+  if (Number.isNaN(uploadTime)) return false;
+
+  const tenDaysAgo = Date.now() - (10 * 24 * 60 * 60 * 1000);
+
+  // Future dates intentionally count as new.
+  return uploadTime >= tenDaysAgo;
+}
 
 function renderAvailabilityIndicator(stockClass) {
   const states = {
@@ -14,6 +29,34 @@ function renderAvailabilityIndicator(stockClass) {
   return `<div class="kor ${stockClass}" role="img" aria-label="${state.label}" title="${state.label}">
     <svg class="availability-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${state.icon}</svg>
   </div>`;
+}
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, (character) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[character]);
+}
+
+function getDaysSince(dateValue) {
+  const timestamp = Date.parse(dateValue);
+  if (!Number.isFinite(timestamp)) return null;
+  return (Date.now() - timestamp) / 86400000;
+}
+
+function isWithinDays(dateValue, days) {
+  const age = getDaysSince(dateValue);
+  return age !== null && age <= days;
+}
+
+function getProductStockClass(product) {
+  if (!isWithinDays(product.lastUpdated, 10)) return 'uncertain';
+  if (product.status === 'van') return 'stock';
+  if (product.status === 'nincs') return 'unavailable';
+  return 'uncertain';
 }
 
 function readFavorites() {
@@ -69,7 +112,8 @@ document.addEventListener('click', (event) => {
       if (!isActive && star.closest('.fav-container')) {
         star.closest('.kartya')?.remove();
         const emptyMessage = document.querySelector('.no-fav');
-        if (favorites.size === 0 && emptyMessage) emptyMessage.style.display = 'block' 
+        const remainingCards = document.querySelectorAll('.fav-kartya-container .kartya').length;
+        if (remainingCards === 0 && emptyMessage) emptyMessage.style.display = 'block';
       }
     }
   }
@@ -89,8 +133,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeRatingRange();
   initializeCookieNotice();
   initializeFavoriteStars();
+  initializeProductSearch();
+  initializeFavoriteSearch();
   loadFavoriteProducts();
-  loadRandomProducts(10); // mennyi termeket toltson be a kartya containerbe
+  loadRandomProducts(9); // alapértelmezésben ennyi ajánlott termék jelenik meg
   initializeCart();
   // TEMP ADMIN SIGN-IN: remove this call with the temporary auth block below.
   initializeTemporaryAdminSignIn();
@@ -176,122 +222,224 @@ async function loadFavoriteProducts() {
    emptyMessage.style.display = 'none';
 
    favoriteProducts.forEach((product) => {
-        const daysSinceUpdate = (Date.now() - new Date(product.lastUpdated).getTime()) / 86400000;
-        let stockClass = 'uncertain';
-        if (daysSinceUpdate <= 10 && product.status === 'van') stockClass = 'stock';
-        else if (daysSinceUpdate <= 10 && product.status === 'nincs') stockClass = 'unavailable';
-
-        const daysSinceUpload = (Date.now() - new Date(product.uploaded).getTime()) / 86400000;
+        const stockClass = getProductStockClass(product);
+        const isNew = isWithinDays(product.uploaded, 10);
+        const productId = escapeHtml(product.id);
+        const productName = escapeHtml(product.name);
+        const productPrice = escapeHtml(product.price);
+        const productImage = escapeHtml(product.img || './img/colpick.png');
 
         // KEDVENCEK --------------------
         container.insertAdjacentHTML('beforeend', `
           <div class="kartya">
           <a href="">
             <div class="kartya-img-container">
-              <img src="${product.img}" alt="Termék kép" class="kartyakep">
-              ${daysSinceUpload < 10 ? '<span class="new">ÚJ!</span>' : ''}
-              <svg data-id="${product.id}" class="star active" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M11.2691 4.41115C11.5006 3.89177 11.6164 3.63208 11.7776 3.55211C11.9176 3.48263 12.082 3.48263 12.222 3.55211C12.3832 3.63208 12.499 3.89177 12.7305 4.41115L14.5745 8.54808C14.643 8.70162 14.6772 8.77839 14.7302 8.83718C14.777 8.8892 14.8343 8.93081 14.8982 8.95929C14.9705 8.99149 15.0541 9.00031 15.2213 9.01795L19.7256 9.49336C20.2911 9.55304 20.5738 9.58288 20.6997 9.71147C20.809 9.82316 20.8598 9.97956 20.837 10.1342C20.8108 10.3122 20.5996 10.5025 20.1772 10.8832L16.8125 13.9154C16.6877 14.0279 16.6252 14.0842 16.5857 14.1527C16.5507 14.2134 16.5288 14.2807 16.5215 14.3503C16.5132 14.429 16.5306 14.5112 16.5655 14.6757L17.5053 19.1064C17.6233 19.6627 17.6823 19.9408 17.5989 20.1002C17.5264 20.2388 17.3934 20.3354 17.2393 20.3615C17.0619 20.3915 16.8156 20.2495 16.323 19.9654L12.3995 17.7024C12.2539 17.6184 12.1811 17.5765 12.1037 17.56C12.0352 17.5455 11.9644 17.5455 11.8959 17.56C11.8185 17.5765 11.7457 17.6184 11.6001 17.7024L7.67662 19.9654C7.18404 20.2495 6.93775 20.3915 6.76034 20.3615C6.60623 20.3354 6.47319 20.2388 6.40075 20.1002C6.31736 19.9408 6.37635 19.6627 6.49434 19.1064L7.4341 14.6757C7.46898 14.5112 7.48642 14.429 7.47814 14.3503C7.47081 14.2807 7.44894 14.2134 7.41394 14.1527C7.37439 14.0842 7.31195 14.0279 7.18708 13.9154L3.82246 10.8832C3.40005 10.5025 3.18884 10.3122 3.16258 10.1342C3.13978 9.97956 3.19059 9.82316 3.29993 9.71147C3.42581 9.58288 3.70856 9.55304 4.27406 9.49336L8.77835 9.01795C8.94553 9.00031 9.02911 8.99149 9.10139 8.95929C9.16534 8.93081 9.2226 8.8892 9.26946 8.83718C9.32241 8.77839 9.35663 8.70162 9.42508 8.54808L11.2691 4.41115Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
+              <img src="${productImage}" alt="Termék kép" class="kartyakep">
+              ${isNew ? '<span class="new">ÚJ!</span>' : ''}
+              <svg data-id="${productId}" class="star active" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M11.2691 4.41115C11.5006 3.89177 11.6164 3.63208 11.7776 3.55211C11.9176 3.48263 12.082 3.48263 12.222 3.55211C12.3832 3.63208 12.499 3.89177 12.7305 4.41115L14.5745 8.54808C14.643 8.70162 14.6772 8.77839 14.7302 8.83718C14.777 8.8892 14.8343 8.93081 14.8982 8.95929C14.9705 8.99149 15.0541 9.00031 15.2213 9.01795L19.7256 9.49336C20.2911 9.55304 20.5738 9.58288 20.6997 9.71147C20.809 9.82316 20.8598 9.97956 20.837 10.1342C20.8108 10.3122 20.5996 10.5025 20.1772 10.8832L16.8125 13.9154C16.6877 14.0279 16.6252 14.0842 16.5857 14.1527C16.5507 14.2134 16.5288 14.2807 16.5215 14.3503C16.5132 14.429 16.5306 14.5112 16.5655 14.6757L17.5053 19.1064C17.6233 19.6627 17.6823 19.9408 17.5989 20.1002C17.5264 20.2388 17.3934 20.3354 17.2393 20.3615C17.0619 20.3915 16.8156 20.2495 16.323 19.9654L12.3995 17.7024C12.2539 17.6184 12.1811 17.5765 12.1037 17.56C12.0352 17.5455 11.9644 17.5455 11.8959 17.56C11.8185 17.5765 11.7457 17.6184 11.6001 17.7024L7.67662 19.9654C7.18404 20.2495 6.93775 20.3915 6.76034 20.3615C6.60623 20.3354 6.47319 20.2388 6.40075 20.1002C6.31736 19.9408 6.37635 19.6627 6.49434 19.1064L7.4341 14.6757C7.46898 14.5112 7.48642 14.429 7.47814 14.3503C7.47081 14.2807 7.44894 14.2134 7.41394 14.1527C7.37439 14.0842 7.31195 14.0279 7.18708 13.9154L3.82246 10.8832C3.40005 10.5025 3.18884 10.3122 3.16258 10.1342C3.13978 9.97956 3.19059 9.82316 3.29993 9.71147C3.42581 9.58288 3.70856 9.55304 4.27406 9.49336L8.77835 9.01795C8.94553 9.00031 9.02911 8.99149 9.10139 8.95929C9.16534 8.93081 9.2226 8.8892 9.26946 8.83718C9.32241 8.77839 9.35663 8.70162 9.42508 8.54808L11.2691 4.41115Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
             </div>
             <div class="kartya-info">
-              <h2 class="kartya-nev">${product.name}</h2>
-              <p class="kartya-ar">${product.price}</p>
+              <h2 class="kartya-nev">${productName}</h2>
+              <p class="kartya-ar">${productPrice}</p>
               ${renderAvailabilityIndicator(stockClass)}
             </div>
-            <button type="button" class="add-to-cart-btn" data-add-to-cart data-product-id="${product.id}">Listába</button>
+            <button type="button" class="add-to-cart-btn" data-add-to-cart data-product-id="${productId}">Listába</button>
             </a>
           </div>
         `);
       });
+            initializeFavoriteSearch();
   } catch (error) {
     console.error('Could not load favorite products.', error);
   }
 }
 
+function normalizeSearchText(value) {
+  return String(value ?? '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLocaleLowerCase('hu-HU')
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .trim();
+}
+function initializeFavoriteSearch() {
+  const searchInput = document.getElementById('kereso');
+  const container = document.querySelector('.fav-kartya-container');
+
+  if (!searchInput || !container) return;
+
+  const emptyMessage = document.querySelector('.no-fav');
+  const noResultsMessage = document.querySelector('.fav-search-no-results');
+
+  function filterFavorites() {
+    const query = normalizeSearchText(searchInput.value);
+
+    const cards = container.querySelectorAll('.kartya');
+    let visibleCount = 0;
+
+    cards.forEach((card) => {
+      const name = card.querySelector('.kartya-nev')?.textContent || '';
+      const price = card.querySelector('.kartya-ar')?.textContent || '';
+
+      const searchableText = normalizeSearchText(name + ' ' + price);
+      const matches = searchableText.includes(query);
+
+      card.style.display = matches ? '' : 'none';
+
+      if (matches) visibleCount++;
+    });
+
+    if (noResultsMessage) {
+      noResultsMessage.style.display =
+        cards.length > 0 && visibleCount === 0 ? 'block' : 'none';
+    }
+
+    if (emptyMessage) {
+      emptyMessage.style.display = cards.length === 0 ? 'block' : 'none';
+    }
+  }
+
+  searchInput.addEventListener('input', filterFavorites);
+
+  searchInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      searchInput.value = '';
+      filterFavorites();
+      searchInput.blur();
+    }
+  });
+}
+
+function initializeProductSearch() {
+  const searchInput = document.getElementById('kereso');
+  const productContainer = document.querySelector('.kartya-container', '.fav-kartya-container');
+  if (!searchInput || !productContainer) return;
+
+  searchInput.setAttribute('aria-label', 'Termék keresése név vagy ár alapján');
+  searchInput.addEventListener('input', renderHomeProducts);
+  searchInput.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape' || !searchInput.value) return;
+    searchInput.value = '';
+    renderHomeProducts();
+    searchInput.blur();
+  });
+}
+
+function chooseDefaultProducts(products, count) {
+  const shuffle = (items) => {
+    const copy = [...items];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  };
+
+  if (products.length <= count) return shuffle(products);
+
+  const newItems = products.filter((product) => isWithinDays(product.uploaded, 10));
+  const regularItems = products.filter((product) => !isWithinDays(product.uploaded, 10));
+
+  if (newItems.length === 0) return shuffle(products).slice(0, count);
+
+  const [featuredNewItem] = shuffle(newItems);
+  const remainingPool = shuffle([
+    ...newItems.filter((product) => product !== featuredNewItem),
+    ...regularItems
+  ]);
+
+  return [featuredNewItem, ...remainingPool.slice(0, count - 1)];
+}
+
+function renderHomeProducts() {
+  const container = document.querySelector('.kartya-container', '.fav-kartya-container');
+  if (!container) return;
+
+  const searchInput = document.getElementById('kereso');
+  const query = normalizeSearchText(searchInput?.value || '');
+  let productsToShow = defaultHomeProducts;
+
+  if (query) {
+    const searchTerms = query.split(/\s+/).filter(Boolean);
+    productsToShow = homeProducts.filter((product) => {
+      const searchableText = normalizeSearchText([
+        product.name,
+        product.price,
+        product.store,
+        product.description
+      ].filter(Boolean).join(' '));
+
+      return searchTerms.every((term) => searchableText.includes(term));
+    });
+  }
+
+  container.replaceChildren();
+
+  if (productsToShow.length === 0) {
+    const message = document.createElement('p');
+    message.className = 'search-no-results';
+    message.setAttribute('role', 'status');
+    message.textContent = 'Nincs a keresésnek megfelelő termék.';
+    container.appendChild(message);
+    return;
+  }
+
+  const cards = productsToShow.map((product) => {
+    const daysSinceUpload = getDaysSince(product.uploaded);
+    const isNew = daysSinceUpload !== null && daysSinceUpload >= 0 && daysSinceUpload <= 10;
+    const stockClass = getProductStockClass(product);
+    const isFavActive = favorites.has(String(product.id)) ? 'active' : '';
+    const productId = escapeHtml(product.id);
+    const productName = escapeHtml(product.name);
+    const productPrice = escapeHtml(product.price);
+    const productImage = escapeHtml(product.img || './img/colpick.png');
+    const cardTitle = escapeHtml(`${isNew ? 'ÚJ! ' : ''}${product.name || 'Termék'}`);
+
+    return `
+      <div class="kartya" title="${cardTitle}">
+        <div class="kartya-img-container">
+          <img src="${productImage}" alt="${productName}" class="kartyakep" loading="lazy">
+          ${isNew ? '<span class="new">ÚJ!</span>' : ''}
+          <svg data-id="${productId}" class="star ${isFavActive}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.2691 4.41115C11.5006 3.89177 11.6164 3.63208 11.7776 3.55211C11.9176 3.48263 12.082 3.48263 12.222 3.55211C12.3832 3.63208 12.499 3.89177 12.7305 4.41115L14.5745 8.54808C14.643 8.70162 14.6772 8.77839 14.7302 8.83718C14.777 8.8892 14.8343 8.93081 14.8982 8.95929C14.9705 8.99149 15.0541 9.00031 15.2213 9.01795L19.7256 9.49336C20.2911 9.55304 20.5738 9.58288 20.6997 9.71147C20.809 9.82316 20.8598 9.97956 20.837 10.1342C20.8108 10.3122 20.5996 10.5025 20.1772 10.8832L16.8125 13.9154C16.6877 14.0279 16.6252 14.0842 16.5857 14.1527C16.5507 14.2134 16.5288 14.2807 16.5215 14.3503C16.5132 14.429 16.5306 14.5112 16.5655 14.6757L17.5053 19.1064C17.6233 19.6627 17.6823 19.9408 17.5989 20.1002C17.5264 20.2388 17.3934 20.3354 17.2393 20.3615C17.0619 20.3915 16.8156 20.2495 16.323 19.9654L12.3995 17.7024C12.2539 17.6184 12.1811 17.5765 12.1037 17.56C12.0352 17.5455 11.9644 17.5455 11.8959 17.56C11.8185 17.5765 11.7457 17.6184 11.6001 17.7024L7.67662 19.9654C7.18404 20.2495 6.93775 20.3915 6.76034 20.3615C6.60623 20.3354 6.47319 20.2388 6.40075 20.1002C6.31736 19.9408 6.37635 19.6627 6.49434 19.1064L7.4341 14.6757C7.46898 14.5112 7.48642 14.429 7.47814 14.3503C7.47081 14.2807 7.44894 14.2134 7.41394 14.1527C7.37439 14.0842 7.31195 14.0279 7.18708 13.9154L3.82246 10.8832C3.40005 10.5025 3.18884 10.3122 3.16258 10.1342C3.13978 9.97956 3.19059 9.82316 3.29993 9.71147C3.42581 9.58288 3.70856 9.55304 4.27406 9.49336L8.77835 9.01795C8.94553 9.00031 9.02911 8.99149 9.10139 8.95929C9.16534 8.93081 9.2226 8.8892 9.26946 8.83718C9.32241 8.77839 9.35663 8.70162 9.42508 8.54808L11.2691 4.41115Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div class="kartya-info">
+          <h2 class="kartya-nev">${productName}</h2>
+          <p class="kartya-ar">${productPrice}</p>
+          ${renderAvailabilityIndicator(stockClass)}
+        </div>
+        <button type="button" class="add-to-cart-btn" data-add-to-cart data-product-id="${productId}">Listába</button>
+      </div>
+    `;
+  }).join('');
+
+  container.insertAdjacentHTML('beforeend', cards);
+}
+
 async function loadRandomProducts(count = 3) {
   const container = document.querySelector('.kartya-container');
-  if (!container) return; 
+  if (!container) return;
 
   try {
     const response = await fetch('./products.json');
     if (!response.ok) throw new Error(`Unable to load products: ${response.status}`);
+
     const products = await response.json();
-    products.forEach((product) => productCatalog.set(String(product.id), product));
-    
-    if (products.length === 0) return;
+    if (!Array.isArray(products)) throw new Error('The product catalogue must be an array.');
 
-    // Helper to shuffle any array randomly (Fisher-Yates)
-    const shuffleArray = (arr) => {
-      const copy = [...arr];
-      for (let i = copy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [copy[i], copy[j]] = [copy[j], copy[i]];
-      }
-      return copy;
-    };
-
-    // Separate items into "New" (uploaded < 10 days ago) and "Regular" pools
-    const newItems = [];
-    const regularItems = [];
-
-    products.forEach(product => {
-      const daysSinceUpload = (Date.now() - new Date(product.uploaded).getTime()) / 86400000;
-      if (daysSinceUpload < 10) {
-        newItems.push(product);
-      } else {
-        regularItems.push(product);
-      }
-    });
-
-    let finalSelection = [];
-
-    // Prioritize: Guarantee at least 1 new item if any exist
-    if (newItems.length > 0) {
-      const shuffledNew = shuffleArray(newItems);
-      // Grab 1 guaranteed new item
-      finalSelection.push(shuffledNew[0]);
-      
-      // Put the rest of the new items together with regular items to fill remaining slots randomly
-      const remainingPool = shuffleArray([...shuffledNew.slice(1), ...regularItems]);
-      finalSelection = finalSelection.concat(remainingPool.slice(0, count - 1));
-    } else {
-      // Fallback if there are completely no new items in the JSON file
-      finalSelection = shuffleArray(products).slice(0, count);
-    }
-
-    // Final shuffle so the guaranteed new item isn't always stuck sitting in the first position
-    // finalSelection = shuffleArray(finalSelection);
-
-    // Render loop
-    finalSelection.forEach((product) => {
-      const daysSinceUpdate = (Date.now() - new Date(product.lastUpdated).getTime()) / 86400000;
-      let stockClass = 'uncertain';
-      if (daysSinceUpdate <= 10 && product.status === 'van') stockClass = 'stock';
-      else if (daysSinceUpdate <= 10 && product.status === 'nincs') stockClass = 'unavailable';
-
-      const daysSinceUpload = (Date.now() - new Date(product.uploaded).getTime()) / 86400000;
-      const isFavActive = favorites.has(String(product.id)) ? 'active' : '';
-
-      // FŐOLDAL -------------------------------------------
-      container.insertAdjacentHTML('beforeend', `
-        <div class="kartya" title="${daysSinceUpload < 10 ? 'ÚJ! ' + product.name : product.name}">
-        <a href="">
-          <div class="kartya-img-container">
-            <img src="${product.img}" alt="Termék kép" class="kartyakep">
-            ${daysSinceUpload < 10 ? '<span class="new">ÚJ!</span>' : ''}
-            <svg data-id="${product.id}" class="star ${isFavActive}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M11.2691 4.41115C11.5006 3.89177 11.6164 3.63208 11.7776 3.55211C11.9176 3.48263 12.082 3.48263 12.222 3.55211C12.3832 3.63208 12.499 3.89177 12.7305 4.41115L14.5745 8.54808C14.643 8.70162 14.6772 8.77839 14.7302 8.83718C14.777 8.8892 14.8343 8.93081 14.8982 8.95929C14.9705 8.99149 15.0541 9.00031 15.2213 9.01795L19.7256 9.49336C20.2911 9.55304 20.5738 9.58288 20.6997 9.71147C20.809 9.82316 20.8598 9.97956 20.837 10.1342C20.8108 10.3122 20.5996 10.5025 20.1772 10.8832L16.8125 13.9154C16.6877 14.0279 16.6252 14.0842 16.5857 14.1527C16.5507 14.2134 16.5288 14.2807 16.5215 14.3503C16.5132 14.429 16.5306 14.5112 16.5655 14.6757L17.5053 19.1064C17.6233 19.6627 17.6823 19.9408 17.5989 20.1002C17.5264 20.2388 17.3934 20.3354 17.2393 20.3615C17.0619 20.3915 16.8156 20.2495 16.323 19.9654L12.3995 17.7024C12.2539 17.6184 12.1811 17.5765 12.1037 17.56C12.0352 17.5455 11.9644 17.5455 11.8959 17.56C11.8185 17.5765 11.7457 17.6184 11.6001 17.7024L7.67662 19.9654C7.18404 20.2495 6.93775 20.3915 6.76034 20.3615C6.60623 20.3354 6.47319 20.2388 6.40075 20.1002C6.31736 19.9408 6.37635 19.6627 6.49434 19.1064L7.4341 14.6757C7.46898 14.5112 7.48642 14.429 7.47814 14.3503C7.47081 14.2807 7.44894 14.2134 7.41394 14.1527C7.37439 14.0842 7.31195 14.0279 7.18708 13.9154L3.82246 10.8832C3.40005 10.5025 3.18884 10.3122 3.16258 10.1342C3.13978 9.97956 3.19059 9.82316 3.29993 9.71147C3.42581 9.58288 3.70856 9.55304 4.27406 9.49336L8.77835 9.01795C8.94553 9.00031 9.02911 8.99149 9.10139 8.95929C9.16534 8.93081 9.2226 8.8892 9.26946 8.83718C9.32241 8.77839 9.35663 8.70162 9.42508 8.54808L11.2691 4.41115Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
-            </div>
-          <div class="kartya-info">
-            <h2 class="kartya-nev">${product.name}</h2>
-            <p class="kartya-ar">${product.price}</p>
-            ${renderAvailabilityIndicator(stockClass)}
-          </div>
-          <button type="button" class="add-to-cart-btn" data-add-to-cart data-product-id="${product.id}">Listába</button>
-        </a>
-          </div>
-      `);
-    });
+    homeProducts = products.filter((product) => product && product.id != null);
+    homeProducts.forEach((product) => productCatalog.set(String(product.id), product));
+    defaultHomeProducts = chooseDefaultProducts(homeProducts, count);
+    renderHomeProducts();
   } catch (error) {
-    console.error('Could not load prioritized random products.', error);
+    console.error('Could not load products.', error);
+    container.replaceChildren();
+    const message = document.createElement('p');
+    message.className = 'search-no-results';
+    message.setAttribute('role', 'status');
+    message.textContent = 'A termékeket most nem sikerült betölteni.';
+    container.appendChild(message);
   }
 }
 
@@ -537,24 +685,6 @@ function initializeCart() {
   updateCart();
 }
 
-function normalizeProductName(name) {
-  if (!name) return "";
-
-  return name
-    .toLowerCase()                         // 1. Handle case mismatches (e.g., "Coca-Cola" -> "coca-cola")
-    .replace(/[-_.,]/g, " ")               // 2. Turn dashes/punctuation into clean spaces
-    .split(/\s+/)                          // 3. Split into individual words, ignoring extra whitespace
-    .filter(word => word.length > 0)       // 4. Remove empty strings caused by double spaces
-    .sort()                                // 5. Sort alphabetically so word order doesn't matter
-    .join(" ");                            // 6. Glue them back together with single spaces
-}
-
-// Quick test to see how it handles variations:
-console.log(normalizeProductName("Coca-Cola 2L"));  // Output: "2l coca cola"
-console.log(normalizeProductName("2L  coca cola")); // Output: "2l coca cola"
-console.log(normalizeProductName("coca-cola, 2l")); // Output: "2l coca cola"
-
-
 // TEMP ADMIN SIGN-IN START: remove this block and its two marked hooks when ready.
 // Demo-only credentials. This check runs in the browser, so it is not
 // suitable for protecting real or sensitive account data.
@@ -582,6 +712,9 @@ function initializeTemporaryAdminSignIn() {
     event?.preventDefault();
     if (usernameInput.value.trim() !== TEMP_ADMIN_USERNAME || passwordInput.value !== TEMP_ADMIN_PASSWORD) {
       alert('Hibás felhasználónév vagy jelszó.');
+      usernameInput.value="";
+      passwordInput.value="";
+      usernameInput.focus();
       return;
     }
 

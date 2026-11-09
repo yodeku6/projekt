@@ -1740,3 +1740,16 @@ body.cart-open {
     font-size: 1.1rem;
     text-align: center;
 } */
+.kartya-container .kartya {
+    cursor: default;
+}
+
+.search-no-results, .fav-search-no-results {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 2rem 1rem;
+    color: var(--accent);
+    text-align: center;
+    font-size: 2rem;
+    color: var(--hr);
+}
