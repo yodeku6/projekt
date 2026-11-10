@@ -13,10 +13,10 @@
     <header>
         <nav class="navbar">
             <ul class="nav-menu">
-                <li><a href="./index.html">Kezdőlap</a></li>
+                <li><a href="./index.html">Főoldal</a></li>
                 <li><a href="./favorites.html">Kedvencek</a></li>
-                <li>
-                    <div class="overlay-container" style="width: 4.5rem; margin-left: 75rem;">
+                <li class="nav-account">
+                    <div class="overlay-container">
                         <div id="myNav" class="overlay">
                             <div class="overlay-content">
                                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -27,14 +27,15 @@
                                 <label for="password" class="sign-in-req">Jelszó:</label>
                                     <input type="password" name="password" id="password" class="sign-in-input">
                                 <button type="submit" class="sign-in-btn">Bejelentkezés</button>
+                                <p class="sign-up">Nincs még fiókod? <a href="" class="sign-up-a">Regisztrálj itt!</a></p>
                             </div>
                         </div>
-                          <img src="./img/svg/fiok.svg" alt="" style="width: 4.5rem; cursor: pointer;" onclick="openNav()" id="fiok" title="Fiók">
+                          <img src="./img/svg/fiok.svg" alt="" onclick="openNav()" id="fiok" title="Fiók">
                         <!-- Add more admin menu links inside this dropdown as needed. -->
                         <div id="accountDropdown" class="user-dropdown" role="menu" hidden>
                             <p class="user-dropdown-title">@username</p>
                             <span class="trust-badge">🏅 BIZALOM</span>
-                            <button type="button" role="menuitem" onclick="alert('Settings coming soon.')">Beállítások</button>
+                            <button type="button" role="menuitem" onclick="alert('Settings coming soon.')">Fiók Beállítások</button>
                             <a role="menuitem" href="./upload.html">Termék feltöltés</a>
                             <hr class="dropdown-hr">
                             <button type="button" role="menuitem" onclick="signOut()" class="sign-out">Kijelentkezés</button>
@@ -44,7 +45,7 @@
                 <div class="vert-divider"></div>
                 <li id="lista-icon">
                     <a href="#kosar" aria-label="Lista megnyitása">
-                        <img src="./img/svg/lista.svg" alt="Lista" style="width: 4rem;" title="Bevásárlólista megtekintése">
+                        <img src="./img/svg/lista.svg" alt="Lista" class="nav-list-icon" title="Bevásárlólista megtekintése">
                     </a>
                     <span class="cart-item-count" aria-live="polite">0</span>
                 </li>
@@ -116,12 +117,15 @@
 
         <div class="ar-container">
             <!-- <h3>Ár</h3><p>min<input type="range" min="1000" max="20000" value="11000" class="ar">max</p> -->
-            <h3>Ár</h3>
+            <h3>Ár</h3> 
             <div>
             <input type="number" name="ar-min" id="ar-min" placeholder="Min Ft" class="ar-input">
             <span class="dash"> — </span>
             <input type="number" name="ar-max" id="ar-max" placeholder="Max Ft" class="ar-input">
             </div>
+            <div>
+            <button class="ar-kereses" id="ar-kereses">Keresés</button>
+        </div>
         </div>
 
         <hr class="szuro-hr">
@@ -153,34 +157,33 @@
             <hr class="szuro-hr">
 
             <div class="raktar-container">
-            <h3>Raktári elérhetőség</h3> <br>
-            <div class="raktar-szuro">
-            <label for="elerheto">
-                <div class="kor" style="background-color: #55C878">
-                    <input type="checkbox" name="elerheto" id="elerheto" class="checkbox" checked>
-                </div>
-                <!-- <p class="raktari-elerhetoseg-p">Elérhető</p> -->
-            </label>
+                <h3>Raktári elérhetőség</h3> <br>
+                <div class="raktar-options">
+                    <label for="elerheto">
+                        <div class="kor stock scale-up">
+                            <input type="checkbox" name="elerheto" id="elerheto" class="checkbox" checked>
+                        </div>
+                        <span class="raktari-elerhetoseg-p">Elérhető</span>
+                    </label>
 
-            <label for="bizonytalan">
-                <div class="kor" style="background-color: #E8C84A">
-                    <input type="checkbox" name="bizonytalan" id="bizonytalan" class="checkbox" checked>
-                </div>
-                <!-- <p class="raktari-elerhetoseg-p">Bizonytalan</p> -->
-            </label>
+                    <label for="bizonytalan">
+                        <div class="kor uncertain scale-up">
+                            <input type="checkbox" name="bizonytalan" id="bizonytalan" class="checkbox" checked>
+                        </div>
+                        <span class="raktari-elerhetoseg-p">Bizonytalan</span>
+                    </label>
 
-            <label for="nem-elerheto">
-                <div class="kor" style="background-color: #E06B6B">
-                    <input type="checkbox" name="nem-elerheto" id="nem-elerheto" class="checkbox" checked>
+                    <label for="nem-elerheto">
+                        <div class="kor unavailable scale-up">
+                            <input type="checkbox" name="nem-elerheto" id="nem-elerheto" class="checkbox" checked>
+                        </div>
+                        <span class="raktari-elerhetoseg-p">Nem elérhető</span>
+                    </label>
                 </div>
-                <!-- <p class="raktari-elerhetoseg-p">Nem elérhető</p> -->
-            </label>
         </div>
     </div>
     </div>
     </div>
-    </div>
-
 </div>
     </main>
     <footer>

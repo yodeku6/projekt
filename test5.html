@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+#drop-zone {
+  width: 400px;
+  height: 250px;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9f9f9;
+  transition: all 0.3s ease;
+  font-family: sans-serif;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden; /* Keeps the preview image contained */
+}
+
+#drop-zone.drag-over {
+  border-color: #007bff;
+  background-color: #e6f2ff;
+}
+
+#file-input {
+  display: none;
+}
+
+/* Styles for the preview image */
+.preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Makes the image fill the box nicely */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+    </style>
+    
+</head>
+<body>
+    <div id="drop-zone">
+        <!-- We wrap the content in a container so we can hide text when an image shows -->
+        <div id="drop-zone-prompt">
+          <strong>Choose an image</strong> or drag it here
+        </div>
+        <!-- Hidden standard file input (Notice: 'multiple' is removed, added 'accept') -->
+        <input type="file" id="file-input" accept="image/*" />
+      </div>
+
+      
+      <script>
+        const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+const promptText = document.getElementById('drop-zone-prompt');
+
+// 1. Open file picker when clicking the drop zone
+dropZone.addEventListener('click', () => fileInput.click());
+
+// 2. Drag and drop visual effects
+dropZone.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  dropZone.classList.add('drag-over');
+});
+
+dropZone.addEventListener('dragleave', () => {
+  dropZone.classList.remove('drag-over');
+});
+
+// 3. Handle dropped files
+dropZone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+
+  const files = e.dataTransfer.files;
+  if (files.length > 0) {
+    handleSingleImage(files[0]); // Only take the first file
+  }
+});
+
+// 4. Handle clicked/selected files
+fileInput.addEventListener('change', (e) => {
+  const files = e.target.files;
+  if (files.length > 0) {
+    handleSingleImage(files[0]); // Only take the first file
+  }
+});
+
+// 5. Read the image file and show the preview
+function handleSingleImage(file) {
+  // Security check: Make sure it's actually an image
+  if (!file.type.startsWith('image/')) {
+    alert('Please upload an image file only.');
+    return;
+  }
+
+  const reader = new FileReader();
+
+  // This fires once the browser finishes reading the file
+  reader.onload = function(event) {
+    // Remove any existing preview image first
+    const existingImg = dropZone.querySelector('.preview-img');
+    if (existingImg) existingImg.remove();
+
+    // Create a new image element
+    const img = document.createElement('img');
+    img.src = event.target.result; // This is the image data
+    img.classList.add('preview-img');
+
+    // Hide the prompt text and show the image inside the dropzone
+    promptText.style.display = 'none';
+    dropZone.appendChild(img);
+  };
+
+  // Convert image file into a usable data string URL
+  reader.readAsDataURL(file);
+}
+</script>
+</body>
+</html>

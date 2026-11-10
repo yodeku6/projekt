@@ -13,10 +13,10 @@
         <header>
             <nav class="navbar">
                 <ul class="nav-menu">
-                    <li><a href="./index.html">Kezdőlap</a></li>
+                    <li><a href="./index.html">Főoldal</a></li>
                     <li><a href="./favorites.html">Kedvencek</a></li>
-                    <li>
-                        <div class="overlay-container" style="width: 4.5rem; margin-left: 75rem;">
+                    <li class="nav-account">
+                        <div class="overlay-container">
                             <div id="myNav" class="overlay">
                                 <div class="overlay-content">
                                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -29,11 +29,11 @@
                                     <button type="submit" class="sign-in-btn">Bejelentkezés</button>
                                 </div>
                               </div>
-                              <img src="./img/svg/fiok.svg" alt="" style="width: 4.5rem; cursor: pointer;" onclick="openNav()" id="fiok" title="Fiók">
+                              <img src="./img/svg/fiok.svg" alt="" onclick="openNav()" id="fiok" title="Fiók">
                             </div>
                     </li>
                     <div class="vert-divider"></div>
-                    <li><a href="https://www.google.com/"><img src="./img/svg/lista.svg" alt="Lista" style="width: 4rem;" title="Lista megtekintése"></a></li>
+                    <li><a href="https://www.google.com/"><img src="./img/svg/lista.svg" alt="Lista" class="nav-list-icon" title="Lista megtekintése"></a></li>
                 </ul>
                 <a href="./index.html">
                     <h1 class="alternating-text" title="Ugrás a főoldalra">
@@ -45,18 +45,22 @@
         <!-- <hr class="divider"> -->
         </header>
     <div class="termek-container">
-        <div class="termek-kep">
-            <label for="feltoltes" class="img-upload">
+        <div class="termek-kep" title="Kattints, vagy húzz ide képet a feltöltéséhez">
+            <label for="feltoltes" class="img-upload" >
                 <!-- A szöveg, ami a gomb belsejében lesz -->
-                <p>Kép feltöltése</p>
+                <svg class="upload-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" id="Upload--Streamline-Outlined-Material" height="24" width="24">
+                    <path fill="#000000" d="M11.25 16.175V6.9l-3 3 -1.075 -1.075L12 4l4.825 4.825 -1.075 1.075 -3 -3v9.275h-1.5ZM5.5 20c-0.4 0 -0.75 -0.15 -1.05 -0.45 -0.3 -0.3 -0.45 -0.65 -0.45 -1.05v-3.575h1.5V18.5h13v-3.575h1.5V18.5c0 0.4 -0.15 0.75 -0.45 1.05 -0.3 0.3 -0.65 0.45 -1.05 0.45H5.5Z" stroke-width="0.5"></path>
+                  </svg>
+                <p class="margin-0">Kattints, vagy húzz ide képet a feltöltéséhez</p>
+                <span class="feltoltes-max">Maximum feltöltési méret 5 MB</span>
               
                 <!-- A tényleges input, amit elrejtünk -->
-                <input type="file" id="feltoltes" class="hide">
+                <input type="file" id="feltoltes" class="hide" accept="image/*" >
               </label>
             </div>
         <div class="termek">
             <div class="termek-nev">
-                <input type="search" class="nev-megadas" placeholder="Név megadása" required>
+                <input type="search" class="nev-megadas" placeholder="Név megadása" title="Add meg a termék nevét" required>
             </div>
             <hr class="termek-hr">
             <div class="termek-infok">
@@ -71,7 +75,7 @@
                     <div class="raktar">
                         <div class="raktar-upload-container left">
                         <label for="elerheto">
-                            <div class="kor" style="background-color: #55C878">
+                            <div class="kor stock">
                                 <input type="radio" name="status" id="elerheto" class="checkbox" checked>
                             </div>
                             <p>Elérhető</p>
@@ -80,62 +84,66 @@
                         
                         <div class="raktar-upload-container right">
                         <label for="nem-elerheto">
-                            <div class="kor" style="background-color: #E06B6B">
+                            <div class="kor unavailable">
                                 <input type="radio" name="status" id="nem-elerheto" class="checkbox">
                             </div>
                             <p>Nem elérhető</p>
                         </label>
                     </div>
                     </div>
-                </form>                   
-
-
-                    </div>
-                    <input type="text" class="termek-leiras" placeholder="Leírás"></input>
-                    <div class="ar-ertekeles">
-                       
-                        <div class="ar">
-                            <div class="adatok">
-                                <input type="number" name="" id="" placeholder="Termék ára" required>
-                            </div>
-                        </div>
-                       
-                        <div class="ertekeles">
-                            <input type="number" name="" id="" step="0.1" placeholder="0.0"> <p>/ 10</p>
-                        </div>
-                        </div>
+                    
                 </div>
-                <!-- <div class="kommentek-container">
-                    <div class="komment">
-                        <img src="./img/png.png" alt="" class="komment-pfp">
-                        <div class="komment-tartalom">
-                            <p class="komment-nev">Név</p>
-                            <p>Ez a kolbász undi!</p>
+                <textarea name="leiras" class="termek-leiras" placeholder="Ide írhatsz a termékről információt, esetleg személyes véleményt"></textarea>
+                <div class="ar-ertekeles">
+                    
+                    <div class="ar">
+                        <div class="feltoltes-adatok">
+                            <p>Termék ára:</p>
+                            <input type="number" name="" id="" required title="Add meg a termék árát" class="ar-feltoltes" max="10" maxlength="2" required> Ft
+                            <label for="kgAr" title="Ha a termék súly alapú">
+                                <input type="checkbox" name="kgAr" id="kgAr">per kg?
+                            </label>
                         </div>
                     </div>
-                    <div class="komment">
-                        <img src="./img/funfact.png" alt="" class="komment-pfp">
-                        <div class="komment-tartalom">
-                            <p class="komment-nev">Fülemüle</p>
-                            <p>Ez a kolbász finom!</p>
-                        </div>
-                    </div>
-                    <div class="komment">
-                        <img src="./img/koni.ico" alt="" class="komment-pfp">
-                        <div class="komment-tartalom">
-                            <p class="komment-nev">Név</p>
-                            <p>Ez a kolbász nem undi!</p>
-                        </div>
-                    </div>
-                </div> -->
-                <p class="upload-warning">A termék feltöltésekor mentjük a képet és a termékadatokat. Ezt követően a termék ellenőrzés alá kerül, majd a jóváhagyás után a termék adatlapja és az Ön profilja is láthatóvá válik az oldalon. Felhívjuk figyelmét, hogy a BAZÁR kizárólag a platformot biztosítja, így a termékekért felelősséget nem vállal.</p>
-                <div class="btn-container">
-                    <div class="listaba-container">
-                        Termék feltöltése
+                    
+                    <div class="ertekeles">
+                        <p>Termék értékelése:</p>
+                        <input type="number" name="ertekeles" id="" title="Személyes értékelés" step="0.1" placeholder="0.0" min="0" max="10" class="space-left"> <p>/ 10</p>
                     </div>
                 </div>
             </div>
+        </form>                   
+            <!-- <div class="kommentek-container">
+                <div class="komment">
+                    <img src="./img/png.png" alt="" class="komment-pfp">
+                    <div class="komment-tartalom">
+                        <p class="komment-nev">Név</p>
+                        <p>Ez a kolbász undi!</p>
+                    </div>
+                </div>
+                <div class="komment">
+                    <img src="./img/funfact.png" alt="" class="komment-pfp">
+                    <div class="komment-tartalom">
+                        <p class="komment-nev">Fülemüle</p>
+                        <p>Ez a kolbász finom!</p>
+                    </div>
+                </div>
+                <div class="komment">
+                    <img src="./img/koni.ico" alt="" class="komment-pfp">
+                    <div class="komment-tartalom">
+                        <p class="komment-nev">Név</p>
+                        <p>Ez a kolbász nem undi!</p>
+                    </div>
+                </div>
+            </div> -->
+            <p class="upload-warning">A termék feltöltésekor mentjük a képet és a termékadatokat. Ezt követően a termék ellenőrzés alá kerül, majd a jóváhagyás után a termék adatlapja és a profilod is láthatóvá válik az oldalon. Felhívjuk figyelmed, hogy a BAZÁR kizárólag a platformot biztosítja, így a termékekért felelősséget nem vállal.</p>
+            <div class="btn-container">
+                <div class="listaba-container">
+                    Termék feltöltése
+                </div>
+            </div>
         </div>
+    </div>
     </div>
     </div>
 </body>

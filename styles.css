@@ -30,6 +30,14 @@
     --star: rgb(255, 204, 0);
     --new: rgb(59, 255, 59);
     --error: #df0000;
+    --secondary: #b5b5b5;
+}
+
+* {
+    /* margin: 0; */
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'DM Sans', sans-serif;
 }
 
 @font-face {
@@ -42,7 +50,6 @@
 
 body{
     background-color: var(--bg-color);
-    font-family: "DM Sans", sans-serif;
     color: var(--text);
 }
 
@@ -130,6 +137,26 @@ a {
     display: block;
 }
 
+.space-left {
+    margin-left: 1rem;
+}
+
+.space-right {
+    margin-right: 1rem;
+}
+
+.space-up {
+    margin-top: 1rem;
+}
+
+.space-down {
+    margin-bottom: 1rem;
+}
+
+.margin-0 {
+    margin: 0;
+}
+
 .main-container {
     max-width: 1800px;
     margin-left: auto;
@@ -151,21 +178,38 @@ a {
     align-items: start;
 }
 
-.ajanlottak { 
+.ajanlottak{ 
     /* margin-left: 5rem; */
     /* margin-right: auto; */
     /* width: 95%;  */
     background-color: var(--navbar);
     /* border-radius: 1rem; */
     border: 0.15rem var(--accent) solid;
-    height: 75rem;
-    overflow: hidden;
-    overflow-y: scroll;
-    box-sizing: content-box;
+    height: 77.5rem;
+    min-width: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) var(--navbar);
 }
 
-.ajanlottak::-webkit-scrollbar, .kedvencek::-webkit-scrollbar {
-    display: none;
+.ajanlottak::-webkit-scrollbar{
+    width: 0.75rem;
+}
+
+.ajanlottak::-webkit-scrollbar-track {
+    background: var(--navbar);
+}
+
+.ajanlottak::-webkit-scrollbar-thumb {
+    background-color: var(--accent);
+    border: 0.2rem solid var(--navbar);
+    border-radius: 999px;
+}
+
+.ajanlottak::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text);
 }
 
 
@@ -207,6 +251,36 @@ a {
     font-size: 1.5rem;
     gap: 2rem;
     font-weight: 400;
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    padding: 0 2rem;
+    box-sizing: border-box;
+}
+
+.nav-account {
+    margin-left: auto;
+}
+
+.nav-account .overlay-container {
+    width: 4.5rem;
+}
+
+.nav-account img,
+#lista-icon img,
+.nav-list-icon {
+    display: block;
+    height: auto;
+}
+
+.nav-account img {
+    width: 4.5rem;
+    cursor: pointer;
+}
+
+#lista-icon img,
+.nav-list-icon {
+    width: 4rem;
 }
 
 .nav-menu a {
@@ -254,7 +328,7 @@ a {
 }
 
 .kereso::placeholder {
-    color: #929292;
+    color: var(--accent);
 }
 
 .alternating-text span:nth-of-type(odd) {
@@ -307,11 +381,11 @@ a {
 
 .szurok-h2 {
     text-align: center;
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: 1000;
     background-color: var(--accent);
     margin: 0;
-    padding: 2.2rem;
+    padding: 1.5rem;
     font-family: sans-serif;
 }
 
@@ -347,13 +421,13 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;     
-    gap: 10px;               
+    gap: 1rem;               
     width: auto;
 }
 
 .ar-input {
     margin-top: 0.5rem;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
     width: 7rem;
     height: 2rem;
     text-align: center;
@@ -363,6 +437,20 @@ a {
     /* box-shadow: 0 0 0.25rem 0.05rem black; */
     border: solid var(--accent) 0.15rem;
     border-color: var(--secondary-accent);
+}
+
+.ar-kereses {
+    margin: 0;
+    width: 10rem;
+    height: 2.5rem;
+    background-color: var(--sign-in-btn);
+    border: 0.15rem solid var(--accent);
+    border-radius: 0.25rem;
+}
+
+.ar-kereses:hover {
+    background-color: var(--sign-in-btn-hover);
+    cursor: pointer;
 }
 
 .kategoriak-container {
@@ -375,6 +463,10 @@ a {
     margin-left: 1rem;
     margin-bottom: 1rem;
     line-height: 2rem;
+    height: 7.5rem;
+    overflow: hidden;
+    overflow-y: scroll;
+    box-sizing: content-box;
 }
 
 .kategoriak input {
@@ -394,7 +486,8 @@ a {
 
 .dash {
     display: inline-block;
-    transform: translateY(-0.5rem);
+    align-items: center;
+    /* transform: translateY(-0.5rem); */
 }
 
 .nav-svg {
@@ -409,25 +502,29 @@ a {
     /* margin-left: 1.5rem; */
 }
 
-.raktar-szuro {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 4.5rem;
-    /* background-color: var(--szurok); */
-    margin: 0;
+.raktar-options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-items: center;
+    gap: 0.5rem;
+    margin: 0 auto;
+    max-width: 28rem;
 }
 
-.raktari-elerhetoseg-p {
-    font-size: 1rem;
-    text-align: center;
-    position: absolute;
+.raktar-options label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.55rem;
+    min-width: 0;
+    cursor: pointer;
 }
+
 
 .kor {
     width: 2.75rem;
     height: 2.75rem;
-    flex: 0 0 2.5rem;
+    /* flex: 0 0 2.5rem; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -435,6 +532,13 @@ a {
     border-radius: 50%;
     user-select: none;
     box-shadow: 0 2px 5px rgba(23, 19, 23, 0.12), inset 0 0 0 2px rgba(255, 255, 255, 0.7);
+}
+
+.raktari-elerhetoseg-p {
+    font-size: 0.85rem;
+    text-align: center;
+    margin: 0;
+    white-space: nowrap;
 }
 
 .availability-icon {
@@ -500,7 +604,6 @@ a {
     height: 100%;
     min-height: 18rem; 
     border-radius: 0.25rem;
-    cursor: pointer;
     user-select: none;
     width: 100%;
     max-width: 18rem; 
@@ -520,6 +623,11 @@ a {
     border: 0.125rem solid var(--accent);
 }
 
+.kartya:hover .kartya-ar {
+    /* transform: scale(1.05); */
+    text-decoration: none !important;
+}
+
 .kartya:hover img {
     transform: scale(1.05);
 }
@@ -529,6 +637,7 @@ a {
     height: 12rem; 
     object-fit: cover;
     border-radius: 0.25rem;
+    cursor: pointer;
     /* margin-bottom: 1rem; */
 }
 
@@ -634,11 +743,10 @@ a {
     min-height: 2.4em;
 }
 
-.raktar {
-    text-align: right;
-    color: green;
+.kartya-nev:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
-
 
 .termek-container {
     display: flex;
@@ -646,13 +754,16 @@ a {
 }
 
 .termek-kep {
+    position: relative;
     display: flex;
-    background-color: red;
+    background-color: var(--secondary);
     width: 75rem;
     height: 50rem;
     text-align: center;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .termek {
@@ -677,13 +788,13 @@ a {
 }
 
 .termek-infok {
-    background-color: gray;
     width: 90%;
     margin-left: auto;
     margin-right: auto;
     height: 25rem;
     display: flex;
     flex-direction: column;
+    border: 0.1rem solid var(--secondary-accent);
 }
 
 .termek-star{
@@ -728,7 +839,7 @@ a {
 
 .helyszin {
     display: flex;
-    background-color: gray;
+    background-color: var(--secondary);
     width: 30rem;
     height: 5rem;
     font-size: 2rem;
@@ -740,7 +851,7 @@ a {
 
 .raktar {
     margin-left: auto;
-    background-color: green;
+    background-color: var(--accent);
     color: white;
     display: flex;
     align-items: center;
@@ -756,7 +867,7 @@ a {
     border-radius: 0.25rem;
 }
 
-.raktar-container .raktar-szuro, .raktar-container .kor {
+.raktar-container .raktar-options, .raktar-container .kor {
     margin: 0; 
 }
 
@@ -764,6 +875,15 @@ a {
     font-size: 2rem;
     flex: 1;
     text-align: left;
+}
+
+.feltoltes-adatok {
+    font-size: 2rem;
+    flex: 1;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
 }
 
 .frissites {
@@ -780,14 +900,18 @@ a {
     padding: 1rem;
     height: 15rem;
     text-align: justify;
-    background-color: pink;
+    background-color: var(--card);
     font-weight: 500;
     outline: none;
     border: none;
+    display: flex;
+    align-items: flex-start; 
+    resize: none;
+    font-family: 'DM Sans';
 }
 
 .termek-leiras::placeholder {
-    top: 0;
+
 }
 
 .ar-ertekeles {
@@ -797,7 +921,7 @@ a {
 
 .ertekeles {
     display: flex;
-    background-color: blue;
+    background-color: var(--secondary);
     width: 30rem;
     height: 5rem;
     font-size: 2rem;
@@ -807,12 +931,34 @@ a {
     align-items: center;
 }
 
+.ertekeles input {
+    flex: 0 0 2rem;
+    min-width: 0;
+    margin-left: 1rem;
+    padding: 0rem;
+    border: none;
+    border-radius: 0;
+    background-color: white;
+    color: var(--text);
+    font-size: 1rem;
+    outline: none;
+    margin-right: 1rem;
+    flex-basis: 3rem;
+    padding: 0.5rem;
+}
+
+.ertekeles input::placeholder {
+    color: var(--accent);
+    opacity: 1;
+}
+
 .ar {
     margin-left: auto;
-    background-color: green;
+    background-color: var(--accent);
     color: white;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.75rem;
     height: 5rem;
     width: 30rem;
@@ -1171,6 +1317,23 @@ a {
         display: block;
     }
 
+    .sign-up {
+        margin: 1rem 0 0;
+        padding: 0;
+        display: flex;
+        font-size: 1.25rem;
+    }
+
+    .sign-up-a {
+        margin: 0 0.5rem 0 !important; 
+        padding: 0 !important;
+        font-size: 1.25rem !important;
+        color: var(--secondary-accent) !important;
+    }
+
+    .sign-up-a:hover {
+        color: var(--text) !important;
+    }
 
     .cookie{
         background-color: darkblue;
@@ -1306,24 +1469,9 @@ a {
         transition: 0.1s;
     }
 
-    .bolt-select:hover {
-        color: var(--secondary-accent);
-    }
-
     .bolt-select:focus-visible {
         border: none;
         outline: none;
-    }
-
-    .ertekeles input {
-        padding: 1rem;
-        background: none;
-        border: none;
-        outline: none;
-        background-color: white;
-        width: 1.5rem;
-        font-size: 1rem;
-        margin-right: 1rem;
     }
 
     .raktar-upload-container label {
@@ -1350,6 +1498,31 @@ a {
         padding: 0;
     }
 
+    .ar-feltoltes {
+        margin: 0 1rem 0!important;
+        padding: 0;
+        background: none;
+        border: none;
+        outline: none;
+        width: fit-content;
+        max-width: 5rem;
+        color: var(--text);
+        background-color: var(--bg-color);
+        border-radius: 0;
+        font-size: 1.15rem;
+        text-align: center;
+        height: 2rem;
+    }
+    
+    .ar-feltoltes::placeholder {
+        font-size: 1.5rem;
+        margin: 0;
+        align-items: center;
+    }
+
+    #kgAr {
+        margin-left: 1rem;
+    }
 
     .upload-warning {
         font-size: 1rem;
@@ -1367,12 +1540,54 @@ a {
         display: inline-block;
         font-size: 1.5rem;
         cursor: pointer; 
-        padding: 10rem; 
+        padding: 8rem; 
+        max-width: 35rem;
         background-color: var(--card); 
         border-radius: 2rem;
         font-family: sans-serif;
         font-weight: 500;
         text-align: center;
+        border: 0.15rem var(--accent) dashed;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+        
+    }
+
+    .termek-kep.drag-over {
+        background-color: #e6f2ff;
+        outline: 0.2rem solid #007bff;
+        outline-offset: -0.2rem;
+    }
+
+    .termek-kep.drag-over .img-upload {
+        border-color: #007bff;
+        background-color: #e6f2ff;
+    }
+
+    .preview-img {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background: none;
+    }
+
+    .termek-kep:has(.preview-img) {
+        background: none;
+    }
+    
+    .feltoltes-max {
+        font-size: 1rem;
+        margin: 0;
+        color: var(--accent);
+        font-weight: 300;
+    }
+
+    .upload-svg {
+        width: 7.5rem;
+        height: auto;
     }
     
     /*------------------------------------------------------------------ */
@@ -1400,7 +1615,7 @@ a {
     left: 9px;
     right: 9px;
     width: auto;
-    background: #ddd;
+    background: var(--card);
 }
 
 .fill {
@@ -1473,7 +1688,7 @@ body.cart-open {
     height: 1.35rem;
     padding: 0 0.2rem;
     box-sizing: border-box;
-    background-color: rgb(255, 102, 0);
+    background-color: var(--logo);
     border: 2px solid var(--navbar);
     border-radius: 50%;
     font-size: 0.75rem;
@@ -1610,7 +1825,7 @@ body.cart-open {
 .kosar-mennyiseg {
     display: flex;
     align-items: center;
-    gap: 0.55rem;
+    gap: 0.25rem;
 }
 
 .kosar-mennyiseg-gomb {
@@ -1628,8 +1843,10 @@ body.cart-open {
 }
 
 .kosar-szam {
-    min-width: 1rem;
+    width: 3.25rem;
+    flex: 0 0 3.25rem;
     text-align: center;
+    white-space: nowrap;
 }
 
 .kosar-torles {
