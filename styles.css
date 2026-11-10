@@ -1111,12 +1111,18 @@ a {
     }
     
     .overlay .closebtn {
-        position: absolute;
-        top: -70px;
-        right: 40px;
-        font-size: 60px;
-        cursor: pointer;
-    }
+    position: absolute;
+    top: -25px;
+    right: 40px;
+    font-size: 60px;
+    cursor: pointer;
+    color: #073B83;
+    transition: 0.3s; 
+}
+.overlay .closebtn:hover {
+    color: black; 
+}
+
     
     @media screen and (max-height: 450px) {
         .overlay a {font-size: 20px}
@@ -1129,30 +1135,25 @@ a {
     
     .sign-in {
       width: 100%;
-      height: 6rem;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-      font-size: 4rem;
+      height: 3rem;
+      font-size: 3rem;
       font-weight: 600;
-      border-radius: 1.5rem;
-      color: #FFFFFF;
+      color: #073B83;
       margin-bottom: 3rem;
-      background-color: #073B83;
-      border: 0.125rem solid #1677F8;
+      background-color: #FFFFFF;
       font-weight: bold;
       display: flex;
-      justify-content: center;
+      justify-content: left;
       align-items: center;
 
     }
 
     .sign-in-btn {
         width: 100%;
-        height: 5rem;
+        height: 3rem;
         /* overflow: none; */
         /* bottom: 0; */
         font-size: 2rem;
-        font-weight: bold;
         cursor: pointer;
         border: 0.125rem solid #1677F8;
         border-radius: 1.375rem;
@@ -1182,7 +1183,7 @@ a {
 
     .sign-in-input {
     width: 100%;
-    height: 5rem;
+    height: 2.5rem;
     border: 0.125rem solid #1677F8;
     border-radius: 1.375rem;
     background-color: #FFFFFF;
@@ -1217,21 +1218,20 @@ a {
     align-items: center;
     gap: 1.5rem;
     width: 100%;
-    margin: 1.5625rem 0;
+    margin: 2rem 2rem;
     height: 3rem;
-    font-size: 5;
+    font-size: 2.5;
 }
 
 .login-divider span {
     flex: 1;
-    height: 0.250rem;
+    height: 0.150rem;
     background: #C7DAF5;
 }
 
 .login-divider p {
     color: #0B2F6B;
     font-size: 2rem;
-    font-weight: 600;
     margin: 0;
 }
 
@@ -1244,13 +1244,12 @@ a {
 /* REGISZTRÁCIÓ GOMB */
 .register-btn {
     width: 100%;
-    height: 5rem;
+    height: 3rem;
     border: 0.125rem solid #1677F8;
     border-radius: 1.375rem;
     background-color: #FFFFFF;
     color: #0B2F6B;
     font-size: 2rem;
-    font-weight: bold;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -1856,4 +1855,8 @@ body.cart-open {
     text-align: center;
     font-size: 2rem;
     color: var(--hr);
+}
+.br{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
