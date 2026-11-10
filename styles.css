@@ -947,9 +947,18 @@ a {
 }
 
 .password {
-   border: 0.15rem solid var(--hr);
-   border-radius: 0.3rem;
-   font-size: 1.5rem;
+    width: 100%;
+    height: 4.0625rem;
+    border: 0.125rem solid #1677F8;
+    border-radius: 1.375rem;
+    background-color: #FFFFFF;
+    color: #0B2F6B;
+    font-size: 1.375rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
 }
 .forgot-password {
     text-decoration: none;
@@ -1060,6 +1069,8 @@ a {
     height: 75%;
     width: 30%;
     position: fixed;
+    border: 0.125rem solid #073B83;
+    border-radius: 1.5rem;
     top: 8rem;
     left: 50%;
     transform: translateX(-50%);
@@ -1101,8 +1112,8 @@ a {
     
     .overlay .closebtn {
         position: absolute;
-        top: 20px;
-        right: 45px;
+        top: -70px;
+        right: 40px;
         font-size: 60px;
         cursor: pointer;
     }
@@ -1118,31 +1129,48 @@ a {
     
     .sign-in {
       width: 100%;
-      font-size: 2.5rem;
+      height: 6rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-size: 4rem;
       font-weight: 600;
+      border-radius: 1.5rem;
       color: #FFFFFF;
       margin-bottom: 3rem;
-      background-color: #0B2F6B;
+      background-color: #073B83;
+      border: 0.125rem solid #1677F8;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
     }
 
     .sign-in-btn {
-        width: 60%;
-        max-width: 30rem;
-        margin-top: 2rem;
-        padding: 1rem;
+        width: 100%;
+        height: 5rem;
         /* overflow: none; */
         /* bottom: 0; */
-        font-size: 1.25rem;
-        border: 0.1rem solid var(--secondary-accent);
-        transition: 0.075s ease-in-out;
-        background-color: var(--sign-in-btn);
-        color: #FFFFFF;
+        font-size: 2rem;
+        font-weight: bold;
+        cursor: pointer;
+        border: 0.125rem solid #1677F8;
+        border-radius: 1.375rem;
+        transition: all 0.3s ease;
+        background-color: #FFFFFF;
+        color: #0B2F6B;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.75rem;
     }
 
     .sign-in-btn:hover {
-        background-color: var(--sign-in-btn-hover);
-        cursor: pointer;
-        transform: scale(1.005);
+        background: #1677F8;
+        color: #FFFFFF;
+        box-shadow: 0 0.25rem 0.75rem
+        rgba(22, 119, 248, 0.25);
+    transform: translateY(-0.125rem);
     }
 
     .sign-in-btn:focus-visible {
@@ -1153,17 +1181,18 @@ a {
     }
 
     .sign-in-input {
-        margin: 0 0 1rem 0;
-        padding: 0.75rem;
-        width: 100%;
-        max-width: 30rem;
-        font-size: 1.25rem;
-        border: 0.1rem solid var(--secondary-accent);
-        transition: 0.15s ease-in-out;
-        margin-bottom: 1rem;
-        box-sizing: border-box;
-        background-color: 	#FFFFFF;
-        border-color: #A8C8F5;
+    width: 100%;
+    height: 5rem;
+    border: 0.125rem solid #1677F8;
+    border-radius: 1.375rem;
+    background-color: #FFFFFF;
+    color: #0B2F6B;
+    font-size: 2rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
     }
 
     .sign-in-input:focus {
@@ -1172,11 +1201,11 @@ a {
     }
 
     .sign-in-req {
-        font-size: 1.25rem;
+        font-size: 2rem;
         text-align: left;
         /* margin-left: 2rem; */
         width: 100%;
-        max-width: 30rem;
+        color: #073B83;
         margin-bottom: 0.25rem;
         display: block;
         background-color: 	#FFFFFF;
@@ -1186,21 +1215,23 @@ a {
     .login-divider {
     display: flex;
     align-items: center;
-    gap: 0.9375rem;
+    gap: 1.5rem;
     width: 100%;
     margin: 1.5625rem 0;
+    height: 3rem;
+    font-size: 5;
 }
 
 .login-divider span {
     flex: 1;
-    height: 0.125rem;
+    height: 0.250rem;
     background: #C7DAF5;
 }
 
 .login-divider p {
     color: #0B2F6B;
-    font-size: 1.125rem;
-    font-weight: 500;
+    font-size: 2rem;
+    font-weight: 600;
     margin: 0;
 }
 
@@ -1213,24 +1244,18 @@ a {
 /* REGISZTRÁCIÓ GOMB */
 .register-btn {
     width: 100%;
-    height: 4.0625rem;
-
+    height: 5rem;
     border: 0.125rem solid #1677F8;
     border-radius: 1.375rem;
-
     background-color: #FFFFFF;
     color: #0B2F6B;
-
-    font-size: 1.375rem;
+    font-size: 2rem;
     font-weight: bold;
-
     cursor: pointer;
-
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.75rem;
-
     transition: all 0.3s ease;
 }
 
@@ -1238,10 +1263,8 @@ a {
 .register-btn:hover {
     background: #1677F8;
     color: #FFFFFF;
-
     box-shadow: 0 0.25rem 0.75rem
         rgba(22, 119, 248, 0.25);
-
     transform: translateY(-0.125rem);
 }
 
