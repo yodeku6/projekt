@@ -20,7 +20,7 @@
     --logo: #0B2F6B;
     --szurok: #929090;
     --hr: #C7DAF5;
-    --secondary-accent: #00000080;
+    --secondary-accent: grey;
     --login: #ba181b;
     --register: #000000ca;
     --forgor: #ab4949ca;
@@ -1276,12 +1276,12 @@ a {
     width: 100%;
     height: 3rem;
     border: 0.125rem;
-    padding-top: 2rem;
+    padding-top: 0.5rem;
     border-radius: 1.375rem;
     background-color: #FFFFFF;
+    cursor: pointer;
     color: black;
     font-size: 1rem;
-    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1289,6 +1289,27 @@ a {
     transition: all 0.3s ease;
     opacity: 50%;
 }
+
+.sign-up {
+        margin: 1rem 0 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.25rem;
+        color: #0756B8;
+    }
+
+    .sign-up-a {
+        margin: 0 0.5rem 0 !important; 
+        padding: 0 !important;
+        font-size: 1.25rem !important;
+        color: var(--secondary-accent) !important;
+    }
+
+    .sign-up-a:hover {
+        color: var(--text) !important;
+    }
 
 
     .cookie{
@@ -1870,7 +1891,7 @@ body.cart-open {
     color: var(--accent);
     text-align: center;
     font-size: 2rem;
-    color: var(--hr);
+    
 }
 .br{
     margin-top: 0.5rem;
