@@ -514,7 +514,11 @@ async function initializeCart() {
   }
 
   function updateCartCountBadge() {
-    const totalItems = Math.floor(cartItems.reduce((total, item) => total + item.quantity, 0));
+    const totalItems = cartItems.reduce((total, item) => {
+      // If it's a kilo item, count it as 1; otherwise, add its actual quantity
+      return total + (item.kg ? 1 : item.quantity);
+    }, 0);
+
     cartBadges.forEach((badge) => {
       badge.textContent = totalItems;
       badge.style.visibility = totalItems > 0 ? 'visible' : 'hidden';

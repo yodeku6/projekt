@@ -7,7 +7,8 @@
     --card: #ededed;
     --card-hover: rgb(208, 203, 208);
     --surface: #dadada;
-    --text: #171317;
+    --text: #171717;
+    --secondary-text: #393939;
     --stock: #55C878;
     --stock-border: #337848;
     --stock-color: #173a22;
@@ -539,6 +540,8 @@ a {
     text-align: center;
     margin: 0;
     white-space: nowrap;
+    color: var(--secondary-text);
+    font-weight: 500;
 }
 
 .availability-icon {
@@ -909,10 +912,10 @@ a {
     resize: none;
     font-family: 'DM Sans';
 }
-
+/* 
 .termek-leiras::placeholder {
 
-}
+} */
 
 .ar-ertekeles {
     display: flex;
