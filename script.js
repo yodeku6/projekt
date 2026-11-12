@@ -1,6 +1,12 @@
-﻿const FAVORITES_KEY = 'myFavorites';
+﻿﻿const FAVORITES_KEY = 'myFavorites';
 const COOKIE_CHOICE_KEY = 'cookieElfogadas';
 const CART_STORAGE_KEY = 'cartItems';
+// TEMP ADMIN SIGN-IN START: remove this block and its two marked hooks when ready.
+// Demo-only credentials. This check runs in the browser, so it is not
+// suitable for protecting real or sensitive account data.
+const TEMP_ADMIN_USERNAME = 'admin';
+const TEMP_ADMIN_PASSWORD = 'admin';
+const TEMP_ADMIN_SESSION_KEY = 'temporaryAdminSignedIn';
 const productCatalog = new Map();
 let homeProducts = [];
 let defaultHomeProducts = [];
@@ -386,7 +392,7 @@ function renderHomeProducts() {
 
   const cards = productsToShow.map((product) => {
     const daysSinceUpload = getDaysSince(product.uploaded);
-    const isNew = daysSinceUpload !== null && daysSinceUpload >= 0 && daysSinceUpload <= 10;
+    const isNew = isWithinDays(product.uploaded, 10);
     const stockClass = getProductStockClass(product);
     const isFavActive = favorites.has(String(product.id)) ? 'active' : '';
     const productId = escapeHtml(product.id);
@@ -457,7 +463,8 @@ function readCartFromStorage() {
         img: String(item.img || ''),
         name: String(item.name || 'Ismeretlen termék'),
         price: String(item.price || '0 Ft'),
-        quantity: Math.max(1, Number.parseInt(item.quantity, 10) || 1)
+        kg: item.kg === true,
+        quantity: Math.max(item.kg === true ? 0.5 : 1, Number(item.quantity) || (item.kg === true ? 0.5 : 1))
       }));
   } catch (error) {
     console.warn('A mentett kosár nem olvasható, ezért üres kosárral indul.', error);
@@ -473,7 +480,19 @@ function formatForints(amount) {
   return `${new Intl.NumberFormat('hu-HU').format(amount)} Ft`;
 }
 
-function initializeCart() {
+async function initializeCart() {
+  // Load product metadata before rendering stored cart entries so legacy entries
+  // can also pick up their kg setting from products.json.
+  try {
+    const response = await fetch('./products.json');
+    if (response.ok) {
+      const products = await response.json();
+      products.forEach((product) => productCatalog.set(String(product.id), product));
+    }
+  } catch (error) {
+    console.warn('A termékek kilogramm adatait nem sikerült betölteni.', error);
+  }
+
   const cart = document.querySelector('.kosar');
   const cartContent = document.querySelector('.tartalom');
   if (!cart || !cartContent) return;
@@ -495,7 +514,7 @@ function initializeCart() {
   }
 
   function updateCartCountBadge() {
-    const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+    const totalItems = Math.floor(cartItems.reduce((total, item) => total + item.quantity, 0));
     cartBadges.forEach((badge) => {
       badge.textContent = totalItems;
       badge.style.visibility = totalItems > 0 ? 'visible' : 'hidden';
@@ -503,6 +522,8 @@ function initializeCart() {
   }
 
   function createCartItem(item, index) {
+    const isKg = item.kg || productCatalog.get(String(item.id))?.kg === 'igen';
+    item.kg = isKg;
     const cartBox = document.createElement('article');
     cartBox.className = 'kosar-box';
 
@@ -535,7 +556,7 @@ function initializeCart() {
 
     const quantity = document.createElement('span');
     quantity.className = 'kosar-szam';
-    quantity.textContent = item.quantity;
+    quantity.textContent = `${Number.isInteger(item.quantity) ? item.quantity : item.quantity.toLocaleString('hu-HU')} ${isKg ? 'kg' : ''}`.trim();
 
     const increaseButton = document.createElement('button');
     increaseButton.type = 'button';
@@ -602,17 +623,20 @@ function initializeCart() {
   function addToCart(product) {
     const productId = String(product.id);
     const existingItem = cartItems.find((item) => item.id === productId || (item.id === null && item.name === product.name));
+    const quantityStep = product.kg === 'igen' ? 0.5 : 1;
 
     if (existingItem) {
       existingItem.id = productId;
-      existingItem.quantity += 1;
+      existingItem.kg = product.kg === 'igen';
+      existingItem.quantity += quantityStep;
     } else {
       cartItems.push({
         id: productId,
         img: product.img,
         name: product.name,
         price: product.price,
-        quantity: 1
+        kg: product.kg === 'igen',
+        quantity: quantityStep
       });
     }
 
@@ -656,10 +680,12 @@ function initializeCart() {
     if (!Number.isInteger(index) || !cartItems[index]) return;
 
     const action = actionButton.dataset.cartAction;
+    const isKg = cartItems[index].kg || productCatalog.get(String(cartItems[index].id))?.kg === 'igen';
+    const quantityStep = isKg ? 0.5 : 1;
     if (action === 'increase') {
-      cartItems[index].quantity += 1;
+      cartItems[index].quantity += quantityStep;
     } else if (action === 'decrease') {
-      cartItems[index].quantity = Math.max(1, cartItems[index].quantity - 1);
+      cartItems[index].quantity = Math.max(quantityStep, cartItems[index].quantity - quantityStep);
     } else if (action === 'remove') {
       cartItems.splice(index, 1);
     }
@@ -685,12 +711,86 @@ function initializeCart() {
   updateCart();
 }
 
-// TEMP ADMIN SIGN-IN START: remove this block and its two marked hooks when ready.
-// Demo-only credentials. This check runs in the browser, so it is not
-// suitable for protecting real or sensitive account data.
-const TEMP_ADMIN_USERNAME = 'admin';
-const TEMP_ADMIN_PASSWORD = 'admin';
-const TEMP_ADMIN_SESSION_KEY = 'temporaryAdminSignedIn';
+// DRAG AND DROP ----------------------------------------------------
+// Maximum accepted image size. Change this value to adjust the limit.
+const MAX_IMAGE_SIZE_MB = 5;
+const MAX_IMAGE_SIZE_BYTES = MAX_IMAGE_SIZE_MB * 1024 * 1024;
+const dropZone = document.querySelector('.termek-kep');
+const fileInput = document.getElementById('feltoltes');
+const promptText = document.querySelector('.img-upload');
+
+if (dropZone && fileInput) {
+// 1. Open file picker when clicking the drop zone
+dropZone.addEventListener('click', () => fileInput.click());
+
+// 2. Drag and drop visual effects
+dropZone.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  dropZone.classList.add('drag-over');
+});
+
+dropZone.addEventListener('dragleave', (e) => {
+  // Drag events bubble from the label and preview; keep the highlight while
+  // the pointer is still somewhere inside the drop zone.
+  if (dropZone.contains(e.relatedTarget)) return;
+  dropZone.classList.remove('drag-over');
+});
+
+// 3. Handle dropped files
+dropZone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+
+  const files = e.dataTransfer.files;
+  if (files.length > 0) {
+    handleSingleImage(files[0]); // Only take the first file
+  }
+});
+
+// 4. Handle clicked/selected files
+fileInput.addEventListener('change', (e) => {
+  const files = e.target.files;
+  if (files.length > 0) {
+    handleSingleImage(files[0]); // Only take the first file
+  }
+});
+}
+
+// 5. Read the image file and show the preview
+function handleSingleImage(file) {
+  if (file.size > MAX_IMAGE_SIZE_BYTES) {
+    alert(`A kép legfeljebb ${MAX_IMAGE_SIZE_MB} MB lehet.`);
+    if (fileInput) fileInput.value = '';
+    return;
+  }
+
+  // Security check: Make sure it's actually an image
+  if (!file.type.startsWith('image/')) {
+    alert('Kérlek képet tölts fel!');
+    return;
+  }
+
+  const reader = new FileReader();
+
+  // This fires once the browser finishes reading the file
+  reader.onload = function(event) {
+    // Remove any existing preview image first
+    const existingImg = dropZone.querySelector('.preview-img');
+    if (existingImg) existingImg.remove();
+
+    // Create a new image element
+    const img = document.createElement('img');
+    img.src = event.target.result; // This is the image data
+    img.classList.add('preview-img');
+
+    // Hide the prompt text and show the image inside the dropzone
+    if (promptText) promptText.style.display = 'none';
+    dropZone.appendChild(img);
+  };
+
+  // Convert image file into a usable data string URL
+  reader.readAsDataURL(file);
+}
 
 function initializeTemporaryAdminSignIn() {
   const signInOverlay = document.getElementById('myNav');

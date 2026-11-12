@@ -6,16 +6,68 @@
     "img": "./img/szendvics.jpg",
     "status": "van",
     "lastUpdated": "2026-11-10",
-    "uploaded": "2026-11-20"
+    "uploaded": "2026-11-20",
+    "kg": "nem"
+  },
+  {
+    "id": "5",
+    "name": "Mű bajusz",
+    "price": "500 Ft",
+    "img": "./img/mustash.jpg",
+    "status": "nincs",
+    "lastUpdated": "2026-8-3",
+    "uploaded": "2020-12-24",
+    "kg": "nem"
+  },
+  {
+    "id": "6",
+    "name": "Pirítotthagymás hotdog (Pollák büféből)",
+    "price": "850 Ft",
+    "img": "./img/hotdog.jpg",
+    "status": "nincs",
+    "lastUpdated": "2010-9-1",
+    "uploaded": "1998-9-1",
+    "kg": "nem"
+  },
+  {
+    "id": "7",
+    "name": "Házi aszpikos sonkás szelet",
+    "price": "0 Ft",
+    "img": "./img/aszpik.jpg",
+    "status": "van",
+    "lastUpdated": "2022-3-9",
+    "uploaded": "2006-1-7",
+    "kg": "igen"
+  },
+  {
+    "id": "8",
+    "name": "mouse mouse",
+    "price": "7.890 Ft",
+    "img": "./img/mousemouse.jpg",
+    "status": "van",
+    "lastUpdated": "2016-2-14",
+    "uploaded": "2015-7-4",
+    "kg": "nem"
+  },
+    {
+    "id": "9",
+    "name": "bagoly",
+    "price": "32.990 Ft",
+    "img": "./img/bagoly.jpg",
+    "status": "nincs",
+    "lastUpdated": "2001-4-1",
+    "uploaded": "2000-2-26",
+    "kg": "nem"
   },
     {
     "id": "10",
     "name": "Mandarin",
     "price": "300 Ft/kg",
-    "img": "./img/colpick.png",
+    "img": "./img/mandarin.png",
     "status": "van",
     "lastUpdated": "2026-11-09",
-    "uploaded": "2026-09-15"
+    "uploaded": "2026-09-15",
+    "kg": "igen"
   },
   {
     "id": "11",
@@ -24,7 +76,8 @@
     "img": "./img/colpick.png",
     "status": "nincs",
     "lastUpdated": "2037-11-04",
-    "uploaded": "2037-11-04"
+    "uploaded": "2037-11-04",
+    "kg": "nem"
   },
   {
     "id": "12",
@@ -33,7 +86,8 @@
     "img": "./img/coke.png",
     "status": "van",
     "lastUpdated": "2026-10-30",
-    "uploaded": "2026-10-10"
+    "uploaded": "2026-10-10",
+    "kg": "nem"
   },
   {
     "id": "13",
@@ -42,7 +96,8 @@
     "img": "./img/hattermentes.png",
     "status": "van",
     "lastUpdated": "2026-10-15",
-    "uploaded": "2026-10-15"
+    "uploaded": "2026-10-15",
+    "kg": "nem"
   },
   {
     "id": "14",
@@ -51,7 +106,8 @@
     "img": "./img/png.png",
     "status": "talan",
     "lastUpdated": "2026-10-25",
-    "uploaded": "2026-10-23"
+    "uploaded": "2026-10-23",
+    "kg": "nem"
   },
   {
     "id": "15",
@@ -60,7 +116,8 @@
     "img": "./img/funfact.png",
     "status": "van",
     "lastUpdated": "2026-10-27",
-    "uploaded": "2026-10-01"
+    "uploaded": "2026-10-01",
+    "kg": "nem"
   },
   {
     "id": "16",
@@ -69,7 +126,8 @@
     "img": "./img/hattermentes-kibovitett.png",
     "status": "van",
     "lastUpdated": "2026-10-29",
-    "uploaded": "2026-10-28"
+    "uploaded": "2026-10-28",
+    "kg": "nem"
   },
   {
     "id": "17",
@@ -78,7 +136,8 @@
     "img": "./img/kolbi.jpg",
     "status": "nincs",
     "lastUpdated": "2026-10-29",
-    "uploaded": "2026-10-27"
+    "uploaded": "2026-10-27",
+    "kg": "nem"
   },
   {
     "id": "18",
@@ -87,7 +146,8 @@
     "img": "./img/bazar.png",
     "status": "van",
     "lastUpdated": "2026-10-28",
-    "uploaded": "2026-10-26"
+    "uploaded": "2026-10-26",
+    "kg": "nem"
   },
   {
     "id": "19",
@@ -96,7 +156,8 @@
     "img": "./img/cookie.png",
     "status": "van",
     "lastUpdated": "2026-10-10",
-    "uploaded": "2026-10-05"
+    "uploaded": "2026-10-05",
+    "kg": "nem"
   },
   {
     "id": "20",
@@ -105,7 +166,8 @@
     "img": "./img/B.png",
     "status": "talan",
     "lastUpdated": "2026-10-26",
-    "uploaded": "2026-10-12"
+    "uploaded": "2026-10-12",
+    "kg": "nem"
   },
   {
     "id": "21",
@@ -114,6 +176,7 @@
     "img": "./img/test.png",
     "status": "van",
     "lastUpdated": "2026-10-24",
-    "uploaded": "2026-10-24"
+    "uploaded": "2026-10-24",
+    "kg": "nem"
   }
 ]

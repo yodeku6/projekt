@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content warning card</title>
+    <style>
+        :root {
+            /* Increase this value for a stronger blur; decrease it for less. */
+            --warning-blur: 18px;
+        }
+
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .card {
+            position: relative;
+            display: inline-block;
+            width: fit-content;
+            border: 1px solid black;
+            padding: 1rem;
+            overflow: hidden;
+            user-select: none;
+        }
+        
+        .card p {
+            margin: 0;
+        }
+        
+        .img {
+            display: block;
+            width: 15rem;
+        }
+
+        .warning {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            box-sizing: border-box;
+            /* This layer blurs everything behind it, like a media warning cover. */
+            -webkit-backdrop-filter: blur(var(--warning-blur));
+            backdrop-filter: blur(var(--warning-blur));
+            background: rgb(30 30 30 / 35%);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .warning p {
+            font-weight: 700;
+        }
+
+        .warning button {
+            padding: 0.55rem 1rem;
+            border: 0;
+            border-radius: 0.35rem;
+            background: white;
+            color: #222;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .warning button:focus-visible {
+            outline: 3px solid #ffd54a;
+            outline-offset: 3px;
+        }
+
+        .card.is-revealed .warning {
+            display: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .warning {
+                -webkit-backdrop-filter: none;
+                backdrop-filter: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card" id="warning-card">
+        <img src="./img/cookie.png" alt="Fini süti" class="img">
+        <p>Fini süti</p>
+        <div class="warning">
+            <p>⚠️ Figyelem: A termék felkavarható lehet</p>
+            <button type="button" aria-controls="warning-card">Megjelenítés</button>
+        </div>
+    </div>
+
+    <script>
+        const card = document.querySelector("#warning-card");
+        const showButton = card.querySelector("button");
+
+        showButton.addEventListener("click", () => {
+            card.classList.add("is-revealed");
+        });
+    </script>
+</body>
+</html>
+
+

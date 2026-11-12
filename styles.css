@@ -7,7 +7,8 @@
     --card: #FFFFFF;
     --card-hover: rgb(208, 203, 208);
     --surface: #dadada;
-    --text: #102F5E;
+    --text: #171717;
+    --secondary-text: #393939;
     --stock: #55C878;
     --stock-border: #337848;
     --stock-color: #173a22;
@@ -24,13 +25,14 @@
     --login: #ba181b;
     --register: #000000ca;
     --forgor: #ab4949ca;
-    --sign-in-btn: 	#0756B8;
+    --sign-in-btn: 	#2c82ec;
     --sign-in-btn-hover: #0756B8;
     --star-hover: rgba(255, 204, 0, 0.5);
     --star: rgb(255, 204, 0);
     --new: rgb(59, 255, 59);
     --error: #df0000;
     --secondary: #b5b5b5;
+    --menu-text: #e8f7fb;
 }
 
 * {
@@ -303,7 +305,7 @@ a {
     margin-left: 2rem;
     font-family: sans-serif;
     /* border-radius: 0.8rem 0.8rem 0 0 ; */
-    color: #FFFFFF;
+    color: var(--menu-text);
 }
 
 .kereso {
@@ -388,7 +390,7 @@ a {
     margin: 0;
     padding: 1.5rem;
     font-family: sans-serif;
-    color: #FFFFFF;
+    color: var(--menu-text);
 }
 
 .szurok h3 {
@@ -771,12 +773,15 @@ a {
     justify-content: center;
     transition: all 0.3s ease;
     cursor: pointer;
+    border: 0.1rem solid var(--secondary-accent);
 }
 
 .termek {
     background-color: white;
     width: 100%;
     height: 50rem;
+    background-color: var(--card);
+    border: 0.1rem solid var(--secondary-accent);
 }
 
 .termek-nev {
@@ -798,7 +803,7 @@ a {
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-    height: 25rem;
+    /* height: 25rem; */
     display: flex;
     flex-direction: column;
     border: 0.1rem solid var(--secondary-accent);
@@ -852,14 +857,14 @@ a {
     font-size: 2rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    color: white;
+    /* color: white; */
     align-items: center;
 }
 
 .raktar {
     margin-left: auto;
     background-color: var(--accent);
-    color: white;
+    /* color: white; */
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -901,6 +906,7 @@ a {
 
 .hibas-adatok {
     margin-left: auto;
+    text-decoration: underline;
 }
 
 .termek-leiras {
@@ -915,6 +921,7 @@ a {
     align-items: flex-start; 
     resize: none;
     font-family: 'DM Sans';
+    font-size: 1.25rem;
 }
 /* 
 .termek-leiras::placeholder {
@@ -934,8 +941,9 @@ a {
     font-size: 2rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    color: white;
+    /* color: white; */
     align-items: center;
+    font-weight: 500;
 }
 
 .ertekeles input {
@@ -961,8 +969,8 @@ a {
 
 .ar {
     margin-left: auto;
-    background-color: var(--accent);
-    color: white;
+    background-color: var(--secondary-surface);
+    /* color: white; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -994,43 +1002,161 @@ a {
     margin-left: auto;
 }
 
-.kommentek-container {
+.komment-szekcio {
+    width: 100%;
+    max-width: 60rem;
     margin-top: 1rem;
     /* border-radius: 1rem; */
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-    height: 7.5rem;
-    background-color: purple;
+    height: 8rem;
+    border-radius: 0.75rem;
+    background-color: var(--secondary);
+}
+
+.kommentek-container {
+    width: 100%;
+    height: 100%;
+    background-color: var(--secondary);
     display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) var(--navbar);
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 0 0.5rem 0.5rem;
+}
+
+.kommentek-container::-webkit-scrollbar{
+    height: 0.75rem;
+}
+
+.kommentek-container::-webkit-scrollbar-track {
+    background: var(--navbar);
+}
+
+.kommentek-container::-webkit-scrollbar-thumb {
+    background-color: var(--accent);
+    border: 0.2rem solid var(--navbar);
+    border-radius: 999px;
+}
+
+.kommentek-container::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text);
 }
 
 .komment {
+    flex: 0 0 16rem;
     display: flex;
     margin: 1rem;
-    height: 75%;
-    width: 15rem;
-    background-color: gray;
+    /* height: 75%; */
+    /* width: 15rem; */
+    /* background-color: gray; */
+    height: 5.5rem;
+    min-width: 0;
+    overflow: hidden;
+    /* width: 15rem; */
+    background-color: var(--card);
+    border-radius: 1rem;
 }
 
 .komment-pfp {
     border-radius: 50%;
-    transform: scale(0.8);
+    scale: 0.8;
+    flex: 0 0 5rem;
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+    align-self: center;
+    border-radius: 50%;
 }
 
 .komment-tartalom {
-    margin-top: 0.5rem;
+    margin: 0.5rem 0.5rem 0.5rem 0;
     display: flex;
     flex-direction: column;
     min-width: 0;
+    flex: 1;
+    overflow: hidden;
 }
 
 .komment-tartalom p {
     margin: 0;
+    max-width: 100%;
 }
 
 .komment-nev {
     font-weight: bold;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.komment-szoveg {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    flex: 1;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) transparent;
+}
+
+.komment-szoveg::-webkit-scrollbar {
+    width: 0.4rem;
+}
+
+.komment-szoveg::-webkit-scrollbar-thumb {
+    background-color: var(--accent);
+    border-radius: 999px;
+}
+
+.komment-iras {
+    background-color: var(--card);
+    width: 6rem;
+    /* height: 6.5rem; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    flex-shrink: 0;
+    border: dashed var(--accent);
+    border-radius: 1rem;
+    cursor: pointer;
+    flex: 0 0 6rem;
+    margin: 0 1rem;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.15;
+    white-space: normal;
+}
+
+.komment-iras svg {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    flex: 0 0 2rem;
+}
+
+.komment-iras:hover {
+    background-color: var(--card-hover);
+}
+
+.komment-iras path {
+    stroke: var(--dark-accent);
+    /* scale: 0.5; */
 }
 
 .listaba-container {
@@ -1040,7 +1166,7 @@ a {
     /* margin-left: auto;
     margin-right: auto; */
     height: 6rem;
-    background-color: darkblue;
+    background-color: var(--secondary-accent);
     color: white;
     text-align: center;
     font-size: 3.5rem;
@@ -1053,7 +1179,7 @@ a {
 }
 
 .listaba-container:hover {
-    background-color: rgb(0, 0, 72);
+    background-color: var(--dark-accent);
 }
 
 .btn-container {
@@ -1062,6 +1188,7 @@ a {
     align-items: center;
     margin: 1rem;
     gap: 1rem;
+    margin: 1rem 1rem 2rem;
 }
 
 .fav {
@@ -1218,11 +1345,11 @@ a {
     width: 30%;
     position: fixed;
     border: 0.125rem solid #073B83;
-    border-radius: 1.5rem;
+    /* border-radius: 1.5rem; */
     top: 8rem;
     left: 50%;
     transform: translateX(-50%);
-    background-color: 	#FFFFFF;
+    background-color: var(--navbar);
     overflow-x: hidden;
     display: none;
     z-index: 1;
@@ -1288,7 +1415,6 @@ a {
       font-weight: 600;
       color: #073B83;
       margin-bottom: 3rem;
-      background-color: #FFFFFF;
       font-weight: bold;
       display: flex;
       justify-content: left;
@@ -1297,29 +1423,29 @@ a {
     }
 
     .sign-in-btn {
-        width: 100%;
+        width: 50%;
         height: 3rem;
         /* overflow: none; */
         /* bottom: 0; */
         font-size: 2rem;
         cursor: pointer;
         border: 0.125rem solid #1677F8;
-        border-radius: 1.375rem;
-        transition: all 0.3s ease;
-        background-color: #FFFFFF;
+        transition: all 0.1s ease;
+        background-color: var(--sign-in-btn);
         color: #0B2F6B;
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 0.75rem;
+        color: var(--text);
+        padding: 2rem;
     }
 
     .sign-in-btn:hover {
-        background: #1677F8;
-        color: #FFFFFF;
+        background: var(--sign-in-btn-hover);
         box-shadow: 0 0.25rem 0.75rem
         rgba(22, 119, 248, 0.25);
-    transform: translateY(-0.125rem);
+    /* transform: translateY(-0.125rem); */
     }
 
     .sign-in-btn:focus-visible {
@@ -1333,15 +1459,15 @@ a {
     width: 100%;
     height: 2.5rem;
     border: 0.125rem solid #1677F8;
-    border-radius: 1.375rem;
-    background-color: #FFFFFF;
-    color: #0B2F6B;
+    /* border-radius: 1.375rem; */
+    background-color: var(--card);
+    color: var(--text);
     font-size: 2rem;
-    font-weight: bold;
+    font-weight: 400;
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    padding: 2rem 1.5rem 2rem !important;
     }
 
     .sign-in-input:focus {
@@ -1357,7 +1483,6 @@ a {
         color: #073B83;
         margin-bottom: 0.25rem;
         display: block;
-        background-color: 	#FFFFFF;
         border-color: #A8C8F5;
     }
 
@@ -1622,11 +1747,12 @@ a {
         gap: 0.5rem;
         justify-content: center;
         cursor: pointer;
-        transition: 0.1s ease-in-out;
+        /* transition: 0.1s ease-in-out; */
+        border-radius: 20rem;
     }
 
     .raktar-upload-container label:hover {
-        scale: 1.05;
+        transform: translateY(-0.15rem);
     }
 
     .raktar-upload-container input:focus-visible {
@@ -1690,8 +1816,15 @@ a {
         font-weight: 500;
         text-align: center;
         border: 0.15rem var(--accent) dashed;
-        transition: background-color 0.3s ease, border-color 0.3s ease;
-        
+        transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .img-upload:hover {
+        background-color: var(--card-hover);
+    }
+
+    #kep-feltoltes {
+        cursor: pointer;
     }
 
     .termek-kep.drag-over {
@@ -1730,6 +1863,43 @@ a {
     .upload-svg {
         width: 7.5rem;
         height: auto;
+    }
+
+    .kep-report {
+        position: absolute;
+        bottom: 1rem;
+        display: flex;
+        align-items: center;
+        left: 1rem;
+        background-color: var(--card);
+        width: max-content;
+        padding: 0 0.5rem 0;
+        font-size: 1.15rem;
+        border-radius: 1rem;
+        box-shadow: 0 0 1rem 0.1rem rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        border: 0.05rem solid var(--accent);
+        color: var(--dark-accent);
+        height: 3rem;
+    }
+
+    .kep-report:hover {
+        background-color: var(--card-hover);
+        /* text-decoration: underline; */
+    }
+
+    .kep-report svg {
+        width: 2rem;
+        margin-right: 0.15rem;
+    }
+
+    .kep-report path {
+        stroke: var(--dark-accent);
+    }
+
+    .copyright {
+        text-align: center;
+        color: var(--accent);
     }
     
     /*------------------------------------------------------------------ */
@@ -2110,14 +2280,10 @@ body.cart-open {
     color: var(--accent);
     text-align: center;
     font-size: 2rem;
-<<<<<<< HEAD
-    
 }
+
 .br{
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-}
-=======
     color: var(--hr);
 }
->>>>>>> 838f467fd867f7155820969d719907461bbef13f
