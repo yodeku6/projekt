@@ -1459,16 +1459,16 @@ a {
     .sign-in-input {
     width: 100%;
     height: 2.5rem;
-    border: 0.125rem solid #1677F8;
+    border: 0.125rem solid var(--accent);
     /* border-radius: 1.375rem; */
     background-color: var(--card);
     color: var(--text);
-    font-size: 2rem;
+    font-size: 1.25rem;
     font-weight: 400;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2rem 1.5rem 2rem !important;
+    padding: 1.5rem 1rem 1.5rem !important;
     }
 
     .sign-in-input:focus {
