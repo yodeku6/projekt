@@ -400,9 +400,11 @@ function renderHomeProducts() {
     const productPrice = escapeHtml(product.price);
     const productImage = escapeHtml(product.img || './img/colpick.png');
     const cardTitle = escapeHtml(`${isNew ? 'ÚJ! ' : ''}${product.name || 'Termék'}`);
+    const isDisturbing = product.name === 'Házi aszpikos sonkás szelet';
+    const warningId = isDisturbing ? `warning-${productId}` : '';
 
     return `
-      <div class="kartya" title="${cardTitle}">
+      <div class="kartya ${isDisturbing ? 'is-disturbing' : ''}" title="${cardTitle}">
         <div class="kartya-img-container">
           <img src="${productImage}" alt="${productName}" class="kartyakep" loading="lazy">
           ${isNew ? '<span class="new">ÚJ!</span>' : ''}
@@ -416,11 +418,21 @@ function renderHomeProducts() {
           ${renderAvailabilityIndicator(stockClass)}
         </div>
         <button type="button" class="add-to-cart-btn" data-add-to-cart data-product-id="${productId}">Listába</button>
+        ${isDisturbing ? `<div class="warning" id="${warningId}"><p>⚠️ Figyelem: A termék felkavarható lehet</p><button type="button" class="warning-button" aria-controls="${warningId}">Megjelenítés</button></div>` : ''}
       </div>
     `;
   }).join('');
 
   container.insertAdjacentHTML('beforeend', cards);
+
+  container.querySelectorAll('.warning-button').forEach((button) => {
+    const warningCard = button.closest('.kartya');
+    if (!warningCard) return;
+
+    button.addEventListener('click', () => {
+      warningCard.classList.add('is-revealed');
+    });
+  });
 }
 
 async function loadRandomProducts(count = 3) {
@@ -846,3 +858,5 @@ function signOut() {
   closeNav();
 }
 // TEMP ADMIN SIGN-IN END
+
+//feri 
