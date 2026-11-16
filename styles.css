@@ -21,7 +21,7 @@
     --logo: #0B2F6B;
     --szurok: #929090;
     --hr: #C7DAF5;
-    --secondary-accent: grey;
+    --secondary-accent: #073B83;
     --login: #ba181b;
     --register: #000000ca;
     --forgor: #ab4949ca;
@@ -31,7 +31,7 @@
     --star: rgb(255, 204, 0);
     --new: rgb(59, 255, 59);
     --error: #df0000;
-    --secondary: #b5b5b5;
+    --secondary: #073B83;
     --menu-text: #e8f7fb;
     --warning-blur: 2rem;
 }
@@ -485,6 +485,12 @@ a {
     transform: translate(2.5%, -1%);
 }
 
+.pontozas{
+    width: 120%;
+    
+}
+
+
 .ertekelesek-container {
     /* margin-top: 2rem; */
     display: block;
@@ -796,7 +802,7 @@ a {
 .termek-hr {
     margin-left: 3rem;
     margin-right: 3rem;
-    border-style: solid;
+    border-style: solid black;
     margin-bottom: 1.5rem;
 }
 
@@ -852,7 +858,7 @@ a {
 
 .helyszin {
     display: flex;
-    background-color: var(--secondary);
+    background-color: var(--accent);
     width: 30rem;
     height: 5rem;
     font-size: 2rem;
@@ -936,7 +942,7 @@ a {
 
 .ertekeles {
     display: flex;
-    background-color: var(--secondary);
+    background-color: var(--navbar);
     width: 30rem;
     height: 5rem;
     font-size: 2rem;
@@ -1388,8 +1394,8 @@ a {
     
     .overlay .closebtn {
     position: absolute;
-    top: -25px;
-    right: 40px;
+    top: -50px;
+    right: 10px;
     font-size: 60px;
     cursor: pointer;
     color: #073B83;
@@ -1424,7 +1430,7 @@ a {
     }
 
     .sign-in-btn {
-        width: 50%;
+        width: 70%;
         height: 3rem;
         /* overflow: none; */
         /* bottom: 0; */
@@ -1732,9 +1738,10 @@ a {
         background: none;
         border: none;
         font-size: 1.5rem;
-        color: var(--text);
+        color: var(--bg-color);
         cursor: pointer;
         transition: 0.1s;
+
     }
 
     .bolt-select:focus-visible {
@@ -1750,6 +1757,7 @@ a {
         cursor: pointer;
         /* transition: 0.1s ease-in-out; */
         border-radius: 20rem;
+        color: var(--bg-color);
     }
 
     .raktar-upload-container label:hover {
